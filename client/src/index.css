@@ -11,4 +11,13 @@ body {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+
+/* Components CSS */
+.chart-top{
+  width: calc(50% - 10px);
+  height: 50vh;
+  background: #f4f4f4;
+  box-shadow: 0 0 16px -8px black;
+  border-radius: 10px;
+}
   

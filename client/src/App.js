@@ -1,11 +1,16 @@
 
 import React from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 function App() {
   return (
     <div>
-      <h1>Hello World!</h1>
-      <p>Welcome to my React app.</p>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' exact element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

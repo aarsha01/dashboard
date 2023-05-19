@@ -35,7 +35,143 @@ async function fetchData(req,res){
     res.send(err).status(500)
   }
 }
+async function fetchBatmodeData(req, res) {
+  try {
+    const result1 = await Dashboard.aggregate([
+      {
+        $group: {
+          _id: null,
+           Battery_Mode: {
+            $addToSet: {
+              $cond: [
+                { $lt: ['$Bat_Voltage', 11.3] },
+                '$mac_id',
+                { $ifNull: [null, '$$REMOVE'] },
+              ],
+            },
+          }
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        
+          Battery_Mode:{$size: '$Battery_Mode'}        },
+      },
+    ]);
+
+    res.send(result1).status(200);
+  } catch (err) {
+    res.send(err).status(500);
+  }
+}
+async function fetchdayData(req, res) {
+  try {
+    const result2= await Dashboard.aggregate([
+      {
+        $group: {
+          _id: null,
+          Day_Mode: {
+            $addToSet: {
+              $cond: [
+                {
+                  $or: [
+                    { $eq: ['$Op_Mode', 'Day'] },
+                    { $eq: ['$Op_Mode', 'DAY'] },
+                  ],
+                },
+                '$mac_id',
+                { $ifNull: [null, '$$REMOVE'] },
+              ],
+            },
+          },
+          Night_Mode: {
+            $addToSet: {
+              $cond: [
+                {
+                  $or: [
+                    { $eq: ['$Op_Mode', 'Night'] },
+                    { $eq: ['$Op_Mode', 'night'] },
+                  ],
+                },
+                '$mac_id',
+                { $ifNull: [null, '$$REMOVE'] },
+              ],
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+       
+          Day_Mode:{$size: '$Day_Mode'},
+          Night_Mode:{$size: '$Night_Mode'}          },
+      },
+    ]);
+
+    res.send(result2).status(200);
+  } catch (err) {
+    res.send(err).status(500);
+  }
+}
+
+async function fetchDataPie(req, res) {
+  try {
+    const result = await Dashboard.aggregate([
+      {
+        $group: {
+          _id: null,
+          ONLINE:  { $addToSet: { $cond: [{ $eq: ['$CMS_status', "online" ] }, '$mac_id', { $ifNull: [null, '$$REMOVE'] }] } },
+          OFFLINE: { $addToSet: { $cond: [{ $eq: ['$CMS_status', "offline"] }, '$mac_id', { $ifNull: [null, '$$REMOVE'] }] } }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          ONLINE:  { $size: '$ONLINE' },
+          OFFLINE: { $size: '$OFFLINE' }
+        }
+      }
+    ])
+    res.send(result).status(200)
+  } catch (err) {
+    res.send(err).status(500)
+  }
+}
+
+async function fetchDataConn(req, res) {
+  try {
+      const result = await Dashboard.aggregate([
+          {
+              $group: {
+                  _id: null,
+                  WIFI:     { $addToSet: { $cond: [{ $eq: ['$Net_Con', "wifi"] }, '$mac_id', { $ifNull: [null, '$$REMOVE'] }] } },
+                  ETHERNET: { $addToSet: { $cond: [{ $eq: ['$Net_Con', "eth0"] }, '$mac_id', { $ifNull: [null, '$$REMOVE'] }] } },
+                  BLUETOOTH: { $addToSet: { $cond: [{ $eq: ['$Net_Con', "bluetooth"] }, '$mac_id', { $ifNull: [null, '$$REMOVE'] }] } }
+              }
+          },
+          {
+              $project: {
+                  _id: 0,
+                  WIFI: { $size: '$WIFI' },
+                  ETHERNET: { $size: '$ETHERNET' },
+                  BLUETOOTH: { $size: '$BLUETOOTH' }
+              }
+          }
+      ])
+      res.send(result).status(200)
+  } catch (err) {
+      res.send(err).status(500)
+  }
+}
+
 
 export {
-  fetchData
-}
+  fetchData,
+  fetchBatmodeData,
+  fetchdayData,
+  fetchDataPie,
+  fetchDataConn
+
+  }

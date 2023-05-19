@@ -11,7 +11,7 @@ function Chart() {
   }, [])
 
   const fetchData = async ()=>{
-    const data = await callApi('data/fetch_data')
+    const data = await callApi('data/fetch_data') //data/fetch_opdata
     console.log(data);
     if(data.length > 0){
       const formattedData = Object.keys(data[0])?.map(key=>{
@@ -21,7 +21,7 @@ function Chart() {
         }
       })
       setData(formattedData)
-    }
+    } 
   }
   
   return (

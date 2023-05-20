@@ -11,6 +11,8 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import SettingsInputHdmiIcon from '@mui/icons-material/SettingsInputHdmi';
 import BluetoothSearchingIcon from '@mui/icons-material/BluetoothSearching';
 
+import ConnChart from '../../components/Connectivity'
+// import DropdownComponent from '../../components/dropdown'
 function Dashboard() {
   return (
     // <DashboardLayout>
@@ -46,6 +48,16 @@ function Dashboard() {
             <DonutChart/>
           </Grid>
         </Grid>
+        {/* <DropdownComponent/> */}
+        <Chart />
+        <DonutChart/>
+        <BatChart/>
+        
+        <div className="widgets">
+          <DayChart type="user" />
+          <NightChart type="user" />
+          <ConnChart type="user" />
+        </div>
       </div>
     </div>
   )

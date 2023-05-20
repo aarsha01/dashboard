@@ -1,5 +1,5 @@
-
 import React, { useMemo } from 'react';
+import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 // import NavRoutes from "./navPages/_routes";
 import "./styles/main.bundle.css";
@@ -14,6 +14,10 @@ import SidebarLayout from './components/SidebarLayout';
 import './App.css'
 import DeviceForm from './Pages/Form.jsx/DeviceForm';
 
+// import DropdownComponent from './components/dropdown';
+import DropdownLayout from './components/Dropdownlayout';
+import Label from './components/label';
+import GraphDetails from './Pages/GraphDetails/GraphDetails';
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
   return (
@@ -26,13 +30,19 @@ function App() {
           <Routes>
             {/* Common route for navbar */}
             <Route element={<SidebarLayout />}>
-              <Route path='/' exact element={<Dashboard />} />
+              <Route element={<DropdownLayout />} >
+                <Route path='/' exact element={<Dashboard />} />
+                <Route path='/event/:id' exact element={<GraphDetails />} />
+              </Route> 
               <Route path='/branch_form' element={<BranchForm />} />
               <Route path ='/device_form' element={<DeviceForm/>}/>
             </Route>
-            <Route path='/' exact element={<Dashboard />} />
           </Routes>
         </ThemeProvider>
+        <Routes>
+            
+        </Routes> 
+  
       </BrowserRouter>
     </div>
   );

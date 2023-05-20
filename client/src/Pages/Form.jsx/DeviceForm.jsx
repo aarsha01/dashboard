@@ -26,7 +26,7 @@ const DeviceForm =()=> {
   };
 
   return (
-    <Box padding={5}>
+    <Box padding={5} overflow='auto'>
       <Stack alignItems='center' gap={3}>
         <Typography  variant="h1" color="primary">Device Details</Typography>
         <Stack component='form' onSubmit={handleSubmit} alignItems='center' >

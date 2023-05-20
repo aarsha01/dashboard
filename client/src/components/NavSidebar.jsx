@@ -83,6 +83,12 @@ const NavSidebar = () => {
               // Optional
               elemBefore: () => <Icon name="coffee" />
             },
+            {
+              title: "Add Device",
+              itemId: "/device_form",
+              // Optional
+              elemBefore: () => <Icon name="coffee" />
+            },
             // {
             //   title: "Another Tab",
             //   itemId: "/another",

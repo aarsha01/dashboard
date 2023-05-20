@@ -44,6 +44,7 @@ function Pie() {
     from: 'color',
     modifiers: [['darker', 2]],
   }}
+  animate={false}
   legends={[
     {
       anchor: 'bottom',

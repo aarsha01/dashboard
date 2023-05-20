@@ -6,12 +6,13 @@ import DayChart from '../../components/daymode'
 import NightChart from '../../components/nightmode'
 import DonutChart from '../../components/donutchart'
 import ConnChart from '../../components/Connectivity'
+// import DropdownComponent from '../../components/dropdown'
 function Dashboard() {
   return (
     <div className='dashboard-top'>
       
       <div className="chart-box-top">
-        
+        {/* <DropdownComponent/> */}
         <Chart />
         <DonutChart/>
         <BatChart/>

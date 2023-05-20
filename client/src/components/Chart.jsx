@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import callApi from '../helper/callApi'
 import {ResponsiveBar} from '@nivo/bar'
 import { Paper } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 // import { useTheme } from '@emotion/react'
 
 function Chart() {
 
   const [data, setData] = useState([])
+  const navigate = useNavigate()
   // const theme = useTheme()
 
   useEffect(() => {

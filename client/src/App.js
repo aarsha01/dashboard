@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 // import NavRoutes from "./navPages/_routes";
 import "./styles/main.bundle.css";
@@ -9,15 +8,12 @@ import BranchForm from './Pages/Form.jsx/BranchForm';
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline, createTheme } from '@mui/material';
 import { themeSettings } from './theme';
-// import { DashboardLayout } from './navbar/Layout';
 import SidebarLayout from './components/SidebarLayout';
 import './App.css'
 import DeviceForm from './Pages/Form.jsx/DeviceForm';
-
-// import DropdownComponent from './components/dropdown';
 import DropdownLayout from './components/Dropdownlayout';
-import Label from './components/label';
 import GraphDetails from './Pages/GraphDetails/GraphDetails';
+
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
   return (

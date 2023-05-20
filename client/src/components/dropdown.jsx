@@ -1,3 +1,4 @@
+import { Box, Stack } from '@mui/material';
 import React from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -52,8 +53,8 @@ function DropdownComponent() {
   };
 
   return (
-    <div className='DropDownMenu' style={{ display: 'flex', marginBottom: '20px' }}>
-      <div style={{ flex: 1, marginRight: '10px' }}>
+    <Stack direction='row' gap={3} padding={2} paddingBottom={0} width='100%'>
+      <div style={{ flex: 1 }}>
         <Dropdown
           options={options_status}
           onChange={handleStatusChange}
@@ -61,7 +62,7 @@ function DropdownComponent() {
           placeholder="Select an option"
         />
       </div>
-      <div style={{ flex: 1 , marginRight: '10px' }}>
+      <div style={{ flex: 1  }}>
         <Dropdown
           options={options_zone}
           onChange={handleZoneChange}
@@ -69,7 +70,7 @@ function DropdownComponent() {
           placeholder="Select an option"
         />
       </div>
-      <div style={{ flex: 1 , marginRight: '10px' }}>
+      <div style={{ flex: 1  }}>
         <Dropdown
           options={options_connectvity}
           onChange={handleZoneChange}
@@ -77,7 +78,7 @@ function DropdownComponent() {
           placeholder="Select an option"
         />
       </div>
-      <div style={{ flex: 1 , marginRight: '10px' }}>
+      <div style={{ flex: 1  }}>
         <Dropdown
           options={options_mode}
           onChange={handleZoneChange}
@@ -85,7 +86,7 @@ function DropdownComponent() {
           placeholder="Select an option"
         />
       </div>
-      <div style={{ flex: 1 , marginRight: '10px' }}>
+      <div style={{ flex: 1  }}>
         <Dropdown
           options={options_region}
           onChange={handleZoneChange}
@@ -93,7 +94,7 @@ function DropdownComponent() {
           placeholder="Select an option"
         />
       </div>
-      <div style={{ flex: 1 , marginRight: '10px' }}>
+      <div style={{ flex: 1  }}>
         <Dropdown
           options={options_hub}
           onChange={handleZoneChange}
@@ -101,7 +102,7 @@ function DropdownComponent() {
           placeholder="Select an option"
         />
       </div>
-    </div>
+    </Stack>
   );
 }
 

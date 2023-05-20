@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import connectDB from './db.js'
 import DataRoute from './route/data.route.js'
 import BranchRoute from './route/branch.route.js'
+import DeviceRoute from './route/device.route.js'
 
 
 
@@ -29,4 +30,5 @@ app.listen(PORT, () => {
 
 app.use('/api/data', DataRoute)
 app.use('/api/branch', BranchRoute)
+app.use('/api/device', DeviceRoute)
 

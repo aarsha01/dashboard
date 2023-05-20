@@ -118,6 +118,7 @@ export const branchFormInputs = [
     name: "Mobile Number",
     type: "number",
     label: "Mobile Number",
+    // eslint-disable-next-line
     pattern:" [\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$",
     required:true,
   },
@@ -133,6 +134,7 @@ export const branchFormInputs = [
     name: "Branch Mobile",
     type: "number",
     label: "Branch Mobile",
+    // eslint-disable-next-line
     pattern:" [\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$",
     required: true,
   },

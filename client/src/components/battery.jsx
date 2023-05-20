@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import BatteryGauge from 'react-battery-gauge'
 import callApi from '../helper/callApi'
+import { Paper, Stack, Typography } from '@mui/material'
+import BatteryFullIcon from '@mui/icons-material/BatteryFull';
 
 
 function BatteryChart() {
@@ -58,17 +60,20 @@ function BatteryChart() {
   }
   
   return  (
-    <div  >
-    <BatteryGauge 
-      value={data[0]?.Battery_Mode}
-      padding={10}
-      size = {230}
-    
-      aspectRatio={0.56}
-      orientation='vertical'
-      customization={styles}
-    />
-  </div>
+    <Paper sx={{width:'100%',height:'100%',padding:'20px'}} variant="outlined">
+      <Stack direction='row' justifyContent='space-between'>
+        <Typography fontSize='large' fontWeight='bold' color='primary'>Battery Level</Typography>
+        <BatteryFullIcon fontSize="large" color="primary"/>
+      </Stack>
+      <BatteryGauge 
+        value={data[0]?.Battery_Mode}
+        padding={10}
+        size = {'auto'}
+        aspectRatio={0.56}
+        orientation='horizontal'
+        customization={styles}
+      />
+    </Paper>
   )
 }
 

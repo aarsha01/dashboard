@@ -1,14 +1,16 @@
+import { darkScrollbar } from "@mui/material";
+
 export const tokens = {
   grey: {
-    100: "#d4d4d4",
-    200: "#a9a9a9",
-    300: "#7f7f7f",
-    400: "#545454",
-    500: "#292929",
-    600: "#212121",
-    700: "#191919",
-    800: "#101010",
-    900: "#080808"
+    100: "#d5d4d5",
+    200: "#abaaab",
+    300: "#817f82",
+    400: "#575558",
+    500: "#2d2a2e",
+    600: "#242225",
+    700: "#1b191c",
+    800: "#121112",
+    900: "#090809"
   },
   primary: {
     // purple
@@ -24,23 +26,23 @@ export const tokens = {
   },
   secondary: {
     // yellow
-    100: "#e7f8ff",
-    200: "#d0f1ff",
-    300: "#b8ebff",
-    400: "#a1e4ff",
-    500: "#89ddff",
-    600: "#6eb1cc",
-    700: "#528599",
-    800: "#375866",
-    900: "#1b2c33"
+    100: "#dfe5e8",
+    200: "#bfcbd1",
+    300: "#a0b1b9",
+    400: "#8097a2",
+    500: "#607D8B",
+    600: "#4d646f",
+    700: "#3a4b53",
+    800: "#263238",
+    900: "#13191c"
   },
   tertiary: {
     // purple
-    500: "#8884d8",
+    500: "#a9dc76",
   },
   background: {
     light: "#ffffff",
-    main: "#2D2A2E",
+    main: "#212121",
   },
   contrast:{
     primary: 'white'
@@ -50,6 +52,7 @@ export const tokens = {
 // mui theme settings
 export const themeSettings = {
   palette: {
+    mode:'dark',
     primary: {
       ...tokens.primary,
       main: tokens.primary[500],
@@ -58,11 +61,12 @@ export const themeSettings = {
     },
     secondary: {
       ...tokens.secondary,
-      main: tokens.secondary[600],
-      dark: tokens.secondary[700],
+      main: tokens.secondary[500],
+      dark: tokens.secondary[600],
     },
     tertiary: {
       ...tokens.tertiary,
+      main: tokens.tertiary[500]
     },
     grey: {
       ...tokens.grey,
@@ -72,6 +76,7 @@ export const themeSettings = {
       default: tokens.background.main,
       light: tokens.background.light,
       dark: tokens.background.main,
+      paper: tokens.grey[500],
     },
     text:{
       primary:'#ffffff',
@@ -123,6 +128,11 @@ export const themeSettings = {
           color: 'white'
         }
       }
-    }
-  }
+    },
+    MuiCssBaseline: {
+      styleOverrides:{
+        body: darkScrollbar(),
+      }
+    },
+  },
 };

@@ -67,50 +67,16 @@ async function fetchBatmodeData(req, res) {
 }
 async function fetchdayData(req, res) {
   try {
-    const result2= await Dashboard.aggregate([
-      {
-        $group: {
-          _id: null,
-          Day_Mode: {
-            $addToSet: {
-              $cond: [
-                {
-                  $or: [
-                    { $eq: ['$Op_Mode', 'Day'] },
-                    { $eq: ['$Op_Mode', 'DAY'] },
-                  ],
-                },
-                '$mac_id',
-                { $ifNull: [null, '$$REMOVE'] },
-              ],
-            },
-          },
-          Night_Mode: {
-            $addToSet: {
-              $cond: [
-                {
-                  $or: [
-                    { $eq: ['$Op_Mode', 'Night'] },
-                    { $eq: ['$Op_Mode', 'night'] },
-                  ],
-                },
-                '$mac_id',
-                { $ifNull: [null, '$$REMOVE'] },
-              ],
-            },
-          },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-       
-          Day_Mode:{$size: '$Day_Mode'},
-          Night_Mode:{$size: '$Night_Mode'}          },
-      },
-    ]);
-
-    res.send(result2).status(200);
+    const result2 = await Dashboard.find({Op_Mode: {$in:['Day','day','d']}}).distinct('mac_id')
+    res.send({data:[result2.length]}).status(200);
+  } catch (err) {
+    res.send(err).status(500);
+  }
+}
+async function fetchnightData(req, res) {
+  try {
+    const result2 = await Dashboard.find({Op_Mode: {$in:['Night','night','n']}}).distinct('mac_id')
+    res.send({data:[result2.length]}).status(200);
   } catch (err) {
     res.send(err).status(500);
   }
@@ -153,14 +119,15 @@ async function fetchDataConn(req, res) {
           },
           {
               $project: {
-                  _id: 0,
-                  WIFI: { $size: '$WIFI' },
-                  ETHERNET: { $size: '$ETHERNET' },
-                  BLUETOOTH: { $size: '$BLUETOOTH' }
-              }
+                _id: 0,
+                data: [
+                  {$size: "$WIFI"},
+                  {$size: "$ETHERNET"},
+                  {$size: "$BLUETOOTH"},
+                ]}
           }
       ])
-      res.send(result).status(200)
+      res.send(result[0]).status(200)
   } catch (err) {
       res.send(err).status(500)
   }
@@ -172,6 +139,7 @@ export {
   fetchBatmodeData,
   fetchdayData,
   fetchDataPie,
-  fetchDataConn
+  fetchDataConn,
+  fetchnightData
 
   }

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import callApi from '../helper/callApi'
 import {ResponsiveBar} from '@nivo/bar'
+import { Paper } from '@mui/material'
+import { useTheme } from '@emotion/react'
 
 function Chart() {
 
   const [data, setData] = useState([])
+  const theme = useTheme()
 
   useEffect(() => {
     fetchData()
@@ -16,6 +19,7 @@ function Chart() {
     if(data.length > 0){
       const formattedData = Object.keys(data[0])?.map(key=>{
         return {
+          id:key.replace('_'," "),
           label:key.replace('_',' '),
           value:data[0][key]
         }
@@ -25,17 +29,17 @@ function Chart() {
   }
   
   return (
-    <div className='chart-top'>
+    <Paper sx={{width:'100%',height:'50vh',padding:'20px'}} variant="outlined">
       <ResponsiveBar
         data={data}
         keys={['value']}
         indexBy="label"
-        margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+        margin={{ top: 40, right: 0, bottom: 40, left: 40 }}
         padding={0.3}
         groupMode="grouped"
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
-        colors={{ scheme: 'nivo' }}
+        colors={'#039BE5'}
         axisTop={null}
         axisRight={null}
         axisBottom={{
@@ -48,44 +52,31 @@ function Chart() {
         }}
         labelSkipWidth={12}
         labelSkipHeight={12}
-        // labelTextColor={{
-        //     from: 'color',
-        //     modifiers: [
-        //         [
-        //             'darker',
-        //             1.6
-        //         ]
-        //     ]
-        // }}
-        // legends={[
-        //     {
-        //         dataFrom: 'keys',
-        //         anchor: 'bottom-right',
-        //         direction: 'column',
-        //         justify: false,
-        //         translateX: 120,
-        //         translateY: 0,
-        //         itemsSpacing: 2,
-        //         itemWidth: 100,
-        //         itemHeight: 20,
-        //         itemDirection: 'left-to-right',
-        //         itemOpacity: 0.85,
-        //         symbolSize: 20,
-        //         effects: [
-        //             {
-        //                 on: 'hover',
-        //                 style: {
-        //                     itemOpacity: 1
-        //                 }
-        //             }
-        //         ]
-        //     }
-        // ]}
+        labelTextColor={{
+            from: 'color',
+            modifiers: [
+                [
+                    'darker',
+                    2
+                ]
+            ]
+        }}
+        enableGridY={false}
+        borderRadius={5}
         role="application"
         ariaLabel="Nivo bar chart demo"
-        // barAriaLabel={e=>e.id+": "+e.formattedValue+" in country: "+e.indexValue}
+        // barAriaLabel={e=>e.label+" faults in : "+e.value}
+        theme = {{
+          axis: {
+            ticks: {
+              text: {
+                fill: 'white', // Set the tick value color to white
+              },
+            },
+          },
+        }}
     />
-    </div>
+    </Paper>
   )
 }
 

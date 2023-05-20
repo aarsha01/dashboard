@@ -1,12 +1,13 @@
 import  {Outlet} from 'react-router-dom'
 import DropdownComponent from "./dropdown"
 import React from 'react';
+import { Box } from '@mui/material';
   function DropdownLayout({ children }) {
     return (
-      <div>
+      <Box overflow='auto'>
         <DropdownComponent />
         <Outlet/>
-      </div>
+      </Box>
     );
   }
   

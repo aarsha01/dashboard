@@ -10,11 +10,13 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import WifiIcon from '@mui/icons-material/Wifi';
 import SettingsInputHdmiIcon from '@mui/icons-material/SettingsInputHdmi';
 import BluetoothSearchingIcon from '@mui/icons-material/BluetoothSearching';
+import { DashboardLayout } from '../../navbar/Layout'
 
 function Dashboard() {
   return (
+    // <DashboardLayout>
     <div className='dashboard-top'>
-      
+
       <div className="chart-box-top">
         <Grid container spacing={3}>
           <Grid item xs={6}>

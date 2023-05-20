@@ -13,14 +13,25 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "awesome-react-icons": "^1.4.8",
     "axios": "^1.4.0",
     "firebase": "^9.22.0",
+    "mdb-ui-kit": "^6.3.0",
     "react": "^18.2.0",
     "react-battery-gauge": "^1.0.5",
+<<<<<<< HEAD
+    "react-bootstrap": "^2.7.4",
+=======
+>>>>>>> 97862e820ae45b49c59667c04b924c7525d11be8
     "react-dom": "^18.2.0",
+    "react-minimal-side-navigation": "^1.9.2",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
+    "tailwindcss": "^3.3.2",
+=======
     "sass": "^1.62.1",
+>>>>>>> 97862e820ae45b49c59667c04b924c7525d11be8
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -46,5 +57,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sass": "^1.62.1",
+    "sass-loader": "^10.4.1"
   }
 }

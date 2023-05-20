@@ -3,6 +3,7 @@ import express from 'express'
 import bodyParser from "body-parser";
 import connectDB from './db.js'
 import DataRoute from './route/data.route.js'
+import BranchRoute from './route/branch.route.js'
 
 
 
@@ -27,4 +28,5 @@ app.listen(PORT, () => {
 });
 
 app.use('/api/data', DataRoute)
+app.use('/api/branch', BranchRoute)
 

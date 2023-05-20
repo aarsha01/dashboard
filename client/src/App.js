@@ -20,8 +20,11 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
-            <Route path='/' exact element={<Dashboard />} />
-            <Route path='/branch_form' element={<BranchForm />} />
+            {/* Common route for navbar */}
+            <Route element={}>
+              <Route path='/' exact element={<Dashboard />} />
+              <Route path='/branch_form' element={<BranchForm />} />
+            </Route>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

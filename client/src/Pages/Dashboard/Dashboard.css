@@ -1,5 +1,6 @@
 .dashboard-top{
   padding: 20px;
+  overflow: auto;
 }
 .chart-box-top{
   display: flex;

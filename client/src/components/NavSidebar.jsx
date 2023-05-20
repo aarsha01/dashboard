@@ -5,14 +5,16 @@ import Icon from "awesome-react-icons";
 import React, { useState, useEffect } from "react";
 
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
+import { useTheme } from "@emotion/react";
 
-export const NavSidebar = () => {
+const NavSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const theme = useTheme()
 
   return (
-    <React.Fragment>
+    <div>
       {/* Sidebar Overlay */}
       <div
         onClick={()=> setIsSidebarOpen(false)}
@@ -33,12 +35,13 @@ export const NavSidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-white border-r-2 lg:translate-x-0 lg:static lg:inset-0 ${
+        className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 ease-out transform translate-x-0 border-r-2 lg:translate-x-0 lg:static lg:inset-0 h-100 ${
           isSidebarOpen ? "ease-out translate-x-0" : "ease-in -translate-x-full"
         }`}
+        style={{height:'100%', backgroundColor:theme.palette.background.main, borderColor:theme.palette.grey.main}}
       >
         <div className="flex items-center justify-center mt-10 text-center py-6">
-          <span className="mx-2 text-2xl font-semibold text-black">
+          <span className="mx-2 text-2xl font-semibold text-white">
             CMS-Dashboard
           </span>
         </div>
@@ -74,6 +77,12 @@ export const NavSidebar = () => {
               //   }
               // ]
             },
+            {
+              title: "Add Branch",
+              itemId: "/branch_form",
+              // Optional
+              elemBefore: () => <Icon name="coffee" />
+            },
             // {
             //   title: "Another Tab",
             //   itemId: "/another",
@@ -105,6 +114,8 @@ export const NavSidebar = () => {
           />
         </div> */}
       </div>
-    </React.Fragment>
+    </div>
   );
 };
+
+export default NavSidebar

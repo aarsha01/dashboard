@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  display: flex;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: auto;
 }
 
 .App-logo {
@@ -36,4 +40,12 @@
     transform: rotate(360deg);
   }
 }
-
+.side-navigation-panel-select-option-selected {
+  background-color: #36363678 !important;
+}
+.side-navigation-panel-select-option-wrap{
+  color: white !important;
+}
+.side-navigation-panel-select-option:hover{
+  background-color: transparent !important;
+}

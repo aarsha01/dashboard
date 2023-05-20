@@ -6,16 +6,19 @@ import DayChart from '../../components/daymode'
 import NightChart from '../../components/nightmode'
 import DonutChart from '../../components/donutchart'
 import ConnChart from '../../components/Connectivity'
+import { DashboardLayout } from '../../navbar/Layout'
+
 function Dashboard() {
   return (
+    <DashboardLayout>
     <div className='dashboard-top'>
-      
+
       <div className="chart-box-top">
-        
+
         <Chart />
-        <DonutChart/>
-        <BatChart/>
-        
+        <DonutChart />
+        <BatChart />
+
         <div className="widgets">
           <DayChart type="user" />
           <NightChart type="user" />
@@ -23,6 +26,7 @@ function Dashboard() {
         </div>
       </div>
     </div>
+    </DashboardLayout>
   )
 }
 

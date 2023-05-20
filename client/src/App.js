@@ -1,17 +1,12 @@
 
 import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import Dashboard from './Pages/Dashboard/Dashboard';
+import NavRoutes from "./navPages/_routes";
+import "./styles/main.bundle.css";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' exact element={<Dashboard />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+     <NavRoutes />
   );
 }
 

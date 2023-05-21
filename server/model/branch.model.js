@@ -23,6 +23,10 @@ const branch = new mongoose.Schema({
   Current_Status: String,
   Support_Type: String,
   Connectivity_Type : String,
+  Device_Id : {
+    type: mongoose.Types.ObjectId,
+    default:null
+  }
 })
 
 branch.set('versionKey', false);

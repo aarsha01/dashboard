@@ -2,7 +2,7 @@
 import { Navigation } from "react-minimal-side-navigation";
 import { useNavigate, useLocation } from "react-router-dom";
 import Icon from "awesome-react-icons";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import { useTheme } from "@emotion/react";

@@ -13,6 +13,19 @@ async function addBranch(req,res){
   }
 }
 
+async function fetchBranches(req,res){
+  try{
+    const filter = req.filter
+    const selectFrom = filter.selectFrom || ''
+    const query = filter.query || {}
+    const branches = await Branch.find(query).select(selectFrom)
+    res.status(200).json({status:'Success',data:branches})
+  }catch(err){
+    res.status(500).json({status:'Error',message:err})
+  }
+}
+
 export{
-  addBranch
+  addBranch,
+  fetchBranches
 }

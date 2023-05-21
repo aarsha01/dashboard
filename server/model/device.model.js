@@ -22,6 +22,8 @@ const device = new mongoose.Schema({
   ZONE_9: String,
   ZONE_10: String,
   Last_Updated:Date,
+  Branch_Name: String,
+  Branch_Code: String,
 })
 
 device.set('versionKey', false);

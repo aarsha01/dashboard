@@ -39,6 +39,7 @@ export const deviceFormInputs = [
       name: "IP Address",
       type: "text",
       label: "IP Address",
+      // eslint-disable-next-line
       pattern:"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
       required: true,
     },

@@ -16,6 +16,7 @@ const BranchForm =()=> {
     console.log(Object.fromEntries(data.entries()))
     const res = await callApi('/branch/add',Object.fromEntries(data.entries()))
     alert(res.message)
+    setValues({})
   };
 
   const onChange = (e) => {
@@ -44,6 +45,7 @@ const BranchForm =()=> {
                     helperText={values[inputs.name.replaceAll(' ','_')] === "" ? 'Empty field!' : ' '}
                     sx={{fieldset:{borderColor:'white'}}}
                     autoFocus={i===0 && true}
+                    value={values[inputs.name.replaceAll(' ','_')] || ''}
                   />
                 </Grid>
               )

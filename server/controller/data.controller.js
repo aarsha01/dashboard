@@ -1,4 +1,6 @@
 import Dashboard from '../model/data.model.js'
+import Branch from '../model/branch.model.js'
+import Device from '../model/device.model.js'
 
 async function fetchData(req,res){
   try{
@@ -133,6 +135,29 @@ async function fetchDataConn(req, res) {
   }
 }
 
+async function Graphdetails(req, res) {
+  try {
+    const { zonename } = req.body;
+  
+    const result = await Dashboard.find({ [zonename]: 1 }).distinct('mac_id');
+   //const form = await Dashboard.find({  mac_id: { $in: result } });
+ 
+    //console.log(result)
+    //data extracted for devices collection
+    const devices = await Device.find({ Device_ID: { $in: result } });
+   
+    const branchCodes = devices.map(item => item.Branch_Code);
+    // Branch Detailes from branch collection
+    const branches = await Branch.find({ Code: { $in: branchCodes } });
+    //console.log(branches);
+  
+
+    res.json({devices,branches,form}).status(200);
+  } catch (err) {
+    res.send(err).status(500);
+    console.log(err)
+  }
+}
 
 export {
   fetchData,
@@ -140,6 +165,7 @@ export {
   fetchdayData,
   fetchDataPie,
   fetchDataConn,
-  fetchnightData
+  fetchnightData,
+  Graphdetails
 
   }

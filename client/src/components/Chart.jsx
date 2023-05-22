@@ -32,7 +32,7 @@ function Chart() {
 
   const handleBarClick = (data) => {
     //  console.log(event)
-    navigate(`/event/${data?.indexValue.replace(' ','_')}`);
+    navigate(`/event/${data?.indexValue.replace(' ','_')}/1`);
   }
 
   return (

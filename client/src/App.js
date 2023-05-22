@@ -28,7 +28,7 @@ function App() {
             <Route element={<SidebarLayout />}>
               <Route element={<DropdownLayout />} >
                 <Route path='/' exact element={<Dashboard />} />
-                <Route path='/event/:id' exact element={<GraphDetails />} />
+                <Route path='/event/:key/:value' exact element={<GraphDetails />} />
               </Route> 
               <Route path='/branch_form' element={<BranchForm />} />
               <Route path ='/device_form' element={<DeviceForm/>}/>

@@ -4,7 +4,7 @@ import React from 'react';
 import { Box } from '@mui/material';
   function DropdownLayout({ children }) {
     return (
-      <Box overflow='auto'>
+      <Box overflow='auto' width='100%'>
         <DropdownComponent />
         <Outlet/>
       </Box>

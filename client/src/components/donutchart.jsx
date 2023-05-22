@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import callApi from '../helper/callApi'
 import {ResponsivePie} from '@nivo/pie'
 import { Paper } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 function Pie() {
 
   const [data, setData] = useState([])
+  const nav = useNavigate()
 
   useEffect(() => {
     fetchDataPie()
@@ -24,6 +26,10 @@ function Pie() {
       })
       setData(formattedData)
     }
+  }
+
+  const handleClick = (data)=>{
+    nav(`/event/CMS_status/${data.label.toLowerCase()}`)
   }
   
   return (
@@ -71,6 +77,7 @@ function Pie() {
             },
           },
         }}
+        onClick={handleClick}
       />
     </Paper>
   )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import callApi from '../../helper/callApi';
-import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { Table, TableHead, TableBody, TableRow, TableCell, Box } from '@mui/material';
 
 function GraphDetails() {
   const [data, setData] = useState([]);
@@ -9,26 +9,23 @@ function GraphDetails() {
     fetchGraphData();
   }, []);
 
-  const { id } = useParams();
+  const { key, value } = useParams();
   const fetchGraphData = async () => {
-    const response = await callApi('data/graph_details', { zonename: id });
+    const response = await callApi('data/graph_details', { key, value });
     console.log(response);
-    if (response.devices && response.branches && response.form) {
-      const combinedData = combineData(response.devices, response.branches, response.form);
+    if (response.devices && response.branches && response.datas) {
+      const combinedData = combineData(response.devices, response.branches, response.datas);
+      // console.log(combinedData);
       setData(combinedData);
     }
   };
 
   const combineData = (devices, branches, form) => {
     const combined = [];
-    const deviceLength = devices.length;
-    const branchLength = branches.length;
-    const formLength = form.length;
-    const maxLength = Math.max(deviceLength, branchLength, formLength);
-    for (let i = 0; i < maxLength; i++) {
+    form.map((data,i)=>{
       const device = devices[i] || {};
       const branch = branches[i] || {};
-      const forms = form[i] || {};
+      const forms = data || {};
       combined.push({
         Branch_Name: branch.Branch_Name,
         code: branch.Code,
@@ -38,14 +35,13 @@ function GraphDetails() {
         Battery: forms.Bat_Voltage,
         lastupdate: device.Last_Updated
       });
-    }
+    })
+    console.log(combined);
     return combined;
   };
 
   return (
-    <div>
-      <h2>Graph Details</h2>
-      <p>Graph ID: {id}</p>
+    <Box width='100%'>
       {data.length > 0 && (
         <Table>
           <TableHead>
@@ -74,7 +70,7 @@ function GraphDetails() {
           </TableBody>
         </Table>
       )}
-    </div>
+    </Box>
   );
 }
 

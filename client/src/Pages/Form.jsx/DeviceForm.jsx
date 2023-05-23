@@ -45,10 +45,11 @@ const DeviceForm =()=> {
     <Box padding={5} overflow='auto'>
       <Stack alignItems='center' gap={3}>
         <Typography  variant="h1" color="primary">Device Details</Typography>
-        <Stack component='form' onSubmit={handleSubmit} alignItems='center' >
-            <Grid width='80%' container spacing={2}>
-              {deviceFormInputs.map((inputs,i)=>(
-                <Grid item xs={4} key={inputs.id}>
+        <Stack component='form' onSubmit={handleSubmit} alignItems='flex-start' direction='row' gap={5}>
+            {/* left grid */}
+            <Grid container spacing={2}>
+              {deviceFormInputs.leftFields.map((inputs,i)=>(
+                <Grid item xs={12} key={inputs.id}>
                   <TextField
                     fullWidth
                     variant='filled'
@@ -65,25 +66,52 @@ const DeviceForm =()=> {
                 </Grid>
               )
               )}
-              <Grid item xs={4}>
-              <FormControl variant="filled" sx={{ minWidth: '100%' }}>
-                <InputLabel id="branch-name-code">Branch Name Code</InputLabel>
-                <Select
-                  labelId="branch-name-code"
-                  value={values['Branch_Code'] || ''}
-                  onChange={onChange}
-                  name='Branch_Code'
-                >
-                  <MenuItem value={{}}>
-                    <em>None</em>
-                  </MenuItem>
-                  {branchoptions.map((branch,i)=><MenuItem key={i} value={branch.Code}>{branch.Branch_Name} - {branch.Code}</MenuItem>)}
-                </Select>
-              </FormControl>
-              </Grid>
+              
             </Grid>
-            <Button variant="contained" color="primary" type='submit'>Save</Button>
+
+            {/* center grid */}
+            <Grid container>
+              <Grid item xs={12}>
+                <FormControl variant="filled" sx={{ minWidth: '100%' }}>
+                  <InputLabel id="branch-name-code">Branch Name Code</InputLabel>
+                  <Select
+                    labelId="branch-name-code"
+                    value={values['Branch_Code'] || ''}
+                    onChange={onChange}
+                    name='Branch_Code'
+                  >
+                    <MenuItem value={{}}>
+                      <em>None</em>
+                    </MenuItem>
+                    {branchoptions.map((branch,i)=><MenuItem key={i} value={branch.Code}>{branch.Branch_Name} - {branch.Code}</MenuItem>)}
+                  </Select>
+                </FormControl>
+                </Grid>
+            </Grid>
+
+            {/* right grid */}
+            <Grid container>
+            {deviceFormInputs.rightFields.map((inputs,i)=>(
+                <Grid item xs={12} key={inputs.id}>
+                  <TextField
+                    fullWidth
+                    variant='filled'
+                    {...inputs} 
+                    name={inputs.name.replaceAll(' ','_')}
+                    autoComplete={inputs.name}
+                    onChange={onChange}
+                    error={values[inputs.name.replaceAll(' ','_')] === ""}
+                    helperText={values[inputs.name.replaceAll(' ','_')] === "" ? 'Empty field!' : ' '}
+                    sx={{fieldset:{borderColor:'white'}}}
+                    autoFocus={i===0 && true}
+                    value={values[inputs.name.replaceAll(' ','_')] || ''}
+                  />
+                </Grid>
+              )
+              )}
+            </Grid>
         </Stack>
+        <Button variant="contained" color="primary" type='submit'>Save</Button>
         
       </Stack>
     </Box>

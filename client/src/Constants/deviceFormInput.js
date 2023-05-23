@@ -1,4 +1,5 @@
-export const deviceFormInputs = [
+export const deviceFormInputs = {
+  leftFields : [
     {
       id: 1,
       name: "Device ID",
@@ -72,6 +73,15 @@ export const deviceFormInputs = [
       required: true,
     },
     {
+      id: 21,
+      name: "Last Updated",
+      type: "date",
+      label: "Last Updated",
+      required: true,
+    },
+  ],
+  rightFields: [
+    {
       id: 11,
       name: "ZONE 1",
       type: "text",
@@ -141,11 +151,5 @@ export const deviceFormInputs = [
       label: "ZONE 10",
       required: true,
     },
-    {
-      id: 21,
-      name: "Last Updated",
-      type: "date",
-      label: "Last Updated",
-      required: true,
-    },
-  ];
+  ]
+}

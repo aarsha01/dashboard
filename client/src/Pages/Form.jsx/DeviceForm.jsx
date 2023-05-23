@@ -6,6 +6,10 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import callApi from '../../helper/callApi';
+import 'react-dropdown/style.css';
+import ReactDropdown from 'react-dropdown';
+
+  
 const DeviceForm =()=> {
   const [values,setValues]=useState({});
   const [branchoptions,setBranchoptions]=useState([]);
@@ -40,6 +44,12 @@ const DeviceForm =()=> {
       [e.target.name]: e.target.value,
     });
   };
+  const device_options = [
+    { value: 'active', label: 'Active' },
+    { value: 'bypssed', label: 'Bypssed' },
+    { value: 'disabled', label: 'Disabled' },
+
+  ];
 
   return (
     <Box padding={5} overflow='auto'>
@@ -66,11 +76,6 @@ const DeviceForm =()=> {
                 </Grid>
               )
               )}
-              
-            </Grid>
-
-            {/* center grid */}
-            <Grid container>
               <Grid item xs={12}>
                 <FormControl variant="filled" sx={{ minWidth: '100%' }}>
                   <InputLabel id="branch-name-code">Branch Name Code</InputLabel>
@@ -87,12 +92,16 @@ const DeviceForm =()=> {
                   </Select>
                 </FormControl>
                 </Grid>
+              
             </Grid>
 
+          
             {/* right grid */}
+            
             <Grid container>
             {deviceFormInputs.rightFields.map((inputs,i)=>(
                 <Grid item xs={12} key={inputs.id}>
+                  <Stack alignItems='center' gap={3} direction='row'>
                   <TextField
                     fullWidth
                     variant='filled'
@@ -106,6 +115,19 @@ const DeviceForm =()=> {
                     autoFocus={i===0 && true}
                     value={values[inputs.name.replaceAll(' ','_')] || ''}
                   />
+                  <ReactDropdown
+
+                  options={device_options}
+                  placeholder="select"
+                  
+                  
+                  
+
+                  
+                  />
+                  </Stack>
+                  
+                 
                 </Grid>
               )
               )}

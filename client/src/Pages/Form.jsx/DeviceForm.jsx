@@ -45,10 +45,9 @@ const DeviceForm =()=> {
     });
   };
   const device_options = [
-    { value: 'active', label: 'Active' },
-    { value: 'bypssed', label: 'Bypssed' },
-    { value: 'disabled', label: 'Disabled' },
-
+    { value: 'active', label: 'Active',className:'Active'},
+    { value: 'bypassed', label: 'Bypassed',className:'Bypassed'},
+    { value: 'disabled', label: 'Disabled',className:'Disabled'},
   ];
 
   return (

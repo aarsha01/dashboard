@@ -13,6 +13,7 @@ import './App.css'
 import DeviceForm from './Pages/Form.jsx/DeviceForm';
 import DropdownLayout from './components/Dropdownlayout';
 import GraphDetails from './Pages/GraphDetails/GraphDetails';
+import MarqueeForm from './Pages/Form.jsx/MarqueeForm';
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
@@ -32,6 +33,7 @@ function App() {
               </Route> 
               <Route path='/branch_form' element={<BranchForm />} />
               <Route path ='/device_form' element={<DeviceForm/>}/>
+              <Route path='/marquee_form' element={<MarqueeForm />} />
             </Route>
           </Routes>
         </ThemeProvider>

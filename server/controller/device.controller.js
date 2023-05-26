@@ -16,6 +16,16 @@ async function addDevice(req,res){
   }
 }
 
+async function getAllDevices(req,res){
+  try{
+    const deviceData = await Device.find({},'-_id')
+    res.status(200).json({data: deviceData})
+  }catch(err){
+    res.status(500).json({status:'Error',message:err})
+  }
+}
+
 export{
-  addDevice
+  addDevice,
+  getAllDevices
 }

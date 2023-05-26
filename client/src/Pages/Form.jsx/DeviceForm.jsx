@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import {useState} from 'react'
 import {deviceFormInputs } from '../../Constants/deviceFormInput';
-import './Form.css'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
@@ -106,6 +105,7 @@ const DeviceForm =()=> {
                     autoFocus={i===0 && true}
                     value={values[inputs.name.replaceAll(' ','_')] || ''}
                   />
+                  
                 </Grid>
               )
               )}

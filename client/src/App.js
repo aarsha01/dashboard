@@ -13,11 +13,8 @@ import './App.css'
 import DeviceForm from './Pages/Form.jsx/DeviceForm';
 import DropdownLayout from './components/Dropdownlayout';
 import GraphDetails from './Pages/GraphDetails/GraphDetails';
-<<<<<<< HEAD
 import DeviceListing from './Pages/Listing/DeviceListing';
-=======
 import MarqueeForm from './Pages/Form.jsx/MarqueeForm';
->>>>>>> 25973e5ba4c064527abb87dd6bdd8a750b2b084d
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
@@ -36,13 +33,10 @@ function App() {
                 <Route path='/event/:key/:value' exact element={<GraphDetails />} />
               </Route> 
               <Route path='/branch_form' element={<BranchForm />} />
-<<<<<<< HEAD
               <Route path ='/device_form/:id' element={<DeviceForm/>}/>
-              <Route path ='/allDevices' element={<DeviceListing />}/>
-=======
               <Route path ='/device_form' element={<DeviceForm/>}/>
+              <Route path ='/allDevices' element={<DeviceListing />}/>
               <Route path='/marquee_form' element={<MarqueeForm />} />
->>>>>>> 25973e5ba4c064527abb87dd6bdd8a750b2b084d
             </Route>
           </Routes>
         </ThemeProvider>

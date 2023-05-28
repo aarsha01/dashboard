@@ -1,7 +1,6 @@
 import React from 'react';
 import {useState} from 'react'
 import { marqueeFormInput } from '../../Constants/marqueeFormInput';
-import './Form.css'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, Grid, Stack, TextField } from '@mui/material';

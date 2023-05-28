@@ -61,7 +61,7 @@ function BatteryChart() {
         <BatteryFullIcon fontSize="large" color="primary"/>
       </Stack>
       <BatteryGauge 
-        value={data[0]?.Battery_Mode}
+        value={data}
         padding={10}
         size = {'auto'}
         aspectRatio={0.56}

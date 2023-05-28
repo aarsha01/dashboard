@@ -13,7 +13,6 @@ const BoxWidget = ({endpoint, metaData=[]}) => {
   
     const fetchData = async ()=>{
       const data = await callApi(endpoint)
-      console.log(data);
       setData(data)
     }
 

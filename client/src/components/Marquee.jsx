@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import callApi from '../helper/callApi';
+import Marquee from "react-fast-marquee";
 
 
-function Marquee() {
+
+function Marqueefn() {
 
     const [data, setData] = useState([]);
     useEffect(() => {
@@ -25,9 +27,11 @@ function Marquee() {
   return (
     <div >
              <br></br>
-             <marquee style={{ color: 'red', fontSize: '3em' }}>
-             {data.map((item,key)=>(<p key={key}>Test</p>))} 
-             </marquee>
+            {
+              <Marquee pauseOnHover={true} style={{ color: 'red' ,fontSize:15}} speed={60} >
+                {data.map((item,key)=>(<p key={key} style={{marginRight:'50em'}}>{item.Description}</p>))}
+              </Marquee>
+             }
              
              <br></br>
 
@@ -36,4 +40,4 @@ function Marquee() {
   )
 }
 
-export default Marquee
+export default Marqueefn

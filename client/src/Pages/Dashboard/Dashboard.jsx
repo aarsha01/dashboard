@@ -10,6 +10,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import WifiIcon from '@mui/icons-material/Wifi';
 import SettingsInputHdmiIcon from '@mui/icons-material/SettingsInputHdmi';
 import BluetoothSearchingIcon from '@mui/icons-material/BluetoothSearching';
+import Ticket from '../../components/tickets'
 
 
 function Dashboard() {
@@ -45,6 +46,9 @@ function Dashboard() {
           </Grid>
           <Grid item xs={6}>
             <DonutChart/>
+          </Grid>
+          <Grid item xs={6}>
+            <Ticket/>
           </Grid>
         </Grid>
       </div>

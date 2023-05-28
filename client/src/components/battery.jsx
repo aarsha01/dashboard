@@ -16,12 +16,7 @@ function BatteryChart() {
     const fetchData = async ()=>{
       const data = await callApi('data/fetch_opdata')
       console.log(data);
-      console.log(data[0]?.Battery_Mode);
-
-      if(data.length > 0){
-        
-        setData(data)
-      } 
+      data.length > 0 ? setData(data[0]) : setData(100)
     }
 
   const styles = {

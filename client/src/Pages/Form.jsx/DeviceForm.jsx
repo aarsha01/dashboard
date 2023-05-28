@@ -5,13 +5,19 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import callApi from '../../helper/callApi';
+import { useNavigate, useParams } from 'react-router-dom';
 const DeviceForm =()=> {
   const [values,setValues]=useState({});
   const [branchoptions,setBranchoptions]=useState([]);
+  const {id} = useParams()
+  const nav = useNavigate()
 
   useEffect(() => {
     if(branchoptions.length === 0){
       fetchBranchOptions()
+    }
+    if(id && Object.keys(values).length === 0){
+      fetchDeviceData()
     }
     // eslint-disable-next-line
   }, [])
@@ -20,18 +26,40 @@ const DeviceForm =()=> {
     const branches = await callApi('/branch/fetchBranchOptions')
     setBranchoptions(branches.data)
   } 
+
+  const fetchDeviceData = async ()=>{
+    const device = await callApi('/device/getById',{Device_ID:id})
+    if(device){
+      device.Date_of_Installation = new Date(device.Date_of_Installation).toISOString().slice(0, 10)
+      device.Warranty_Period = new Date(device.Warranty_Period).toISOString().slice(0, 10)
+      device.Last_Updated = new Date(device.Last_Updated).toISOString().slice(0, 10)
+      setValues(device)
+    }
+  }
   
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); //prevents refresh of page on submmission.
-    let data= Object.fromEntries(new FormData(e.target).entries())
+  const handleSave = async () => {
+    let data= values
     let branch = branchoptions.find(obj => obj.Code === data.Branch_Code)
     data.Branch_Name = branch.Branch_Name
     const res = await callApi('/device/add',data)
     alert(res.message)
     setValues({})
   };
+
+  const handleEdit = async ()=>{
+    const res = await callApi('/device/edit',values)
+    alert(res.message)
+    setValues({})
+    nav('/allDevices')
+  }
+
+  const handleSubmit = (e)=>{
+    console.log('sdkmkm');
+    e.preventDefault();
+    id ? handleEdit() : handleSave()
+  }
 
   const onChange = (e) => {
     setValues({
@@ -42,9 +70,9 @@ const DeviceForm =()=> {
 
   return (
     <Box padding={5} overflow='auto'>
-      <Stack alignItems='center' gap={3}>
+      <Stack alignItems='center' gap={3} component='form' onSubmit={handleSubmit}>
         <Typography  variant="h1" color="primary">Device Details</Typography>
-        <Stack component='form' onSubmit={handleSubmit} alignItems='flex-start' direction='row' gap={5}>
+          <Stack  alignItems='flex-start' direction='row' gap={5}>
             {/* left grid */}
             <Grid container spacing={2}>
               {deviceFormInputs.leftFields.map((inputs,i)=>(
@@ -79,8 +107,8 @@ const DeviceForm =()=> {
                     onChange={onChange}
                     name='Branch_Code'
                   >
-                    <MenuItem value={{}}>
-                      <em>None</em>
+                    <MenuItem value={values['Branch_Code'] || {}}>
+                      {(values['Branch_Code'] && values['Branch_Name']) ? `${values['Branch_Code']} - ${values['Branch_Name']}` : ''}
                     </MenuItem>
                     {branchoptions.map((branch,i)=><MenuItem key={i} value={branch.Code}>{branch.Branch_Name} - {branch.Code}</MenuItem>)}
                   </Select>
@@ -110,8 +138,8 @@ const DeviceForm =()=> {
               )
               )}
             </Grid>
-        </Stack>
-        <Button variant="contained" color="primary" type='submit'>Save</Button>
+          </Stack>
+          <Button variant="contained" color="primary" type='submit'>Save</Button>
         
       </Stack>
     </Box>

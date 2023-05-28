@@ -32,7 +32,7 @@ function App() {
                 <Route path='/event/:key/:value' exact element={<GraphDetails />} />
               </Route> 
               <Route path='/branch_form' element={<BranchForm />} />
-              <Route path ='/device_form' element={<DeviceForm/>}/>
+              <Route path ='/device_form/:id' element={<DeviceForm/>}/>
               <Route path ='/allDevices' element={<DeviceListing />}/>
             </Route>
           </Routes>

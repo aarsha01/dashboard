@@ -39,30 +39,8 @@ async function fetchData(req,res){
 }
 async function fetchBatmodeData(req, res) {
   try {
-    const result1 = await Dashboard.aggregate([
-      {
-        $group: {
-          _id: null,
-           Battery_Mode: {
-            $addToSet: {
-              $cond: [
-                { $lt: ['$Bat_Voltage', 11.3] },
-                '$mac_id',
-                { $ifNull: [null, '$$REMOVE'] },
-              ],
-            },
-          }
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-        
-          Battery_Mode:{$size: '$Battery_Mode'}        },
-      },
-    ]);
-
-    res.send(result1).status(200);
+    const result2 = await Dashboard.find({Battery_Mode: {$lt:11.3}}).distinct('mac_id')
+    res.send([result2.length]).status(200);
   } catch (err) {
     res.send(err).status(500);
   }
@@ -70,7 +48,7 @@ async function fetchBatmodeData(req, res) {
 async function fetchdayData(req, res) {
   try {
     const result2 = await Dashboard.find({Op_Mode: {$in:['Day','day','d']}}).distinct('mac_id')
-    res.send({data:[result2.length]}).status(200);
+    res.send([result2.length]).status(200);
   } catch (err) {
     res.send(err).status(500);
   }
@@ -78,7 +56,7 @@ async function fetchdayData(req, res) {
 async function fetchnightData(req, res) {
   try {
     const result2 = await Dashboard.find({Op_Mode: {$in:['Night','night','n']}}).distinct('mac_id')
-    res.send({data:[result2.length]}).status(200);
+    res.send([result2.length]).status(200);
   } catch (err) {
     res.send(err).status(500);
   }
@@ -129,7 +107,7 @@ async function fetchDataConn(req, res) {
                 ]}
           }
       ])
-      res.send(result[0]).status(200)
+      res.send(result[0]?.data).status(200)
   } catch (err) {
       res.send(err).status(500)
   }

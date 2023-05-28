@@ -8,6 +8,7 @@ function DropdownComponent() {
     { value: 'online', label: 'Online' },
     { value: 'offline', label: 'Offline' }
   ];
+   
   const options_zone = [
     { value: 'zone1', label: 'Zone 1' },
     { value: 'zone2', label: 'Zone 2' },

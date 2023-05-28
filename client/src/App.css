@@ -50,3 +50,16 @@
 .side-navigation-panel-select-option:hover{
   background-color: transparent !important;
 }
+
+.Active{
+  background-color: green
+  ;
+}
+.Bypassed{
+  background-color: yellow
+  ;
+}
+.Disabled{
+  background-color: red
+  ;
+}

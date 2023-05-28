@@ -28,7 +28,7 @@ const MarqueeForm =()=> {
   return (
     <Box padding={5} overflow='auto'>
       <Stack alignItems='center' gap={3}>
-        <Typography  variant="h1" color="primary">Register</Typography>
+        <Typography  variant="h1" color="primary">MARQUEE TEXT </Typography>
         <Stack component='form' onSubmit={handleSubmit} alignItems='center' >
             <Grid width='80%' container spacing={2}>
               {marqueeFormInput.map((inputs,i)=>(
@@ -50,7 +50,7 @@ const MarqueeForm =()=> {
               )
               )}
             </Grid>
-            <Button variant="contained" color="primary" type='submit'>Submit</Button>
+            <Button variant="contained" color="primary" type='submit'>SAVE</Button>
         </Stack>
         
       </Stack>

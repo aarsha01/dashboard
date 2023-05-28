@@ -41,7 +41,7 @@ function Pie({data}) {
         arcLinkLabelsTextColor="white"
         arcLinkLabelsThickness={2}
         arcLabelsSkipAngle={10}
-        animate={false}
+        animate={true}
         legends={[
           {
             anchor: 'bottom',
@@ -61,7 +61,7 @@ function Pie({data}) {
         motionStiffness={0}
         motionDamping={0}
         colors={({ id, data }) =>
-          data.label === 'ONLINE' ? '#3db65b' : '#f24444'
+          data.label === 'ONLINE' ? '#00ff7f' : '#b22222'
         }
         theme = {{
           legends: {

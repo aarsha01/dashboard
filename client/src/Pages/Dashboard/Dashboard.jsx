@@ -12,6 +12,7 @@ import SettingsInputHdmiIcon from '@mui/icons-material/SettingsInputHdmi';
 import BluetoothSearchingIcon from '@mui/icons-material/BluetoothSearching';
 import callApi from '../../helper/callApi'
 import { useOutletContext } from 'react-router-dom'
+import Ticket from '../../components/tickets'
 
 
 function Dashboard() {
@@ -67,6 +68,9 @@ function Dashboard() {
           </Grid>
           <Grid item xs={6}>
             <DonutChart data={data.CMS_STATUS}/>
+          </Grid>
+          <Grid item xs={6}>
+            <Ticket/>
           </Grid>
         </Grid>
       </div>

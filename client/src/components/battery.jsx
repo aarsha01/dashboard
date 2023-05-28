@@ -1,23 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import BatteryGauge from 'react-battery-gauge'
-import callApi from '../helper/callApi'
 import { Paper, Stack, Typography } from '@mui/material'
 import BatteryFullIcon from '@mui/icons-material/BatteryFull';
 
 
-function BatteryChart() {
-
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-      fetchData()
-    }, [])
-  
-    const fetchData = async ()=>{
-      const data = await callApi('data/fetch_opdata')
-      console.log(data);
-      data.length > 0 ? setData(data[0]) : setData(100)
-    }
+function BatteryChart({ data }) {
 
   const styles = {
     batteryBody: {

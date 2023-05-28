@@ -1,20 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import callApi from '../helper/callApi'
+import React from 'react'
 import { Divider, Paper, Stack, Typography } from "@mui/material";
 
-const BoxWidget = ({endpoint, metaData=[]}) => {
-
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-      fetchData()
-      // eslint-disable-next-line
-    }, [])
-  
-    const fetchData = async ()=>{
-      const data = await callApi(endpoint)
-      setData(data)
-    }
+const BoxWidget = ({data, metaData=[]}) => {
 
   return (
     <Paper sx={{width:'100%',height:'100%',padding:'20px'}} variant="outlined">

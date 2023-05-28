@@ -3,21 +3,22 @@ import React from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-function DropdownComponent() {
+function DropdownComponent({setQuery}) {
   const options_status = [
     { value: 'online', label: 'Online' },
-    { value: 'offline', label: 'Offline' }
+    { value: 'offline', label: 'Offline' },
+    { value: null, label: 'Live Status' },
   ];
    
   const options_zone = [
-    { value: 'zone1', label: 'Zone 1' },
-    { value: 'zone2', label: 'Zone 2' },
-    { value: 'zone3', label: 'Zone 3' },
-    { value: 'zone4', label: 'Zone 4' },
-    { value: 'zone5', label: 'Zone 5' },
-    { value: 'zone6', label: 'Zone 6' },
-    { value: 'zone7', label: 'Zone 7' },
-    { value: 'zone8', label: 'Zone 8' }
+    { value: 'ZONE_1', label: 'Zone 1' },
+    { value: 'ZONE_2', label: 'Zone 2' },
+    { value: 'ZONE_3', label: 'Zone 3' },
+    { value: 'ZONE_4', label: 'Zone 4' },
+    { value: 'ZONE_5', label: 'Zone 5' },
+    { value: 'ZONE_6', label: 'Zone 6' },
+    { value: 'ZONE_7', label: 'Zone 7' },
+    { value: 'ZONE_8', label: 'Zone 8' }
   ];
   const options_connectvity = [
     { value: 'wifi', label: 'Wifi' },
@@ -47,10 +48,12 @@ function DropdownComponent() {
   
   const handleStatusChange = (selectedOption) => {
     console.log('Selected Status Option:', selectedOption);
+    setQuery({key: 'CMS_status', value: selectedOption.value})
   };
 
   const handleZoneChange = (selectedOption) => {
     console.log('Selected Zone Option:', selectedOption);
+    setQuery({key: selectedOption.value, value: 1})
   };
 
   return (

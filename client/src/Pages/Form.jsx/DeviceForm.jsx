@@ -5,14 +5,11 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import callApi from '../../helper/callApi';
-<<<<<<< HEAD
 import { useNavigate, useParams } from 'react-router-dom';
-=======
 import 'react-dropdown/style.css';
 import ReactDropdown from 'react-dropdown';
 
   
->>>>>>> 25973e5ba4c064527abb87dd6bdd8a750b2b084d
 const DeviceForm =()=> {
   const [values,setValues]=useState({});
   const [branchoptions,setBranchoptions]=useState([]);
@@ -144,23 +141,13 @@ const DeviceForm =()=> {
                     autoFocus={i===0 && true}
                     value={values[inputs.name.replaceAll(' ','_')] || ''}
                   />
-<<<<<<< HEAD
-                  
-=======
                   <ReactDropdown
-
-                  options={device_options}
-                  placeholder="select"
-                  
-                  
-                  
-
-                  
+                    options={device_options}
+                    placeholder="select" 
                   />
                   </Stack>
                   
                  
->>>>>>> 25973e5ba4c064527abb87dd6bdd8a750b2b084d
                 </Grid>
               )
               )}

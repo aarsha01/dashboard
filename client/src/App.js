@@ -32,11 +32,11 @@ function App() {
                 <Route path='/' exact element={<Dashboard />} />
                 <Route path='/event/:key/:value' exact element={<GraphDetails />} />
               </Route> 
-              <Route path='/branch_form' element={<BranchForm />} />
+              <Route path ='/branch_form' element={<BranchForm />} />
               <Route path ='/device_form/:id' element={<DeviceForm/>}/>
               <Route path ='/device_form' element={<DeviceForm/>}/>
               <Route path ='/allDevices' element={<DeviceListing />}/>
-              <Route path='/marquee_form' element={<MarqueeForm />} />
+              <Route path ='/marquee_form' element={<MarqueeForm />} />
             </Route>
           </Routes>
         </ThemeProvider>

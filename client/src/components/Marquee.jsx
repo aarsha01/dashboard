@@ -28,7 +28,7 @@ function Marqueefn() {
     <div >
              <br></br>
             {
-              <Marquee pauseOnHover={true} style={{ color: 'red' ,fontSize:15}} speed={60} >
+              <Marquee pauseOnHover={true} style={{ color: 'red' ,fontSize:18}} speed={60} >
                 {data.map((item,key)=>(<p key={key} style={{marginRight:'50em'}}>{item.Description}</p>))}
               </Marquee>
              }

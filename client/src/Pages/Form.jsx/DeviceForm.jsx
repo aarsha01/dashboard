@@ -13,6 +13,7 @@ import ReactDropdown from 'react-dropdown';
 const DeviceForm =()=> {
   const [values,setValues]=useState({});
   const [branchoptions,setBranchoptions]=useState([]);
+  const [zoneoptions,setZoneoptions]=useState([]);
   const {id} = useParams()
   const nav = useNavigate()
 
@@ -23,6 +24,10 @@ const DeviceForm =()=> {
     if(id && Object.keys(values).length === 0){
       fetchDeviceData()
     }
+
+    if(zoneoptions.length === 0){
+      fetchZoneOptions()
+    }
     // eslint-disable-next-line
   }, [])
 
@@ -30,6 +35,12 @@ const DeviceForm =()=> {
     const branches = await callApi('/branch/fetchBranchOptions')
     setBranchoptions(branches.data)
   } 
+
+  const fetchZoneOptions = async()=>{
+    const zones = await callApi('/device/fetchZones')
+    setZoneoptions(zones.data)
+  }
+
 
   const fetchDeviceData = async ()=>{
     const device = await callApi('/device/getById',{Device_ID:id})

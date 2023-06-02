@@ -91,7 +91,7 @@ async function Graphdetails(req, res) {
  
     //console.log(result)
     //data extracted for devices collection
-    const devices = await Device.find({ Device_ID: { $in: mac_ids } });
+    const devices = await Device.find({ Device_ID: { $in: mac_ids } });de
    
     const branchCodes = devices.map(item => item.Branch_Code);
     // Branch Detailes from branch collection

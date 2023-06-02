@@ -16,6 +16,7 @@ import GraphDetails from './Pages/GraphDetails/GraphDetails';
 import DeviceListing from './Pages/Listing/DeviceListing';
 import MarqueeForm from './Pages/Form.jsx/MarqueeForm';
 import Zoneform from './Pages/Form.jsx/Zoneform';
+import BranchListing from './Pages/Listing/BranchListing';
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
@@ -37,6 +38,9 @@ function App() {
               <Route path ='/device_form/:id' element={<DeviceForm/>}/>
               <Route path ='/device_form' element={<DeviceForm/>}/>
               <Route path ='/allDevices' element={<DeviceListing />}/>
+              <Route path ='/allBranches' element={<BranchListing />}/>
+              <Route path ='/branch_form/:id' element={<BranchForm/>}/>
+
               <Route path ='/marquee_form' element={<MarqueeForm />} />
               <Route path ='/zone_form' element={<Zoneform />} />
             </Route>

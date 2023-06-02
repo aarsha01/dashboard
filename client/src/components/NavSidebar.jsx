@@ -95,6 +95,12 @@ const NavSidebar = () => {
               // Optional
               elemBefore: () => <Icon name="coffee" />
             },
+            {
+              title: "All Branches",
+              itemId: "/allBranches",
+              // Optional
+              elemBefore: () => <Icon name="coffee" />
+            },
             // {
             //   title: "Another Tab",
             //   itemId: "/another",

@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useState} from 'react'
 import { branchFormInputs } from '../../Constants/branchFormInputs';
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, Grid, Stack, TextField } from '@mui/material';
 import callApi from '../../helper/callApi';
+import { useParams } from 'react-router-dom';
 const BranchForm =()=> {
   const [values,setValues]=useState({});
+  const {id} = useParams()
+  useEffect(() => {
+    if(id && Object.keys(values).length === 0){
+      fetchBranch()
+    }
+  }, [])
 
+  const fetchBranch = async ()=>{
+    const branch = await callApi('/branch/FetchByCode',{Code:id})
+      setValues(branch)
+    
+  }
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //prevents refresh of page on submmission.

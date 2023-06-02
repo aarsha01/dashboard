@@ -3,12 +3,12 @@ import BatteryGauge from 'react-battery-gauge'
 import callApi from '../helper/callApi'
 import { Paper, Stack, Typography } from '@mui/material'
 import BatteryFullIcon from '@mui/icons-material/BatteryFull';
-
+import { useNavigate } from 'react-router-dom'
 
 function BatteryChart() {
 
     const [data, setData] = useState([])
-
+    //const navigate = useNavigate();
     useEffect(() => {
       fetchData()
     }, [])
@@ -23,6 +23,7 @@ function BatteryChart() {
         setData(data)
       } 
     }
+   
 
   const styles = {
     batteryBody: {
@@ -60,7 +61,7 @@ function BatteryChart() {
   }
   
   return  (
-    <Paper sx={{width:'100%',height:'100%',padding:'20px'}} variant="outlined">
+    <Paper sx={{width:'100%',height:'100%',padding:'20px'}} variant="outlined" >
       <Stack direction='row' justifyContent='space-between'>
         <Typography fontSize='large' fontWeight='bold' color='primary'>Battery Level</Typography>
         <BatteryFullIcon fontSize="large" color="primary"/>

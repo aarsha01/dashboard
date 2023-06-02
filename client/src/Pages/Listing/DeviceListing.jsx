@@ -18,7 +18,7 @@ function DeviceListing() {
   }
 
   const handleDeviceEdit = (id)=>{
-    nav(`/device_form/${id}`)
+    nav(`/device_form/${id}`) 
   }
   
   return (

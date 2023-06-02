@@ -1,5 +1,6 @@
 import branchModel from '../model/branch.model.js'
 import Device from '../model/device.model.js'
+import devicedetailsModel from '../model/devicedetails.model.js'
 
 async function addDevice(req,res){
   try{
@@ -44,10 +45,37 @@ async function editById(req,res){
     res.status(500).json({status:'Error',message:err})
   }
 }
+async function addzone(req,res){
+  try{
+    if(!req.body){
+      return res.status(500).json({status:'Error',message:err})
+    }
+    const deviceData = new devicedetailsModel(req.body)
+    const response = await deviceData.save()
+    res.status(200).json({status:'Success',message:"Data added succesfully"})
+  }catch(err){
+    console.log(err);
+    res.status(500).json({status:'Error',message:err})
+  }
+
+}
+
+async function fetchZones(req,res){
+  try{
+   
+    const zones = await devicedetailsModel.find({})
+    res.status(200).json({status:'Success',data:zones})
+  }catch(err){
+    res.status(500).json({status:'Error',message:err})
+  }
+}
+
 
 export{
   addDevice,
   getAllDevices,
   fetchById,
-  editById
+  editById,
+  addzone,
+  fetchZones,
 }

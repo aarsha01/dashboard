@@ -95,6 +95,18 @@ const NavSidebar = () => {
               // Optional
               elemBefore: () => <Icon name="coffee" />
             },
+            {
+              title: "Add Marquee",
+              itemId: "/marquee_form",
+              // Optional
+              elemBefore: () => <Icon name="coffee" />
+            },
+            {
+              title: "Add Zone",
+              itemId: "/zone_form",
+              // Optional
+              elemBefore: () => <Icon name="coffee" />
+            },
             // {
             //   title: "Another Tab",
             //   itemId: "/another",

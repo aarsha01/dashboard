@@ -79,9 +79,9 @@ async function fetchData(req,res){
 
 async function Graphdetails(req, res) {
   try {
-    const { key, value } = req.body;
+    const { key, value, filter_key, filter_value } = req.body;
   
-    const mac_ids = await Dashboard.find({ [key]: value }).distinct('mac_id');
+    const mac_ids = await Dashboard.find({ [key]: value, [filter_key]: filter_value }).distinct('mac_id');
     const datas = []
     Promise.all(mac_ids.map(async id=>{
       const doc = await Dashboard.findOne({  mac_id: id });

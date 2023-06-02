@@ -9,9 +9,9 @@ function GraphDetails() {
     fetchGraphData();
   }, []);
 
-  const { key, value } = useParams();
+  const { key, value, filter_key, filter_value } = useParams();
   const fetchGraphData = async () => {
-    const response = await callApi('data/graph_details', { key, value });
+    const response = await callApi('data/graph_details', { key, value, filter_key, filter_value });
     console.log(response);
     if (response.devices && response.branches && response.datas) {
       const combinedData = combineData(response.devices, response.branches, response.datas);

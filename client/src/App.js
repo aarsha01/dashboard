@@ -31,6 +31,7 @@ function App() {
               <Route element={<DropdownLayout />} >
                 <Route path='/' exact element={<Dashboard />} />
                 <Route path='/event/:key/:value' exact element={<GraphDetails />} />
+                <Route path='/event/:key/:value/:filter_key/:filter_value' exact element={<GraphDetails />} />
               </Route> 
               <Route path ='/branch_form' element={<BranchForm />} />
               <Route path ='/device_form/:id' element={<DeviceForm/>}/>

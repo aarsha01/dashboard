@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import {ResponsiveBar} from '@nivo/bar'
 import { Paper } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutletContext } from 'react-router-dom'
 
 function Chart({data}) {
 
   const [chartData, setChartData] = useState([])
   const navigate = useNavigate()
+  const filterQuery = useOutletContext()
 
   useEffect(() => {
+    console.log(filterQuery);
     if (data) {
       const formattedData = Object.keys(data)?.map((key) => {
         return {
@@ -22,7 +24,8 @@ function Chart({data}) {
   }, [data]);
 
   const handleBarClick = (data) => {
-    navigate(`/event/${data?.indexValue.replace(' ','_')}/1`);
+    const api_url = filterQuery.value ? `/event/${data?.indexValue.replace(' ','_')}/1/${filterQuery.key}/${filterQuery.value}` : `/event/${data?.indexValue.replace(' ','_')}/1`
+    navigate(api_url);
   }
 
   return (

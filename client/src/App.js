@@ -34,16 +34,10 @@ function App() {
             {/* Common route for navbar */}
             <Route element={<SidebarLayout />}>
               <Route element={<DropdownLayout />} >
-<<<<<<< HEAD
-                <Route path='/' exact element={<Dashboard />} />
-                <Route path='/event/:key/:value' exact element={<GraphDetails />} />
-                <Route path='/event/:key/:value/:filter_key/:filter_value' exact element={<GraphDetails />} />
-=======
                 {/* Common  route for all users */}
               <Route element={<RoleAuth allowedRoles={['SuperAdmin','Admin','User']} />}>
               <Route path='/' exact element={<Dashboard />} />
               <Route path='/event/:key/:value' exact element={<GraphDetails />} />
->>>>>>> 24fa917411ac6aec8c00dd27776e1bf8bb523560
               </Route> 
               </Route> 
 

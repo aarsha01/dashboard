@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const users = new Schema({
-  Username:String,
-  Password:String,
-  Email:String,
-  Role:String,
+  username:String,
+  password:String,
+  email:String,
+  role:String,
 })
 
 users.set('versionKey', false);

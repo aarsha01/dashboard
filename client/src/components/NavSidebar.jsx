@@ -96,7 +96,6 @@ const NavSidebar = () => {
               elemBefore: () => <Icon name="coffee" />
             },
             {
-<<<<<<< HEAD
               title: "Add Marquee",
               itemId: "/marquee_form",
               // Optional
@@ -105,10 +104,6 @@ const NavSidebar = () => {
             {
               title: "Add Zone",
               itemId: "/zone_form",
-=======
-              title: "All Branches",
-              itemId: "/allBranches",
->>>>>>> 24fa917411ac6aec8c00dd27776e1bf8bb523560
               // Optional
               elemBefore: () => <Icon name="coffee" />
             },

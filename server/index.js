@@ -8,6 +8,7 @@ import DeviceRoute from './route/device.route.js'
 import marqueeroute from './route/marqueeroute.js'
 import zoneroute from './route/devicedetails.route.js'
 import userroute from './route/user.route.js'
+import initPassport from './passport.js';
 
 
 
@@ -26,6 +27,9 @@ connectDB();
 
 app.use(bodyParser.json({ limit: "20mb" }));
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: false }));
+
+// passport setup
+initPassport()
 
 
 // handling routes

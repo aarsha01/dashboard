@@ -5,5 +5,4 @@ function UnAuthorized() {
     <div>UnAuthorized</div>
   )
 }
-
 export default UnAuthorized

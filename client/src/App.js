@@ -20,6 +20,8 @@ import BranchListing from './Pages/Listing/BranchListing';
 import UserForm from './Pages/Form.jsx/UserForm';
 import RoleAuth from './components/RoleAuth';
 import UnAuthorized from './components/UnAuthorized';
+import configVariables from './Constants/configVariables';
+import SignIn from './Pages/Form.jsx/LoginForm';
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
@@ -34,39 +36,40 @@ function App() {
             {/* Common route for navbar */}
             <Route element={<SidebarLayout />}>
               <Route element={<DropdownLayout />} >
-                {/* Common  route for all users */}
-              <Route element={<RoleAuth allowedRoles={['SuperAdmin','Admin','User']} />}>
+                {/* Common  route for all users */}     
+                {/* View only permission */}
+              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin,configVariables.role_admin,configVariables.role_user]} />}>
               <Route path='/' exact element={<Dashboard />} />
               <Route path='/event/:key/:value' exact element={<GraphDetails />} />
               </Route> 
               </Route> 
 
               {/* Common route for admins */}
-              <Route element={<RoleAuth allowedRoles={['SuperAdmin','Admin']} />}>
+              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin,configVariables.role_admin]} />}>
               <Route path ='/branch_form' element={<BranchForm />} />
               <Route path ='/device_form' element={<DeviceForm/>}/>
               <Route path ='/allDevices' element={<DeviceListing />}/>
               <Route path ='/allBranches' element={<BranchListing />}/>
               <Route path ='/marquee_form' element={<MarqueeForm />} />
               <Route path ='/zone_form' element={<Zoneform />} />
-              <Route path ='/user_form' element={<UserForm />} />
               </Route>
 
-              {/* Routes accessible to only SuperAdmins */}
-              <Route element={<RoleAuth allowedRoles={['SuperAdmin']} />}>
+              {/* Routes accessible to only SuperAdmins : Editing of forms*/}
+              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin]} />}>
               <Route path ='/device_form/:id' element={<DeviceForm/>}/>
               <Route path ='/branch_form/:id' element={<BranchForm/>}/>
+              <Route path ='/user_form' element={<UserForm />} />
               </Route>
 
             </Route>
             <Route path ='/unauthorized' element={<UnAuthorized/>}/>
+            <Route path ='/login_page' element={<SignIn/>}/>
 
+
+          
           </Routes>
         </ThemeProvider>
-        <Routes>
-            
-        </Routes> 
-  
+        
       </BrowserRouter>
     </div>
   );

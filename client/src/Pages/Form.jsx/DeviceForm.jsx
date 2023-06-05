@@ -135,25 +135,28 @@ const DeviceForm =()=> {
           
             {/* right grid */}
             
-            <Grid container>
+            <Grid container spacing={5}>
             {deviceFormInputs.rightFields.map((inputs,i)=>(
                 <Grid item xs={12} key={inputs.id}>
                   <Stack alignItems='center' gap={3} direction='row'>
-                  <TextField
-                    fullWidth
-                    variant='filled'
-                    {...inputs} 
-                    name={inputs.name.replaceAll(' ','_')}
-                    autoComplete={inputs.name}
-                    onChange={onChange}
-                    error={values[inputs.name.replaceAll(' ','_')] === ""}
-                    helperText={values[inputs.name.replaceAll(' ','_')] === "" ? 'Empty field!' : ' '}
-                    sx={{fieldset:{borderColor:'white'}}}
-                    autoFocus={i===0 && true}
-                    value={values[inputs.name.replaceAll(' ','_')] || ''}
-                  />
+                  <FormControl variant="filled" sx={{ minWidth: '80%' }}>
+                    <InputLabel id="branch-name-code">{inputs.name}</InputLabel>
+                    <Select
+                      labelId={inputs.name}
+                      value={values[inputs.name] || ''}
+                      onChange={onChange}
+                      name={inputs.name}
+                    >
+                      <MenuItem value={values[inputs.name] || {}}>
+                        {(values[inputs.name] ? `${values[inputs.name]}` : '')}
+                      </MenuItem>
+                      {zoneoptions.map((zone,i)=><MenuItem key={i} value={zone.Zone_name}>{zone.Zone_name}</MenuItem>)}
+                    </Select>
+                  </FormControl>
+                  
                   <ReactDropdown
-                    options={device_options}
+                    // options={device_options}
+                    value={zone.status}
                     placeholder="select" 
                   />
                   </Stack>

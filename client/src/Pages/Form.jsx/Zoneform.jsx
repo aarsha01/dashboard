@@ -34,13 +34,13 @@ const Zoneform =()=> {
                   <TextField
                     fullWidth
                     variant='filled'
-                    name='Zonename'
+                    name='Zone_name'
                     onChange={onChange}
-                    error={values['Zonename'] === ""}
-                    helperText={values['Zonename'] === "" ? 'Empty field!' : ' '}
+                    error={values['Zone_name'] === ""}
+                    helperText={values['Zone_name'] === "" ? 'Empty field!' : ' '}
                     sx={{fieldset:{borderColor:'white'}}}
                     autoFocus={true}
-                    value={values['Zonename'] || ''}
+                    value={values['Zone_name'] || ''}
                     type= "text"
                     label= "Zone Name"
                     required = {true}

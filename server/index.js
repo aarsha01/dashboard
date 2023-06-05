@@ -7,6 +7,8 @@ import BranchRoute from './route/branch.route.js'
 import DeviceRoute from './route/device.route.js'
 import marqueeroute from './route/marqueeroute.js'
 import zoneroute from './route/devicedetails.route.js'
+import userroute from './route/user.route.js'
+
 
 
 
@@ -40,6 +42,7 @@ app.use('/api/branch', BranchRoute)
 app.use('/api/device', DeviceRoute)
 app.use('/api/marquee', marqueeroute)
 app.use('/api/zone', zoneroute)
+app.use('/api/user', userroute)
 
 
 

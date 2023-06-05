@@ -18,7 +18,7 @@ function ListGen({listItems, headers, buttons=[]}) {
             { buttons.length > 0 && 
              <TableCell>
               {buttons.map((button,i)=>(
-                <Button variant='contained' key={i} onClick={()=>{button.onSubmit(item.Device_ID)}}>{button.label}</Button>
+                <Button variant='contained' key={i} onClick={()=>{button.onSubmit(item)}}>{button.label}</Button>
               ))}
              </TableCell>
             }

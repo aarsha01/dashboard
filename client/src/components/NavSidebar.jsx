@@ -6,6 +6,7 @@ import React, { useState } from "react";
 
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import { useTheme } from "@emotion/react";
+import configVariables from "../Constants/configVariables";
 
 const NavSidebar = () => {
   const navigate = useNavigate();
@@ -50,7 +51,14 @@ const NavSidebar = () => {
         <Navigation
           activeItemId={location.pathname}
           onSelect={({ itemId }) => {
-            navigate(itemId);
+            if(itemId === '/logout'){
+              localStorage.removeItem(configVariables.user_id)
+              localStorage.removeItem(configVariables.user_role)
+              navigate('/login_page')
+            }else{
+              navigate(itemId);
+
+            }
           }}
           items={[
             {
@@ -104,6 +112,12 @@ const NavSidebar = () => {
             {
               title: "Add Zone",
               itemId: "/zone_form",
+              // Optional
+              elemBefore: () => <Icon name="coffee" />
+            },
+            {
+              title: "Logout",
+              itemId: "/logout",
               // Optional
               elemBefore: () => <Icon name="coffee" />
             },

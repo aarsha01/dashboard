@@ -1,4 +1,5 @@
 import Users from '../model/users.model.js'
+import crypto from 'crypto'
 
 async function addUser(req,res){
   try{
@@ -9,6 +10,7 @@ async function addUser(req,res){
     await userData.save()
     res.status(200).json({status:'Success',message:"User added succesfully"})
   }catch(err){
+    console.log(err);
     res.status(500).json({status:'Error',message:err})
   }
 }
@@ -28,5 +30,6 @@ async function login(req,res){
 
 
 export{
-  addUser
+  addUser,
+  login
 }

@@ -9,6 +9,9 @@ import marqueeroute from './route/marqueeroute.js'
 import zoneroute from './route/devicedetails.route.js'
 import userroute from './route/user.route.js'
 import initPassport from './passport.js';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import passport from 'passport';
 
 
 
@@ -32,7 +35,14 @@ app.use(bodyParser.urlencoded({ limit: "20mb", extended: false }));
 initPassport()
 
 
-// handling routes
+// creating session and adding to passport
+app.use(session({
+  secret: 'super secret',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://dheeraj:dj%40mongo1415@cluster0.kafuosd.mongodb.net/database?retryWrites=true&w=majority' })
+}));
+app.use(passport.authenticate('session'));
 
 
 

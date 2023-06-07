@@ -116,6 +116,12 @@ const NavSidebar = () => {
               elemBefore: () => <Icon name="coffee" />
             },
             {
+              title: "Add User",
+              itemId: "/user_form",
+              // Optional
+              elemBefore: () => <Icon name="coffee" />
+            },
+            {
               title: "Logout",
               itemId: "/logout",
               // Optional

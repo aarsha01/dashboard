@@ -35,13 +35,14 @@ function App() {
           <Routes>
             {/* Common route for navbar */}
             <Route element={<SidebarLayout />}>
-              <Route element={<DropdownLayout />} >
+             
                 {/* Common  route for all users */}     
                 {/* View only permission */}
               <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin,configVariables.role_admin,configVariables.role_user]} />}>
-              <Route path='/' exact element={<Dashboard />} />
-              <Route path='/event/:key/:value' exact element={<GraphDetails />} />
-              </Route> 
+                <Route element={<DropdownLayout />} >
+                  <Route path='/' exact element={<Dashboard />} />
+                  <Route path='/event/:key/:value' exact element={<GraphDetails />} />
+                </Route> 
               </Route> 
 
               {/* Common route for admins */}

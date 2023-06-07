@@ -79,6 +79,7 @@ const DeviceForm =()=> {
   const onChange = (e) => {
     setValues({
       ...values,
+
       [e.target.name]: e.target.value,
     });
   };
@@ -147,16 +148,16 @@ const DeviceForm =()=> {
                       onChange={onChange}
                       name={inputs.name}
                     >
-                      <MenuItem value={values[inputs.name] || {}}>
-                        {(values[inputs.name] ? `${values[inputs.name]}` : '')}
+                      <MenuItem value={null} defaultChecked>
+                        Select
                       </MenuItem>
-                      {zoneoptions.map((zone,i)=><MenuItem key={i} value={zone.Zone_name}>{zone.Zone_name}</MenuItem>)}
+                      {zoneoptions.map((zone,i)=><MenuItem key={i} value={zone}>{zone.Zone_name}</MenuItem>)}
                     </Select>
                   </FormControl>
                   
                   <ReactDropdown
-                    // options={device_options}
-                    value={zone.status}
+                    options={device_options}
+                    value={values[inputs.name]?.Status}
                     placeholder="select" 
                   />
                   </Stack>

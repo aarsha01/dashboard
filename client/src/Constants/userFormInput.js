@@ -1,27 +1,27 @@
 export const userFormInputs = [
     {
       id: 1,
-      name: "Username",
+      name: "username",
       type: "text",
       label: "Username",
       required: true,
     },
     {
       id: 2,
-      name:"Password",
+      name:"password",
       type:"text",
       label:"Password",
       required: true,
     },
     {
       id: 3,
-      name:"Email",
+      name:"email",
       type:"email",
       label:"Email",
     },
     {
         id: 4,
-        name:"Role",
+        name:"role",
         type:"text",
         label:"Role",
       },

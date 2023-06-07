@@ -20,13 +20,17 @@ export default function SignIn() {
   const nav = useNavigate()
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(data.entries());
-    const res = await callApi('user/login',Object.fromEntries(data.entries()))
-    if (res.status) {
-      localStorage.setItem(configVariables.user_id, res.user_id)
-      localStorage.setItem(configVariables.user_role, res.user_role)
-      nav('/')
+    try{
+      const data = new FormData(event.currentTarget);
+      console.log(data.entries());
+      const res = await callApi('user/login',Object.fromEntries(data.entries()))
+      if (res.status) {
+        localStorage.setItem(configVariables.user_id, res.user_id)
+        localStorage.setItem(configVariables.user_role, res.user_role)
+        nav('/')
+      }
+    }catch(err){
+      alert('Invalid credentials!')
     }
   };
 

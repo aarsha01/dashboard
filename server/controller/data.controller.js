@@ -80,8 +80,11 @@ async function fetchData(req,res){
 async function Graphdetails(req, res) {
   try {
     const { key, value, filter_key, filter_value } = req.body;
-  
-    const mac_ids = await Dashboard.find({ [key]: value, [filter_key]: filter_value }).distinct('mac_id');
+    let query = {}
+    if(key) query[key] = value
+    if(filter_key) query[filter_key] = filter_value
+    console.log(query);
+    const mac_ids = await Dashboard.find(query).distinct('mac_id');
     const datas = []
     Promise.all(mac_ids.map(async id=>{
       const doc = await Dashboard.findOne({  mac_id: id });
@@ -91,7 +94,7 @@ async function Graphdetails(req, res) {
  
     //console.log(result)
     //data extracted for devices collection
-    const devices = await Device.find({ Device_ID: { $in: mac_ids } });de
+    const devices = await Device.find({ Device_ID: { $in: mac_ids } });
    
     const branchCodes = devices.map(item => item.Branch_Code);
     // Branch Detailes from branch collection

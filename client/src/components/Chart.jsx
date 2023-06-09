@@ -24,7 +24,7 @@ function Chart({data}) {
   }, [data]);
 
   const handleBarClick = (data) => {
-    const api_url = filterQuery.value ? `/event/${data?.indexValue.replace(' ','_')}/1/${filterQuery.key}/${filterQuery.value}` : `/event/${data?.indexValue.replace(' ','_')}/1`
+    const api_url = filterQuery?.value ? `/event/${data?.indexValue.replace(' ','_')}/1/${filterQuery?.key}/${filterQuery?.value}` : `/event/${data?.indexValue.replace(' ','_')}/1`
     navigate(api_url);
   }
 

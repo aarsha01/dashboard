@@ -1,44 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import callApi from '../helper/callApi'
 import {ResponsiveBar} from '@nivo/bar'
 import { Paper } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-// import { useTheme } from '@emotion/react'
 
-function Chart() {
+function Chart({data}) {
 
-  const [data, setData] = useState([])
+  const [chartData, setChartData] = useState([])
   const navigate = useNavigate()
-  // const theme = useTheme()
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await callApi('data/fetch_data');
-    console.log(data);
-    if (data.length > 0) {
-      const formattedData = Object.keys(data[0])?.map((key) => {
+    if (data) {
+      const formattedData = Object.keys(data)?.map((key) => {
         return {
           id:key.replace('_'," "),
           label:key.replace('_',' '),
-          value:data[0][key]
+          value:data[key]
         }
       })
-      setData(formattedData)
+      setChartData(formattedData)
     } 
-  }
+  }, [data]);
 
   const handleBarClick = (data) => {
-    //  console.log(event)
     navigate(`/event/${data?.indexValue.replace(' ','_')}/1`);
   }
 
   return (
     <Paper sx={{width:'100%',height:'50vh',padding:'20px'}} variant="outlined">
       <ResponsiveBar
-        data={data}
+        data={chartData}
         keys={['value']}
         indexBy="label"
         margin={{ top: 40, right: 0, bottom: 40, left: 40 }}

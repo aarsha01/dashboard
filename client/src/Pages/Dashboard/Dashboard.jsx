@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
 import Chart from '../../components/Chart'
 import BatChart from '../../components/battery.jsx'
@@ -10,8 +10,15 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import WifiIcon from '@mui/icons-material/Wifi';
 import SettingsInputHdmiIcon from '@mui/icons-material/SettingsInputHdmi';
 import BluetoothSearchingIcon from '@mui/icons-material/BluetoothSearching';
+import callApi from '../../helper/callApi'
+import { useOutletContext } from 'react-router-dom'
+import Ticket from '../../components/tickets'
+import Alert from '../../components/alert'
 
-function Dashboard() {
+function Dashboard({data}) {
+  
+  
+  
   return (
     // <DashboardLayout>
     <div className='dashboard-top'>
@@ -19,21 +26,21 @@ function Dashboard() {
       <div className="chart-box-top">
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Chart />
+            <Chart data={data.ZONE} />
           </Grid>
           <Grid item container xs={6} spacing={2} >
             <Grid item xs={4}>
-              <BoxWidget endpoint='data/fetch_daydata' metaData={[{title:'Day Mode', Icon:WbSunnyIcon}]} />
+              <BoxWidget data={data.DAY_MODE} metaData={[{title:'Day Mode', Icon:WbSunnyIcon}]} />
             </Grid>
             <Grid item xs={4}>
-              <BoxWidget endpoint='data/fetch_nightdata' metaData={[{title:'Night Mode', Icon:DarkModeIcon}]} />
+              <BoxWidget data={data.NIGHT_MODE} metaData={[{title:'Night Mode', Icon:DarkModeIcon}]} />
             </Grid>
             <Grid item xs={4}>
-              <BatChart/>
+              <BatChart data={data.BATT_COUNT} />
             </Grid>
             <Grid item xs={12}>
               <BoxWidget 
-                endpoint='data/fetch_dataconn' 
+                data={data.DATA_CONN} 
                 metaData={[
                   {title:'Wifi', Icon:WifiIcon},
                   {title:'Ethernet', Icon:SettingsInputHdmiIcon},
@@ -43,8 +50,13 @@ function Dashboard() {
             </Grid>
           </Grid>
           <Grid item xs={6}>
-            <DonutChart/>
+            <DonutChart data={data.CMS_STATUS}/>
           </Grid>
+          <Grid item xs={6}>
+            <Ticket/>
+           
+          </Grid>
+          {/* <Alert open={open} setOpen={setOpen} OFFLINE={data.CMS_STATUS?.OFFLINE} /> */}
         </Grid>
       </div>
     </div>

@@ -1,29 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import BatteryGauge from 'react-battery-gauge'
-import callApi from '../helper/callApi'
 import { Paper, Stack, Typography } from '@mui/material'
 import BatteryFullIcon from '@mui/icons-material/BatteryFull';
-import { useNavigate } from 'react-router-dom'
 
-function BatteryChart() {
 
-    const [data, setData] = useState([])
-    //const navigate = useNavigate();
-    useEffect(() => {
-      fetchData()
-    }, [])
-  
-    const fetchData = async ()=>{
-      const data = await callApi('data/fetch_opdata')
-      console.log(data);
-      console.log(data[0]?.Battery_Mode);
-
-      if(data.length > 0){
-        
-        setData(data)
-      } 
-    }
-   
+function BatteryChart({ data }) {
 
   const styles = {
     batteryBody: {
@@ -61,13 +42,13 @@ function BatteryChart() {
   }
   
   return  (
-    <Paper sx={{width:'100%',height:'100%',padding:'20px'}} variant="outlined" >
+    <Paper sx={{width:'100%',height:'100%',padding:'20px'}} variant="outlined">
       <Stack direction='row' justifyContent='space-between'>
         <Typography fontSize='large' fontWeight='bold' color='primary'>Battery Level</Typography>
         <BatteryFullIcon fontSize="large" color="primary"/>
       </Stack>
       <BatteryGauge 
-        value={data[0]?.Battery_Mode}
+        value={data}
         padding={10}
         size = {'auto'}
         aspectRatio={0.56}

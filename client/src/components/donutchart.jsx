@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import callApi from '../helper/callApi'
 import {ResponsivePie} from '@nivo/pie'
 import { Paper } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-function Pie() {
+function Pie({data}) {
 
-  const [data, setData] = useState([])
+  const [chartData, setChartData] = useState([])
   const nav = useNavigate()
 
   useEffect(() => {
-    fetchDataPie()
-  }, [])
-
-  const fetchDataPie = async ()=>{
-    const data = await callApi('data/fetch_DataPie')
-    console.log(data);
-    if(data.length > 0){
-      const formattedData = Object.keys(data[0])?.map(key=>{
+    if (data) {
+      const formattedData = Object.keys(data)?.map((key) => {
         return {
-          id:key,
-          label:key,
-          value:data[0][key]
+          id:key.replace('_'," "),
+          label:key.replace('_',' '),
+          value:data[key]
         }
       })
-      setData(formattedData)
-    }
-  }
+      setChartData(formattedData)
+    } 
+  }, [data]);
 
   const handleClick = (data)=>{
     nav(`/event/CMS_status/${data.label.toLowerCase()}`)
@@ -35,7 +28,7 @@ function Pie() {
   return (
     <Paper sx={{width:'100%',height:'50vh',padding:'20px'}} variant="outlined">
       <ResponsivePie
-        data={data}
+        data={chartData}
         keys={['value']}
         indexBy="label"
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
@@ -48,7 +41,7 @@ function Pie() {
         arcLinkLabelsTextColor="white"
         arcLinkLabelsThickness={2}
         arcLabelsSkipAngle={10}
-        animate={false}
+        animate={true}
         legends={[
           {
             anchor: 'bottom',
@@ -68,7 +61,7 @@ function Pie() {
         motionStiffness={0}
         motionDamping={0}
         colors={({ id, data }) =>
-          data.label === 'ONLINE' ? '#3db65b' : '#f24444'
+          data.label === 'ONLINE' ? '#00ff7f' : '#b22222'
         }
         theme = {{
           legends: {

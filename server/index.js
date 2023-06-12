@@ -5,6 +5,8 @@ import connectDB from './db.js'
 import DataRoute from './route/data.route.js'
 import BranchRoute from './route/branch.route.js'
 import DeviceRoute from './route/device.route.js'
+import marqueeroute from './route/marqueeroute.js'
+
 
 
 
@@ -24,6 +26,7 @@ app.use(bodyParser.urlencoded({ limit: "20mb", extended: false }));
 
 
 
+
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });
@@ -31,4 +34,7 @@ app.listen(PORT, () => {
 app.use('/api/data', DataRoute)
 app.use('/api/branch', BranchRoute)
 app.use('/api/device', DeviceRoute)
+app.use('/api/marquee', marqueeroute)
+
+
 

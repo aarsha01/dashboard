@@ -1,11 +1,11 @@
 import React from 'react';
 import {useState} from 'react'
-import { branchFormInputs } from '../../Constants/branchFormInputs';
+import { marqueeFormInput } from '../../Constants/marqueeFormInput';
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, Grid, Stack, TextField } from '@mui/material';
 import callApi from '../../helper/callApi';
-const BranchForm =()=> {
+const MarqueeForm =()=> {
   const [values,setValues]=useState({});
 
 
@@ -13,7 +13,7 @@ const BranchForm =()=> {
     e.preventDefault(); //prevents refresh of page on submmission.
     const data= new FormData(e.target)
     console.log(Object.fromEntries(data.entries()))
-    const res = await callApi('/branch/add',Object.fromEntries(data.entries()))
+    const res = await callApi('/marquee/add',Object.fromEntries(data.entries()))
     alert(res.message)
     setValues({})
   };
@@ -28,10 +28,10 @@ const BranchForm =()=> {
   return (
     <Box padding={5} overflow='auto'>
       <Stack alignItems='center' gap={3}>
-        <Typography  variant="h1" color="primary">Register</Typography>
+        <Typography  variant="h1" color="primary">MARQUEE TEXT </Typography>
         <Stack component='form' onSubmit={handleSubmit} alignItems='center' >
             <Grid width='80%' container spacing={2}>
-              {branchFormInputs.map((inputs,i)=>(
+              {marqueeFormInput.map((inputs,i)=>(
                 <Grid item xs={4} key={inputs.id}>
                   <TextField
                     fullWidth
@@ -50,7 +50,7 @@ const BranchForm =()=> {
               )
               )}
             </Grid>
-            <Button variant="contained" color="primary" type='submit'>Submit</Button>
+            <Button variant="contained" color="primary" type='submit'>SAVE</Button>
         </Stack>
         
       </Stack>
@@ -58,4 +58,4 @@ const BranchForm =()=> {
   );
 }; 
 
-export default BranchForm;
+export default MarqueeForm;

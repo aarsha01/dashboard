@@ -25,7 +25,34 @@ async function fetchBranches(req,res){
   }
 }
 
+
+
+async function getAllBranches(req,res){
+  try{
+    const branchData = await Branch.find({},'-_id')
+    res.status(200).json({data: branchData})
+  }catch(err){
+    res.status(500).json({status:'Error',message:err})
+  }
+}
+
+
+async function fetchBycode(req,res){
+  try{
+    const { Code }= req.body
+    const branchData= await Branch.findOne({Code},'')
+    res.status(200).send(branchData)
+  }catch(err){
+    res.status(500).json({status:'Error',message:err})
+  }
+}
+
+
+
 export{
   addBranch,
-  fetchBranches
+  fetchBranches,
+  getAllBranches,
+  fetchBycode
+  
 }

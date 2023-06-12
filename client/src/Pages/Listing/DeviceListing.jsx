@@ -17,8 +17,8 @@ function DeviceListing() {
     setDevices(devices.data)
   }
 
-  const handleDeviceEdit = (id)=>{
-    nav(`/device_form/${id}`)
+  const handleDeviceEdit = (device)=>{
+    nav(`/device_form/${device.Device_ID}`) 
   }
   
   return (

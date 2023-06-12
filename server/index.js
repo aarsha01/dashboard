@@ -6,6 +6,16 @@ import DataRoute from './route/data.route.js'
 import BranchRoute from './route/branch.route.js'
 import DeviceRoute from './route/device.route.js'
 import marqueeroute from './route/marqueeroute.js'
+import zoneroute from './route/devicedetails.route.js'
+import userroute from './route/user.route.js'
+import initPassport from './passport.js';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import passport from 'passport';
+
+
+
+
 
 
 
@@ -21,8 +31,18 @@ connectDB();
 app.use(bodyParser.json({ limit: "20mb" }));
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: false }));
 
+// passport setup
+initPassport()
 
-// handling routes
+
+// creating session and adding to passport
+app.use(session({
+  secret: 'super secret',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://dheeraj:dj%40mongo1415@cluster0.kafuosd.mongodb.net/database?retryWrites=true&w=majority' })
+}));
+app.use(passport.authenticate('session'));
 
 
 
@@ -35,6 +55,10 @@ app.use('/api/data', DataRoute)
 app.use('/api/branch', BranchRoute)
 app.use('/api/device', DeviceRoute)
 app.use('/api/marquee', marqueeroute)
+app.use('/api/zone', zoneroute)
+app.use('/api/user', userroute)
+
+
 
 
 

@@ -17,6 +17,14 @@ import DeviceListing from './Pages/Listing/DeviceListing';
 import MarqueeForm from './Pages/Form.jsx/MarqueeForm';
 import AlertLayout from './components/AlertLayout';
 import callApi from './helper/callApi';
+import Zoneform from './Pages/Form.jsx/Zoneform';
+import BranchListing from './Pages/Listing/BranchListing';
+import UserForm from './Pages/Form.jsx/UserForm';
+import RoleAuth from './components/RoleAuth';
+import UnAuthorized from './components/UnAuthorized';
+import configVariables from './Constants/configVariables';
+import SignIn from './Pages/Form.jsx/LoginForm';
+
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
   const filterQuery = useOutletContext()
@@ -52,26 +60,44 @@ function App() {
            
             <Route element={<AlertLayout data={data} open={open} setOpen={setOpen}/>}>
             <Route element={<SidebarLayout />}>
-            
-            <Route element={<DropdownLayout />} >
-              <Route path='/' exact element={<Dashboard data={data} />} />
-              <Route path='/event/:key/:value' exact element={<GraphDetails />} />
-            </Route> 
-            <Route path ='/branch_form' element={<BranchForm />} />
-            <Route path ='/device_form/:id' element={<DeviceForm/>}/>
-            <Route path ='/device_form' element={<DeviceForm/>}/>
-            <Route path ='/allDevices' element={<DeviceListing />}/>
-            <Route path ='/marquee_form' element={<MarqueeForm />} />
-          
-          </Route>
-         
+             
+                {/* Common  route for all users */}     
+                {/* View only permission */}
+              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin,configVariables.role_admin,configVariables.role_user]} />}>
+                <Route element={<DropdownLayout />} >
+                  <Route path='/' exact element={<Dashboard />} />
+                  <Route path='/event/:key/:value' exact element={<GraphDetails />} />
+                </Route> 
+              </Route> 
+
+              {/* Common route for admins */}
+              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin,configVariables.role_admin]} />}>
+              <Route path ='/branch_form' element={<BranchForm />} />
+              <Route path ='/device_form' element={<DeviceForm/>}/>
+              <Route path ='/allDevices' element={<DeviceListing />}/>
+              <Route path ='/allBranches' element={<BranchListing />}/>
+              <Route path ='/marquee_form' element={<MarqueeForm />} />
+              <Route path ='/zone_form' element={<Zoneform />} />
+              </Route>
+
+              {/* Routes accessible to only SuperAdmins : Editing of forms*/}
+              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin]} />}>
+              <Route path ='/device_form/:id' element={<DeviceForm/>}/>
+              <Route path ='/branch_form/:id' element={<BranchForm/>}/>
+              <Route path ='/user_form' element={<UserForm />} />
+              </Route>
+
             </Route>
+            <Route path ='/unauthorized' element={<UnAuthorized/>}/>
+            <Route path ='/login_page' element={<SignIn/>}/>
+
+            </Route>
+
+
+          
           </Routes>
         </ThemeProvider>
-        <Routes>
-            
-        </Routes> 
-  
+        
       </BrowserRouter>
     </div>
   );

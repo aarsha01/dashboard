@@ -13,6 +13,7 @@ import ReactDropdown from 'react-dropdown';
 const DeviceForm =()=> {
   const [values,setValues]=useState({});
   const [branchoptions,setBranchoptions]=useState([]);
+  const [zoneoptions,setZoneoptions]=useState([]);
   const {id} = useParams()
   const nav = useNavigate()
 
@@ -23,6 +24,10 @@ const DeviceForm =()=> {
     if(id && Object.keys(values).length === 0){
       fetchDeviceData()
     }
+
+    if(zoneoptions.length === 0){
+      fetchZoneOptions()
+    }
     // eslint-disable-next-line
   }, [])
 
@@ -30,6 +35,12 @@ const DeviceForm =()=> {
     const branches = await callApi('/branch/fetchBranchOptions')
     setBranchoptions(branches.data)
   } 
+
+  const fetchZoneOptions = async()=>{
+    const zones = await callApi('/device/fetchZones')
+    setZoneoptions(zones.data)
+  }
+
 
   const fetchDeviceData = async ()=>{
     const device = await callApi('/device/getById',{Device_ID:id})
@@ -68,6 +79,7 @@ const DeviceForm =()=> {
   const onChange = (e) => {
     setValues({
       ...values,
+
       [e.target.name]: e.target.value,
     });
   };
@@ -124,25 +136,28 @@ const DeviceForm =()=> {
           
             {/* right grid */}
             
-            <Grid container>
+            <Grid container spacing={5}>
             {deviceFormInputs.rightFields.map((inputs,i)=>(
                 <Grid item xs={12} key={inputs.id}>
                   <Stack alignItems='center' gap={3} direction='row'>
-                  <TextField
-                    fullWidth
-                    variant='filled'
-                    {...inputs} 
-                    name={inputs.name.replaceAll(' ','_')}
-                    autoComplete={inputs.name}
-                    onChange={onChange}
-                    error={values[inputs.name.replaceAll(' ','_')] === ""}
-                    helperText={values[inputs.name.replaceAll(' ','_')] === "" ? 'Empty field!' : ' '}
-                    sx={{fieldset:{borderColor:'white'}}}
-                    autoFocus={i===0 && true}
-                    value={values[inputs.name.replaceAll(' ','_')] || ''}
-                  />
+                  <FormControl variant="filled" sx={{ minWidth: '80%' }}>
+                    <InputLabel id="branch-name-code">{inputs.name}</InputLabel>
+                    <Select
+                      labelId={inputs.name}
+                      value={values[inputs.name] || ''}
+                      onChange={onChange}
+                      name={inputs.name}
+                    >
+                      <MenuItem value={null} defaultChecked>
+                        Select
+                      </MenuItem>
+                      {zoneoptions.map((zone,i)=><MenuItem key={i} value={zone}>{zone.Zone_name}</MenuItem>)}
+                    </Select>
+                  </FormControl>
+                  
                   <ReactDropdown
                     options={device_options}
+                    value={values[inputs.name]?.Status}
                     placeholder="select" 
                   />
                   </Stack>

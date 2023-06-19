@@ -15,7 +15,7 @@ import { useOutletContext } from 'react-router-dom'
 import Ticket from '../../components/tickets'
 import Alert from '../../components/alert'
 
-function Dashboard({data}) {
+function Dashboard({data, filterQuery}) {
   
   
   
@@ -27,7 +27,7 @@ function Dashboard({data}) {
         <div className="chart-box-top">
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <Chart data={data?.ZONE} />
+              <Chart data={data?.ZONE} filterQuery={filterQuery} />
             </Grid>
             <Grid item container xs={6} spacing={2} >
               <Grid item xs={4}>

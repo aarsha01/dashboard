@@ -9,7 +9,7 @@ const RoleAuth = ({ allowedRoles }) => {
   console.log(localStorage.getItem(configVariables.user_role),allowedRoles);
   return allowedRoles.includes(localStorage.getItem(configVariables.user_role))? (
     <>
-    <NavSidebar />
+    {/* <NavSidebar /> */}
     <Outlet />
     </>
   ) : localStorage.getItem(configVariables.user_id) ?(

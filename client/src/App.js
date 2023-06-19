@@ -27,7 +27,7 @@ import SignIn from './Pages/Form.jsx/LoginForm';
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
-  const filterQuery = useOutletContext()
+  const [filterQuery, setFilterQuery] = useState({key:null,value:null})
   const [data, setData] = useState({
     ZONE: {},
     CMS_STATUS: {},
@@ -63,20 +63,13 @@ function App() {
                 {/* Common  route for all users */}     
                 {/* View only permission */}
               <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin,configVariables.role_admin,configVariables.role_user]} />}>
-                <Route element={<DropdownLayout />} >
-                  <Route path='/' exact element={<Dashboard data={data} />} />
+                <Route element={<DropdownLayout setFilterQuery={setFilterQuery} />} >
+                  <Route path='/' exact element={<Dashboard data={data} filterQuery={filterQuery} />} />
                   <Route path='/event/:key/:value' exact element={<GraphDetails />} />
+                  <Route path='/event/:key/:value/:filter_key/:filter_value' exact element={<GraphDetails />} />
                 </Route> 
               </Route> 
 
-              {/* View only permission */}
-              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin, configVariables.role_admin, configVariables.role_user]} />}>
-                <Route element={<DropdownLayout />} >
-                  <Route path='/' exact element={<Dashboard />} />
-                  <Route path='/event/:key/:value' exact element={<GraphDetails />} />
-                  <Route path='/event/:key/:value/:filter_key/:filter_value' exact element={<GraphDetails />} />
-                </Route>
-              </Route>
 
               {/* Common route for admins */}
               <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin, configVariables.role_admin]} />}>
@@ -96,9 +89,9 @@ function App() {
               </Route>
 
               <Route path='/unauthorized' element={<UnAuthorized />} />
-              <Route path='/login_page' element={<SignIn />} />
 
             </Route>
+            <Route path='/login_page' element={<SignIn />} />
 
 
           </Routes>

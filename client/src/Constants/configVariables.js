@@ -4,6 +4,8 @@ const configVariables = {
     role_user:'User',
     user_role:'User_role',
     user_id:'User_id',
-  }
+}
   
-  export default configVariables;
+export default configVariables;
+
+export const userSelect = [configVariables.role_admin, configVariables.role_superadmin, configVariables.role_user]

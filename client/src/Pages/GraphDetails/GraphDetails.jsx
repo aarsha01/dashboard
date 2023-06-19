@@ -45,13 +45,13 @@ function Row(item_prop) {
         <TableCell>{item.Last_Updated}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ padding:'0'}} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
+            <Grid container spacing={2} padding={3} width='100%'>
+              <Grid item>
                 <Box
                   sx={{
-                    width: '100%',
+                    // width: '100%',
                     height: '100%',
                     bgcolor: 'grey',
                     color: 'white',
@@ -86,10 +86,10 @@ function Row(item_prop) {
                   </TableRow>
                 </Box>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item>
                 <Box
                   sx={{
-                    width: '100%',
+                    // width: '100%',
                     height: '100%',
                     bgcolor: 'grey',
                     color: 'white',
@@ -120,10 +120,10 @@ function Row(item_prop) {
                   </TableRow>
                 </Box>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item>
                 <Box
                   sx={{
-                    width: '150%',
+                    // width: '150%',
                     height: '100%',
                     bgcolor: 'grey',
                     color: 'white',

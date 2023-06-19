@@ -65,7 +65,7 @@ function App() {
                 {/* View only permission */}
               <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin,configVariables.role_admin,configVariables.role_user]} />}>
                 <Route element={<DropdownLayout />} >
-                  <Route path='/' exact element={<Dashboard />} />
+                  <Route path='/' exact element={<Dashboard data={data} />} />
                   <Route path='/event/:key/:value' exact element={<GraphDetails />} />
                 </Route> 
               </Route> 

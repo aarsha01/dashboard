@@ -2,12 +2,16 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 
 import React from "react";
 import configVariables from "../Constants/configVariables";
+import NavSidebar from "./NavSidebar";
 
 const RoleAuth = ({ allowedRoles }) => {
   const location = useLocation();
   console.log(localStorage.getItem(configVariables.user_role),allowedRoles);
   return allowedRoles.includes(localStorage.getItem(configVariables.user_role))? (
+    <>
+    {/* <NavSidebar /> */}
     <Outlet />
+    </>
   ) : localStorage.getItem(configVariables.user_id) ?(
     <Navigate to="/unauthorized" state={{ from: location }} replace />
   ) : (

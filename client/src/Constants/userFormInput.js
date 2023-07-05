@@ -19,10 +19,4 @@ export const userFormInputs = [
       type:"email",
       label:"Email",
     },
-    {
-        id: 4,
-        name:"role",
-        type:"text",
-        label:"Role",
-      },
   ];

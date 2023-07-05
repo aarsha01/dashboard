@@ -3,11 +3,11 @@ import {ResponsiveBar} from '@nivo/bar'
 import { Paper } from '@mui/material'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 
-function Chart({data}) {
+function Chart({data, filterQuery}) {
 
   const [chartData, setChartData] = useState([])
   const navigate = useNavigate()
-  const filterQuery = useOutletContext()
+  // const filterQuery = useOutletContext()
 
   useEffect(() => {
     console.log(filterQuery);

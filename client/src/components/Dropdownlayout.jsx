@@ -3,14 +3,13 @@ import DropdownComponent from "./dropdown"
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import Marqueefn from './Marquee';
-  function DropdownLayout({ children }) {
+  function DropdownLayout({ children, setFilterQuery }) {
 
-    const [filterQuery, setQuery] = useState({key:null,value:null})
     return (
       <Box overflow='auto' width='100%'>
-        <DropdownComponent setQuery={setQuery} />
+        <DropdownComponent setQuery={setFilterQuery} />
         <Marqueefn/>
-        <Outlet context={filterQuery} />
+        <Outlet />
       </Box>
     );
   }

@@ -26,11 +26,11 @@ const MarqueeForm =()=> {
   };
 
   return (
-    <Box padding={5} overflow='auto'>
+    <Box padding={5} overflow='auto' sx={{width:'100%'}}>
       <Stack alignItems='center' gap={3}>
         <Typography  variant="h1" color="primary">MARQUEE TEXT </Typography>
-        <Stack component='form' onSubmit={handleSubmit} alignItems='center' >
-            <Grid width='80%' container spacing={2}>
+        <Stack width='80%' component='form' onSubmit={handleSubmit} alignItems='center' >
+            <Grid width='100%' container spacing={2}>
               {marqueeFormInput.map((inputs,i)=>(
                 <Grid item xs={4} key={inputs.id}>
                   <TextField

@@ -14,6 +14,14 @@ const dashboard = new Schema({
   ZONE_6: Number,
   ZONE_7: Number,
   ZONE_8: Number,
+  Z1_bp: Number,
+  Z2_bp: Number,
+  Z3_bp: Number,
+  Z4_bp: Number,
+  Z5_bp: Number,
+  Z6_bp: Number,
+  Z7_bp: Number,
+  Z8_bp: Number,
   Op_Mode: String,
   Bat_Voltage: Number
 })

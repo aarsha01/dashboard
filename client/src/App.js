@@ -39,11 +39,12 @@ function App() {
   const [open ,setOpen]=useState(false)
   useEffect(() => {
     if(window.location.pathname !== '/login_page'){
-      setInterval(()=>{fetchData(filterQuery)}, 10000);
-     
+      // setInterval(()=> 100000);
+      fetchData(filterQuery) 
     }
+    
    
-  }, [filterQuery])
+  },[filterQuery])
 
   const fetchData = async (filterQuery)=>{
     const data = await callApi('data/fetch_data',filterQuery)

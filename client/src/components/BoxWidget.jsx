@@ -1,20 +1,20 @@
 import React from 'react'
 import { Divider, Paper, Stack, Typography } from "@mui/material";
 
-const BoxWidget = ({data, metaData=[]}) => {
+const BoxWidget = ({data, metaData=[],title}) => {
 
   return (
-    <Paper sx={{width:'100%',height:'100%',padding:'20px'}} variant="outlined">
-      <Stack direction='row' height='100%' gap={2}>
-        {metaData.map(({title, Icon},i) =>(
+    <Paper sx={{width:'auto',height:'100%',padding:'15px'}} variant="outlined">
+      <Typography>
+        {title}
+      </Typography>
+      <Stack direction='column' justifyContent={'space-between'} gap={2}>
+        {metaData.map((Icon,i) =>(
           <>
           {i > 0 && <Divider orientation="vertical" flexItem />}
-          <Stack flex={1} justifyContent='space-between' height='100%' gap={3}>
-            <Stack direction='row' justifyContent='space-between'>
-              <Typography fontSize='large' fontWeight='bold' color='primary'>{title}</Typography>
-              <Icon fontSize="large" color="primary"/>
-            </Stack>
-            <Typography fontSize='40px' fontWeight='bold' color='secondary'>{data[i]}</Typography>
+          <Stack direction='row' justifyContent='space-between' alignItems={'center'}>
+            <Icon sx={{fontSize:'40px'}} color="primary"/>
+            <Typography fontSize='30px' fontWeight='bold' color='secondary'>{data[i]}</Typography>
           </Stack>
           </>
         ))}

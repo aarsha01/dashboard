@@ -74,7 +74,7 @@ export const themeSettings = {
     },
     background: {
       default: tokens.background.main,
-      light: tokens.background.light,
+      light: tokens.background.main,
       dark: tokens.background.main,
       paper: tokens.grey[500],
     },

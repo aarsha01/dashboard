@@ -7,7 +7,7 @@ function SidebarLayout({data, open , setOpen}) {
   return (
     <>
       <Alert data={data} open={open} setOpen={setOpen} />
-      <NavSidebar />
+      {/* <NavSidebar /> */}
       <Outlet />
     </>
   )

@@ -12,6 +12,7 @@ import initPassport from './passport.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
+import cors from 'cors'
 
 
 
@@ -24,6 +25,8 @@ const PORT = 3001;
 
 const app = express();
 connectDB();
+
+app.use(cors());
 
 // giving before bodyparser to get raw data
 

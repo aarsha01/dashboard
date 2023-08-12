@@ -38,7 +38,11 @@ function App() {
   })
   const [open ,setOpen]=useState(false)
   useEffect(() => {
-    fetchData(filterQuery)
+    if(window.location.pathname !== '/login_page'){
+      setInterval(()=>{fetchData(filterQuery)}, 10000);
+     
+    }
+   
   }, [filterQuery])
 
   const fetchData = async (filterQuery)=>{

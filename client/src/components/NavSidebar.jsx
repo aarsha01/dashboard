@@ -65,67 +65,67 @@ const NavSidebar = () => {
               title: "Dashboard",
               itemId: "/",
               // Optional
-              elemBefore: () => <Icon name="coffee" />
+              elemBefore: () => <Icon name="book" />
             },
-            {
-              title: "About",
-              itemId: "/about",
-              elemBefore: () => <Icon name="user" />
-              // ,subNav: [
-              //   {
-              //     title: "Projects",
-              //     itemId: "/about/projects",
-              //     // Optional
-              //     elemBefore: () => <Icon name="cloud-snow" />
-              //   },
-              //   {
-              //     title: "Members",
-              //     itemId: "/about/members",
-              //     elemBefore: () => <Icon name="coffee" />
-              //   }
-              // ]
-            },
+            // {
+            //   title: "About",
+            //   itemId: "/about",
+            //   elemBefore: () => <Icon name="user" />
+            //   // ,subNav: [
+            //   //   {
+            //   //     title: "Projects",
+            //   //     itemId: "/about/projects",
+            //   //     // Optional
+            //   //     elemBefore: () => <Icon name="cloud-snow" />
+            //   //   },
+            //   //   {
+            //   //     title: "Members",
+            //   //     itemId: "/about/members",
+            //   //     elemBefore: () => <Icon name="book" />
+            //   //   }
+            //   // ]
+            // },
             {
               title: "Add Branch",
               itemId: "/branch_form",
               // Optional
-              elemBefore: () => <Icon name="coffee" />
+              elemBefore: () => <Icon name="book" />
             },
             {
               title: "Add Device",
               itemId: "/device_form",
               // Optional
-              elemBefore: () => <Icon name="coffee" />
+              elemBefore: () => <Icon name="book" />
             },
             {
               title: "All Devices",
               itemId: "/allDevices",
               // Optional
-              elemBefore: () => <Icon name="coffee" />
+              elemBefore: () => <Icon name="book" />
             },
             {
               title: "Add Marquee",
               itemId: "/marquee_form",
               // Optional
-              elemBefore: () => <Icon name="coffee" />
+              elemBefore: () => <Icon name="book" />
             },
             {
               title: "Add Zone",
               itemId: "/zone_form",
               // Optional
-              elemBefore: () => <Icon name="coffee" />
+              elemBefore: () => <Icon name="book" />
             },
             {
               title: "Add User",
               itemId: "/user_form",
               // Optional
-              elemBefore: () => <Icon name="coffee" />
+              elemBefore: () => <Icon name="book" />
             },
             {
               title: "Logout",
               itemId: "/logout",
               // Optional
-              elemBefore: () => <Icon name="coffee" />
+              elemBefore: () => <Icon name="book" />
             },
             // {
             //   title: "Another Tab",

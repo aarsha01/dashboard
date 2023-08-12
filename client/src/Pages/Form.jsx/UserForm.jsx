@@ -25,11 +25,11 @@ const UserForm = () => {
   };
 
   return (
-    <Box padding={5} overflow='auto'>
+    <Box padding={5} overflow='auto' width='100%'>
       <Stack alignItems='center' gap={3}>
         <Typography variant="h1" color="primary">Register</Typography>
-        <Stack component='form' onSubmit={handleSubmit} alignItems='center' >
-          <Grid width='80%' container spacing={2}>
+        <Stack width='80%' component='form' onSubmit={handleSubmit} alignItems='center' >
+          <Grid container spacing={2}>
             {userFormInputs.map((inputs, i) => (
               <Grid item xs={4} key={inputs.id}>
                 <TextField
@@ -49,7 +49,7 @@ const UserForm = () => {
             )
             )}
             <Grid item xs={4}>
-              <FormControl variant="filled" sx={{ minWidth: '80%' }}>
+              <FormControl variant="filled" sx={{ minWidth: '100%' }}>
                 <InputLabel id="branch-name-code">Role</InputLabel>
                 <Select
                   labelId='role'

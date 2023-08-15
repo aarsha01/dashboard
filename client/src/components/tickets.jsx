@@ -17,7 +17,7 @@ const Ticket = () => {
   return (
     <Paper sx={{width:'100%',height:'50vh',padding:'20px'}} variant="outlined">
       <ResponsiveContainer>
-        <PieChart>
+        <PieChart >
           <Pie
             data={data}
             dataKey="value"
@@ -32,7 +32,7 @@ const Ticket = () => {
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Legend />
+          <Legend align='left' />
         </PieChart>
       </ResponsiveContainer>
     </Paper>

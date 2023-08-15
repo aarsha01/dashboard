@@ -1,6 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
-import { Paper } from '@mui/material'
+import { Paper,Typography } from '@mui/material'
 
 const data = [
   { name: 'Panic Button ', value: 12 },
@@ -15,7 +15,10 @@ const COLORS = ['#8884d8', '#83a6ed', '#8dd1e1','#616a6b','#d3546f','#b7950b']; 
 
 const Ticket = () => {
   return (
-    <Paper sx={{width:'100%',height:'50vh',padding:'20px'}} variant="outlined">
+    <Paper sx={{width:'100%',height:'40vh',padding:'20px'}} variant="outlined">
+      <Typography>
+        TICKETS RAISED
+      </Typography>
       <ResponsiveContainer>
         <PieChart >
           <Pie

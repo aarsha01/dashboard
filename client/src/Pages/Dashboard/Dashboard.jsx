@@ -14,6 +14,8 @@ import callApi from '../../helper/callApi'
 import { useOutletContext } from 'react-router-dom'
 import Ticket from '../../components/tickets'
 import Alert from '../../components/alert'
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import BatteryFullIcon from '@mui/icons-material/BatteryFull';
 
 function Dashboard({data, filterQuery}) {
   
@@ -26,34 +28,43 @@ function Dashboard({data, filterQuery}) {
   
         <div className="chart-box-top">
           <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <Chart data={data?.ZONE} filterQuery={filterQuery} />
-            </Grid>
-            <Grid item container xs={6} spacing={2} >
-              <Grid item xs={4}>
-                <BoxWidget data={data?.DAY_MODE} metaData={[{title:'Day Mode', Icon:WbSunnyIcon}]} />
-              </Grid>
-              <Grid item xs={4}>
-                <BoxWidget data={data?.NIGHT_MODE} metaData={[{title:'Night Mode', Icon:DarkModeIcon}]} />
-              </Grid>
-              <Grid item xs={4}>
-                <BatChart data={data?.BATT_COUNT} />
-              </Grid>
-              <Grid item xs={12}>
-                <BoxWidget 
-                  data={data?.DATA_CONN} 
-                  metaData={[
-                    {title:'Wifi', Icon:WifiIcon},
-                    {title:'Ethernet', Icon:SettingsInputHdmiIcon},
-                    {title:'Bluetooth', Icon:BluetoothSearchingIcon},
-                  ]} 
-                />
-              </Grid>
-            </Grid>
-            <Grid item xs={6}>
+
+          <Grid item xs={4}>
               <DonutChart data={data?.CMS_STATUS}/>
             </Grid>
-            <Grid item xs={6}>
+            
+            <Grid item container xs={3} spacing={2} >
+              
+              <Grid item xs={6}>
+                
+              <BoxWidget 
+              data={[data?.DAY_MODE,data?.NIGHT_MODE,data?.BATT_COUNT]} 
+              metaData={[WbSunnyIcon,DarkModeIcon,BatteryFullIcon]} 
+              title={'MODE'}
+             />
+              </Grid>
+              <Grid item xs={6}>
+                <BoxWidget 
+                  data={data?.DATA_CONN} 
+                  metaData={[WifiIcon,SettingsInputHdmiIcon,SignalCellularAltIcon]}
+                  title={'Connectivity'} 
+                />
+              </Grid>
+
+
+             
+            </Grid>
+            <Grid item xs={5}>
+              <Chart data={data?.ZONE} filterQuery={filterQuery} />
+            </Grid>
+            
+            
+
+
+            
+
+            
+            <Grid item xs={4}>
               <Ticket/>
              
             </Grid>

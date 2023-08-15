@@ -8,7 +8,11 @@ function SidebarLayout({data, open , setOpen}) {
   return (
     <>
       <Alert data={data} open={open} setOpen={setOpen} />
+<<<<<<< HEAD
       <NavbarComp />
+=======
+      {/* <NavSidebar /> */}
+>>>>>>> 3a24d316a364550c0ee5996168f35f280de4075d
       <Outlet />
     </>
   )

@@ -7,8 +7,9 @@ import Marqueefn from './Marquee';
 
     return (
       <Box overflow='auto' width='100%'>
-        <DropdownComponent setQuery={setFilterQuery} />
         <Marqueefn/>
+        <DropdownComponent setQuery={setFilterQuery} />
+        
         <Outlet />
       </Box>
     );

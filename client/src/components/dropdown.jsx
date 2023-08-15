@@ -57,7 +57,7 @@ function DropdownComponent({setQuery}) {
   };
 
   return (
-    <Stack direction='row' gap={3} padding={2} paddingBottom={0} width='100%'>
+    <Stack direction='row' gap={3} padding={0} paddingBottom={0} width='100%'>
       <div style={{ flex: 1 }}>
         <Dropdown
           options={options_status}

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const dashboard = new Schema({
   mac_id:String,
-  Date_time: String,
+  Date_time: Date,
   CMS_status: String,
   Net_Con: String,
   ZONE_1: Number,
@@ -23,7 +23,7 @@ const dashboard = new Schema({
   Z7_bp: Number,
   Z8_bp: Number,
   Op_Mode: String,
-  Bat_Voltage: Number
+  Bat_Voltage: Number,
 })
 
 dashboard.set('versionKey', false);

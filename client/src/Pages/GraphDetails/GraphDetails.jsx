@@ -10,19 +10,94 @@ import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
+import dateFormat from "dateformat";
 
-import WifiIcon from '@mui/icons-material/Wifi';
-import SettingsInputHdmiIcon from '@mui/icons-material/SettingsInputHdmi';
-import BluetoothSearchingIcon from '@mui/icons-material/BluetoothSearching';
+// import WifiIcon from '@mui/icons-material/Wifi';
+// import SettingsInputHdmiIcon from '@mui/icons-material/SettingsInputHdmi';
+// import BluetoothSearchingIcon from '@mui/icons-material/BluetoothSearching';
+import sun from '../../images/sun.png'
+import night from '../../images/night.png'
+import wifi from '../../images/wifi.png'
+import wire from '../../images/wire.png'
+import gsm from "../../images/4G.png"
 
 function Row(item_prop) {
 
   const { item } = item_prop;
-
   const [open, setOpen] = React.useState(false);
-
-  console.log("123");
   console.log(item);
+
+  function validateData(column) {
+
+    if (column === "Branch_Name") {
+      return (item.Branch_Name.toLowerCase() !== null ? item.Branch_Name : ' ')
+    }
+
+    if (column === "Code") {
+      return (item.Code.toLowerCase() !== null ? item.Code : ' ')
+    }
+
+    if (column === "Region") {
+      return (item.Region.toLowerCase() !== null ? item.Region : ' ')
+    }
+
+    if (column === "Hub") {
+      return (item.Hub.toLowerCase() !== null ? item.Hub : ' ')
+    }
+
+    if (column === "Alarm") {
+      return (item.Hub.toLowerCase() !== null ? item.Hub : ' ')
+    }
+
+    if (column === "Connectivity_Type") {
+      return (item.Connectivity_Type === null ? '' :
+             item.Connectivity_Type.toLowerCase() === "wifi" ? 
+                    <img src={wifi} alt='' style={{ width: '25px', height: '25px' }} /> : 
+                    item.Connectivity_Type.toLowerCase() === "eth0"?
+                    <img src={wire} alt='' style={{ width: '25px', height: '25px' }} />:
+                    <img src={gsm}  alt=''style={{ width: '25px', height: '25px' }} />
+              )
+    }
+
+    if (column === "Op_Mode"){
+      return (item.Op_Mode === null ? '' : 
+      item.Op_Mode.toLowerCase() === "night" ? 
+      <img src={night} alt='' style={{ width: '25px', height: '25px' }} /> : 
+      <img src={sun}  alt=''style={{ width: '25px', height: '25px' }} />
+    )
+    }
+
+    if (column === "Zones"){
+      return ([item.ZONE_1 === 0 ?
+            <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#008000", //green for active
+            }}>
+            </span> :
+            <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#F00", //red for bypass
+            }}>
+            </span>
+
+            ,item.ZONE_2 === 0 ?
+            <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#008000", //green for active
+            }}>
+            </span> :
+            <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#F00", //red for bypass
+            }}>
+            </span>]
+            )
+    }
+
+
+    if (column === "Bat_Voltage"){
+      return (
+        item.Bat_Voltage !== null ? item.Bat_Voltage : ' '
+      )
+    }
+
+    if (column === "Last_Updated"){
+      return ( dateFormat(item.Last_Updated,"dd/mm/yyyy"))
+    }
+
+  }
 
   return (
     <React.Fragment>
@@ -36,16 +111,19 @@ function Row(item_prop) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{item.Branch_Name}</TableCell>
-        <TableCell>{item.Code}</TableCell>
-        <TableCell>{item.Region}</TableCell>
-        <TableCell>{item.Hub}</TableCell>
-        <TableCell>{item.Connectivity_Type}</TableCell>
-        <TableCell>{item.Bat_Voltage}</TableCell>
-        <TableCell>{item.Last_Updated}</TableCell>
+        <TableCell>{validateData("Branch_Name")}</TableCell>
+        <TableCell>{validateData("Code")}</TableCell>
+        <TableCell>{validateData("Region")}</TableCell>
+        <TableCell>{validateData("Hub")}</TableCell>
+        <TableCell>{validateData("Alarm")}</TableCell>
+        <TableCell>{validateData("Connectivity_Type")}</TableCell>
+        <TableCell>{validateData("Op_Mode")}</TableCell>
+        <TableCell>{validateData("Zones")}</TableCell>
+        <TableCell>{validateData("Bat_Voltage")}</TableCell>
+        <TableCell>{validateData("Last_Updated")}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ padding:'0'}} colSpan={8}>
+        <TableCell style={{ padding: '0' }} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Grid container spacing={2} padding={3} width='100%'>
               <Grid item>
@@ -64,8 +142,8 @@ function Row(item_prop) {
                   <TableContainer>
                     Change Mode:
                     <ToggleButtonGroup color="primary"
-                      exclusive
-                      aria-label="Platform">
+                          exclusive
+                          aria-label="Platform">
                       <ToggleButton value="web">Night</ToggleButton>
                       <ToggleButton value="android">Day</ToggleButton>
                     </ToggleButtonGroup>
@@ -102,9 +180,9 @@ function Row(item_prop) {
                   </Typography>
                   <TableContainer>
                     <Button variant="contained" color="secondary">Check Network</Button>
-                    <WifiIcon/>
-                    <BluetoothSearchingIcon/>
-                    <SettingsInputHdmiIcon/>
+                    <img src={wifi} alt='' style={{ width: '15px', height: '15px' }} /> 
+                    {/* <img src={wire} alt='' style={{ width: '15px', height: '15px' }} /> */}
+                    {/* <img src={gsm} alt='' style={{ width: '15px', height: '15px' }} /> */}
                   </TableContainer>
                   <TableRow>IP Address: {item.IP_Address}</TableRow>
                   <TableRow>Modem: ??</TableRow>
@@ -197,7 +275,10 @@ export default function GraphDetails() {
                 <TableCell>Code</TableCell>
                 <TableCell>Region</TableCell>
                 <TableCell>Hub</TableCell>
+                <TableCell>Alarm</TableCell>
                 <TableCell>Connectivity</TableCell>
+                <TableCell>Modes</TableCell>
+                <TableCell>Zones</TableCell>
                 <TableCell>Battery Voltage</TableCell>
                 <TableCell>Last Updated</TableCell>
               </TableRow>

@@ -34,7 +34,7 @@ function Row(item_prop) {
     }
 
     if (column === "Code") {
-      return (item.Code.toLowerCase() !== null ? item.Code : ' ')
+      return (item.Code !== null ? item.Code : ' ')
     }
 
     if (column === "Region") {
@@ -46,7 +46,8 @@ function Row(item_prop) {
     }
 
     if (column === "Alarm") {
-      return (item.Hub.toLowerCase() !== null ? item.Hub : ' ')
+      return("Alarm")
+      // return (item.Hub.toLowerCase() !== null ? item.Hub : ' ')
     }
 
     if (column === "Connectivity_Type") {

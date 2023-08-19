@@ -5,6 +5,7 @@
   max-height: 100vh;
   overflow: auto;
   width: 100%;
+  flex-direction: column;
 }
 
 .App-logo {

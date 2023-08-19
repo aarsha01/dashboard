@@ -1,11 +1,10 @@
+
 export const branchFormInputs = [
   {
     id: 1,
     name: "Branch Name",
     type: "text",
-    // placeholder: "Branch name",
     label: "Branch Name",
-    pattern: "^[A-Za-z0-9]{3,16}$",
     required: true,
   },
   {
@@ -14,12 +13,14 @@ export const branchFormInputs = [
     type: "text",
     label: "Code",
     required: true,
+    pattern:" ",
   },
   {
     id: 3,
     name: "Region",
     type: "text",
     label: "Region",
+    required: true,
   },
   {
     id: 4,
@@ -118,8 +119,7 @@ export const branchFormInputs = [
     name: "Mobile Number",
     type: "number",
     label: "Mobile Number",
-    // eslint-disable-next-line
-    pattern:" [\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$",
+    pattern: "/^[0-9]{10}$/",
     required:true,
   },
   {
@@ -134,8 +134,7 @@ export const branchFormInputs = [
     name: "Branch Mobile",
     type: "number",
     label: "Branch Mobile",
-    // eslint-disable-next-line
-    pattern:" [\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$",
+    pattern:" /^[0-9]{10}$/",
     required: true,
   },
   {

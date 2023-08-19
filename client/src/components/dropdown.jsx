@@ -3,7 +3,7 @@ import React from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-function DropdownComponent({setQuery}) {
+function DropdownComponent({setQuery,filterQuery}) {
   const options_status = [
     { value: 'online', label: 'Online' },
     { value: 'offline', label: 'Offline' },
@@ -11,14 +11,14 @@ function DropdownComponent({setQuery}) {
   ];
    
   const options_zone = [
-    { value: 'ZONE_1', label: 'Zone 1' },
-    { value: 'ZONE_2', label: 'Zone 2' },
-    { value: 'ZONE_3', label: 'Zone 3' },
-    { value: 'ZONE_4', label: 'Zone 4' },
-    { value: 'ZONE_5', label: 'Zone 5' },
-    { value: 'ZONE_6', label: 'Zone 6' },
-    { value: 'ZONE_7', label: 'Zone 7' },
-    { value: 'ZONE_8', label: 'Zone 8' }
+    { value: 'Z1_bp', label: 'Zone 1' },
+    { value: 'Z2_bp', label: 'Zone 2' },
+    { value: 'Z3_bp', label: 'Zone 3' },
+    { value: 'Z4_bp', label: 'Zone 4' },
+    { value: 'Z5_bp', label: 'Zone 5' },
+    { value: 'Z6_bp', label: 'Zone 6' },
+    { value: 'Z7_bp', label: 'Zone 7' },
+    { value: 'Z8_bp', label: 'Zone 8' }
   ];
   const options_connectvity = [
     { value: 'wifi', label: 'Wifi' },
@@ -48,16 +48,16 @@ function DropdownComponent({setQuery}) {
   
   const handleStatusChange = (selectedOption) => {
     console.log('Selected Status Option:', selectedOption);
-    setQuery({key: 'CMS_status', value: selectedOption.value})
+    setQuery({...filterQuery,status:{key: 'CMS_status', value: selectedOption.value}})
   };
 
   const handleZoneChange = (selectedOption) => {
     console.log('Selected Zone Option:', selectedOption);
-    setQuery({key: selectedOption.value, value: 1})
+    setQuery({...filterQuery, zone:{key: selectedOption.value, value: 1}})
   };
 
   return (
-    <Stack direction='row' gap={3} padding={2} paddingBottom={0} width='100%'>
+    <Stack direction='row' gap={3} paddingLeft={3} paddingRight={3} width='100%'>
       <div style={{ flex: 1 }}>
         <Dropdown
           options={options_status}

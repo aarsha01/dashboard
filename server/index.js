@@ -54,10 +54,12 @@ app.listen(PORT, async () => {
   await connectDB();
   const io = new Server(3002)
   io.on('connection',(socket)=>{
+    console.log("Socket connected on port 3002");
     setInterval(async ()=>{
+      console.log("Alarm triggered!");
       const data = await checkAlarm();
       socket.emit('alarm',data)
-    },10000)
+    },5000)
   })
   
   console.log(`Server listening on http://localhost:${PORT}`);

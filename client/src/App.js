@@ -35,6 +35,7 @@ function App() {
 
   useEffect(() => {
     socket.on('alarm',(data)=>{
+      console.log('Alarm recieved: ',data);
       data.map(d=>{
         enqueueSnackbar(`An issue detected at ${d.mac_id} on ${d.zone}`,{ variant: 'warning' })
       })

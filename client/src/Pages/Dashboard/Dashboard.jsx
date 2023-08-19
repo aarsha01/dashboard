@@ -29,6 +29,8 @@ function Dashboard({ filterQuery }) {
   const fetchData = async () => {
     const data = await callApi('data/fetch_data', filterQuery)
     setData(data)
+    console.log('Data fetched');
+    // setTimeout(fetchData,5000)
   }
 
   return (

@@ -142,7 +142,6 @@ async function checkAlarm(){
   )
   let zones = ['ZONE_1','ZONE_2','ZONE_3','ZONE_4','ZONE_5','ZONE_6','ZONE_7','ZONE_8']
   let data = []
-  console.log(alarms);
   alarms.map(alarm=>{
     zones.map(zone=>{
       if(alarm[zone]=="1") data.push({mac_id:alarm.mac_id, zone})

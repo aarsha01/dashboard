@@ -29,15 +29,15 @@ function Chart({data, filterQuery}) {
   }
 
   return (
-    <Paper sx={{width:'100%',height:'40vh',padding:'20px'}} variant="outlined">
-      <Typography>
-        ZONE ISSUES
+    <Paper variant='chartBox' >
+      <Typography variant='chartTitle'>
+        Zone Issues
       </Typography>
       <ResponsiveBar
         data={chartData}
         keys={['value']}
         indexBy="label"
-        margin={{ top: 40, right: 0, bottom: 40, left: 40 }}
+        margin={{ top: 40, right: 0, bottom: 60, left: 40 }}
         padding={0.3}
         groupMode='grouped'
         valueScale={{ type: 'linear' }}

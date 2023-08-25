@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import configVariables from '../../Constants/configVariables';
+import { Stack } from '@mui/material';
 
 const pages = [
   {
@@ -18,37 +19,20 @@ const pages = [
     link: '/'
   },
   {
-    tag: 'Master',
-    subTags: [
-      {
-        subTag: 'Add Branch',
-        link: '/add_branch'
-      },
-      {
-        subTag: 'Add Device',
-        link: '/add_device'
-      },
-      {
-        subTag: 'Add Marquee',
-        link: '/add_marquee'
-      },
-      {
-        subTag: 'Add Zone',
-        link: '/add_zone'
-      },
-      {
-        subTag: 'Add User',
-        link: '/add_user'
-      }
-    ]
+    tag: 'Branches',
+    link: '/branch_form'
   },
   {
-    tag: 'All Devices',
-    link: '/all_devices'
+    tag: 'Devices',
+    link: '/device_form'
   },
   {
-    tag: 'Logout',
-    link: 'logout'
+    tag: 'Marquees',
+    link: '/add_marquee'
+  },
+  {
+    tag: 'Users',
+    link: '/add_user'
   },
   {
     tag: 'About',
@@ -76,64 +60,66 @@ function NavbarComp() {
 
   const handleCloseUserMenu = (link) => {
     if (link) {
-      if (link === 'logout') {
-        localStorage.removeItem(configVariables.user_id)
-        localStorage.removeItem(configVariables.user_role)
-        return nav('/login_page')
-      }
       nav(link)
     }
     setAnchorElUser(null);
   };
 
+  const handleLogOut = () => {
+    localStorage.removeItem(configVariables.user_id)
+    localStorage.removeItem(configVariables.user_role)
+    return nav('/login_page')
+  }
+
 
   return (
-    <AppBar position='static' sx={{ height: 'auto' }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{minHeight:'unset !important'}}>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => {
-              if (!page.subTags) {
-                return (
-                  <MenuItem key={page.tag} onClick={() => { handleCloseUserMenu(page.link) }}>
-                    <Typography textAlign="center">{page.tag}</Typography>
+    <AppBar position='static' sx={{ height: '6vh' }} variant='outlined' color='background'>
+      <Stack direction={'row'} justifyContent={'space-between'} height={'100%'}>
+        <Stack direction={'row'}>
+          {pages.map((page) => {
+            if (!page.subTags) {
+              return (
+                <MenuItem key={page.tag} onClick={() => { handleCloseUserMenu(page.link) }}>
+                  <Typography textAlign="center" variant='navLink'>{page.tag}</Typography>
+                </MenuItem>
+              )
+            } else {
+              return (
+                <>
+                  <MenuItem onClick={handleOpenUserMenu}>
+                    <Typography textAlign="center" variant='navLink'>{page.tag}</Typography>
                   </MenuItem>
-                )
-              } else {
-                return (
-                  <>
-                    <MenuItem onClick={handleOpenUserMenu}>
-                      <Typography textAlign="center">{page.tag}</Typography>
-                    </MenuItem>
-                    <Menu
-                      // sx={{ mt: '45px' }}
-                      id="menu-appbar"
-                      anchorEl={anchorElUser}
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
-                      {page.subTags.map((subTag) => (
-                        <MenuItem key={subTag.subTag} onClick={() => { handleCloseUserMenu(subTag.link) }}>
-                          <Typography textAlign="center">{subTag.subTag}</Typography>
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </>
-                )
-              }
-            })}
-          </Box>
-        </Toolbar>
-      </Container>
+                  <Menu
+                    // sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {page.subTags.map((subTag) => (
+                      <MenuItem key={subTag.subTag} onClick={() => { handleCloseUserMenu(subTag.link) }}>
+                        <Typography textAlign="center">{subTag.subTag}</Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </>
+              )
+            }
+          })}
+        </Stack>
+        <MenuItem onClick={handleLogOut}>
+          <Typography textAlign="center" variant='navLink'>LogOut</Typography>
+        </MenuItem>
+      </Stack>
     </AppBar>
   );
 }

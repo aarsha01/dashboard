@@ -44,7 +44,7 @@ function BatteryChart({ data }) {
   return  (
     <Paper sx={{width:'100%',height:'100%',padding:'20px'}} variant="outlined">
       <Stack direction='row' justifyContent='space-between'>
-        <Typography fontSize='large' fontWeight='bold' color='primary'>Battery Level</Typography>
+        <Typography fontSize='large' fontWeight='bold' color='primary'>Battery Issues</Typography>
         <BatteryFullIcon fontSize="large" color="primary"/>
       </Stack>
       <BatteryGauge 

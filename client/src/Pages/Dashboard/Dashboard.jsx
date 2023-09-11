@@ -57,7 +57,7 @@ function Dashboard({data, filterQuery}) {
               <Ticket/>
              
             </Grid>
-            {/* <Alert open={open} setOpen={setOpen} OFFLINE={data.CMS_STATUS?.OFFLINE} /> */}
+           
           </Grid>
         </div>
       </div>

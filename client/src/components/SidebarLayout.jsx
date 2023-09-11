@@ -6,7 +6,7 @@ import Alert from './alert'
 function SidebarLayout({data, open , setOpen}) {
   return (
     <>
-      <Alert data={data} open={open} setOpen={setOpen} />
+      {/* <Alert data={data} open={open} setOpen={setOpen} /> */}
       <NavSidebar />
       <Outlet />
     </>

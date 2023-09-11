@@ -23,6 +23,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "react-fast-marquee": "^1.6.0",
-    "recharts": "^2.6.2"
+    "recharts": "^2.6.2",
+    "socket.io": "^4.7.2"
   }
 }

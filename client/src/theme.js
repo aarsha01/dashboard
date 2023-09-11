@@ -1,48 +1,28 @@
 import { darkScrollbar } from "@mui/material";
 
 export const tokens = {
-  grey: {
-    100: "#d5d4d5",
-    200: "#abaaab",
-    300: "#817f82",
-    400: "#575558",
-    500: "#2d2a2e",
-    600: "#242225",
-    700: "#1b191c",
-    800: "#121112",
-    900: "#090809"
+  indigo: {
+    100: "#d5d9f8",
+    200: "#abb3f0",
+    300: "#808de9",
+    400: "#5667e1",
+    500: "#2c41da",
+    600: "#2334ae",
+    700: "#1a2783",
+    800: "#121a57",
+    900: "#090d2c"
   },
-  primary: {
-    // purple
-    100: "#fdeae0",
-    200: "#fbd5c0",
-    300: "#f9c1a1",
-    400: "#f7ac81",
-    500: "#f59762",
-    600: "#c4794e",
-    700: "#935b3b",
-    800: "#623c27",
-    900: "#311e14"
+  grey:{
+    100: "#bbc4d4",
+    200: "#afb7ca",
+    300: "#7491ad"
   },
-  secondary: {
-    // yellow
-    100: "#dfe5e8",
-    200: "#bfcbd1",
-    300: "#a0b1b9",
-    400: "#8097a2",
-    500: "#607D8B",
-    600: "#4d646f",
-    700: "#3a4b53",
-    800: "#263238",
-    900: "#13191c"
-  },
-  tertiary: {
-    // purple
-    500: "#a9dc76",
-  },
+  black: "#232639",
+  cream: "#cabaaa",
+  
   background: {
-    light: "#ffffff",
-    main: "#212121",
+    dark: "#212121",
+    light: "#f9fafd",
   },
   contrast:{
     primary: 'white'
@@ -52,38 +32,23 @@ export const tokens = {
 // mui theme settings
 export const themeSettings = {
   palette: {
-    mode:'dark',
+    mode:'light',
     primary: {
-      ...tokens.primary,
-      main: tokens.primary[500],
-      light: tokens.primary[400],
-      contrastText: tokens.contrast.primary
-    },
-    secondary: {
-      ...tokens.secondary,
-      main: tokens.secondary[500],
-      dark: tokens.secondary[600],
-    },
-    tertiary: {
-      ...tokens.tertiary,
-      main: tokens.tertiary[500]
+      ...tokens.indigo,
+      main: tokens.indigo[500],
+      light: tokens.indigo[400],
     },
     grey: {
       ...tokens.grey,
-      main: tokens.grey[500],
+      main: tokens.grey[200],
     },
+    cream: tokens.cream,
+    black: tokens.black,
     background: {
-      default: tokens.background.main,
       light: tokens.background.light,
-      dark: tokens.background.main,
+      dark: tokens.background.dark,
       paper: tokens.grey[500],
     },
-    text:{
-      primary:'#ffffff',
-    },
-    contrast:{
-      primary: 'black'
-    }
   },
   typography: {
     fontFamily: ["Inter", "sans-serif"].join(","),
@@ -118,8 +83,20 @@ export const themeSettings = {
     h6: {
       fontFamily: ["Inter", "sans-serif"].join(","),
       fontSize: 10,
-      color: tokens.grey[700],
+      color: tokens.grey[300],
     },
+    navLink: {
+      fontFamily: ["Inter", "sans-serif"].join(","),
+      fontSize: 13,
+      color: tokens.grey[300],
+      fontWeight:'bold' 
+    },
+    chartTitle: {
+      fontFamily: ["Inter", "sans-serif"].join(","),
+      fontSize: 18,
+      color: tokens.black,
+      fontWeight: 'bold',
+    }
   },
   components:{
     MuiInputLabel:{
@@ -133,6 +110,21 @@ export const themeSettings = {
       styleOverrides:{
         body: darkScrollbar(),
       }
+    },
+    MuiPaper: {
+      variants: [
+        {
+          props: { variant: 'chartBox' },
+          style: {
+            width:'100%',
+            height:'100%',
+            padding:'20px', 
+            background:'#d9d9d9',
+            boxShadow:'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+            textAlign:'left'
+          }     
+        },
+      ],
     },
   },
 };

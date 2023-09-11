@@ -3,7 +3,7 @@ import './Dashboard.css'
 import Chart from '../../components/Chart'
 import BatChart from '../../components/battery.jsx'
 import DonutChart from '../../components/donutchart'
-import { Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import BoxWidget from '../../components/BoxWidget'
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -14,55 +14,55 @@ import callApi from '../../helper/callApi'
 import { useOutletContext } from 'react-router-dom'
 import Ticket from '../../components/tickets'
 import Alert from '../../components/alert'
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import BatteryFullIcon from '@mui/icons-material/BatteryFull';
 
-function Dashboard({data, filterQuery}) {
-  
-  
-  
-  if(data){
-    return (
-      // <DashboardLayout>
-      <div className='dashboard-top'>
-  
-        <div className="chart-box-top">
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <Chart data={data?.ZONE} filterQuery={filterQuery} />
-            </Grid>
-            <Grid item container xs={6} spacing={2} >
-              <Grid item xs={4}>
-                <BoxWidget data={data?.DAY_MODE} metaData={[{title:'Day Mode', Icon:WbSunnyIcon}]} />
-              </Grid>
-              <Grid item xs={4}>
-                <BoxWidget data={data?.NIGHT_MODE} metaData={[{title:'Night Mode', Icon:DarkModeIcon}]} />
-              </Grid>
-              <Grid item xs={4}>
-                <BatChart data={data?.BATT_COUNT} />
-              </Grid>
-              <Grid item xs={12}>
-                <BoxWidget 
-                  data={data?.DATA_CONN} 
-                  metaData={[
-                    {title:'Wifi', Icon:WifiIcon},
-                    {title:'Ethernet', Icon:SettingsInputHdmiIcon},
-                    {title:'Bluetooth', Icon:BluetoothSearchingIcon},
-                  ]} 
-                />
-              </Grid>
-            </Grid>
-            <Grid item xs={6}>
-              <DonutChart data={data?.CMS_STATUS}/>
-            </Grid>
-            <Grid item xs={6}>
-              <Ticket/>
-             
-            </Grid>
-           
-          </Grid>
-        </div>
-      </div>
-    )
+function Dashboard({ filterQuery }) {
+
+  const [data, setData] = useState([])
+  console.log(filterQuery);
+
+  useEffect(() => {
+    fetchData()
+  }, [filterQuery])
+
+  const fetchData = async () => {
+    const data = await callApi('data/fetch_data', filterQuery)
+    setData(data)
+    console.log('Data fetched');
+    // setTimeout(fetchData,5000)
   }
+
+  return (
+    // <DashboardLayout>
+    <Box padding={2} height={'83vh'}>
+      <Grid container spacing={.5} height={'100%'}>
+        <Grid item xs={4} height={'50%'}>
+          <DonutChart data={data?.CMS_STATUS} />
+        </Grid>
+        <Grid item xs={1.5} height={'50%'}>
+            <BoxWidget
+              data={[data?.DAY_MODE, data?.NIGHT_MODE, data?.BATT_COUNT]}
+              metaData={[WbSunnyIcon, DarkModeIcon, BatteryFullIcon]}
+              title={'Mode'}
+            />
+          </Grid>
+          <Grid item xs={1.5} height={'50%'}>
+            <BoxWidget
+              data={data?.DATA_CONN}
+              metaData={[WifiIcon, SettingsInputHdmiIcon, SignalCellularAltIcon]}
+              title={'Connectivity'}
+            />
+          </Grid>
+        <Grid item xs={5} height={'50%'}>
+          <Chart data={data?.ZONE} filterQuery={filterQuery} />
+        </Grid>
+        <Grid item xs={4} height={'50%'}>
+          <Ticket />
+        </Grid>
+      </Grid>
+    </Box>
+  )
 }
 
 export default Dashboard

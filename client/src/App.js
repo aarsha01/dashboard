@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import {BrowserRouter, Route, Routes, useOutletContext} from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useOutletContext } from 'react-router-dom'
 // import NavRoutes from "./navPages/_routes";
 import "./styles/main.bundle.css";
 
@@ -24,34 +24,25 @@ import RoleAuth from './components/RoleAuth';
 import UnAuthorized from './components/UnAuthorized';
 import configVariables from './Constants/configVariables';
 import SignIn from './Pages/Form.jsx/LoginForm';
+import {io} from 'socket.io-client'
+import { useSnackbar } from 'notistack';
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
-  const [filterQuery, setFilterQuery] = useState({key:null,value:null})
-  const [data, setData] = useState({
-    ZONE: {},
-    CMS_STATUS: {},
-    DATA_CONN: {},
-    BATT_COUNT:[],
-    DAY_MODE: [],
-    NIGHT_MODE: [],
-  })
-  const [open ,setOpen]=useState(false)
-  useEffect(() => {
-    if(window.location.pathname !== '/login_page'){
-      setInterval(()=>{fetchData(filterQuery)}, 10000);
-     
-    }
-   
-  }, [filterQuery])
+  const [filterQuery, setFilterQuery] = useState({})
+  const {enqueueSnackbar} = useSnackbar()
 
-  const fetchData = async (filterQuery)=>{
-    const data = await callApi('data/fetch_data',filterQuery)
-    if(data.CMS_STATUS.OFFLINE > 0){
-      setOpen(true)
-    }
-    setData(data)
-  }
+  useEffect(() => {
+    const socket = io('ws://54.212.174.138:3002',{ transports: ['websocket'] })
+    socket.on('alarm',(data)=>{
+      console.log('Alarm recieved: ',data);
+      data.map(d=>{
+        enqueueSnackbar(`An issue detected at ${d.mac_id} on ${d.zone}`,{ variant: 'warning', persist:true, preventDuplicate:true })
+      })
+    })
+  }, [])
+  
+
   return (
 
     //  <NavRoutes />
@@ -61,18 +52,18 @@ function App() {
           <CssBaseline />
           <Routes>
             {/* Common route for navbar */}
-           
-            <Route element={<SidebarLayout data={data} open={open} setOpen={setOpen} />}>
-             
-                {/* Common  route for all users */}     
-                {/* View only permission */}
-              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin,configVariables.role_admin,configVariables.role_user]} />}>
-                <Route element={<DropdownLayout setFilterQuery={setFilterQuery} />} >
-                  <Route path='/' exact element={<Dashboard data={data} filterQuery={filterQuery} />} />
+
+            <Route element={<SidebarLayout />}>
+
+              {/* Common  route for all users */}
+              {/* View only permission */}
+              <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin, configVariables.role_admin, configVariables.role_user]} />}>
+                <Route element={<DropdownLayout setFilterQuery={setFilterQuery} filterQuery={filterQuery} />} >
+                  <Route path='/' exact element={<Dashboard filterQuery={filterQuery} />} />
                   <Route path='/event/:key/:value' exact element={<GraphDetails />} />
                   <Route path='/event/:key/:value/:filter_key/:filter_value' exact element={<GraphDetails />} />
-                </Route> 
-              </Route> 
+                </Route>
+              </Route>
 
 
               {/* Common route for admins */}

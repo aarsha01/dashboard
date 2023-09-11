@@ -13,7 +13,8 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import cors from 'cors'
-
+import { Server } from 'socket.io';
+import { checkAlarm } from './controller/data.controller.js';
 
 
 
@@ -24,7 +25,6 @@ import cors from 'cors'
 const PORT = 3001;
 
 const app = express();
-connectDB();
 
 app.use(cors());
 
@@ -50,7 +50,15 @@ app.use(passport.authenticate('session'));
 
 
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await connectDB();
+  const io = new Server(3002)
+  setInterval(async () => {
+    console.log("Alarm triggered!");
+    const data = await checkAlarm();
+    io.emit('alarm',data)
+  }, 5000)
+
   console.log(`Server listening on http://localhost:${PORT}`);
 });
 
@@ -60,6 +68,8 @@ app.use('/api/device', DeviceRoute)
 app.use('/api/marquee', marqueeroute)
 app.use('/api/zone', zoneroute)
 app.use('/api/user', userroute)
+
+
 
 
 

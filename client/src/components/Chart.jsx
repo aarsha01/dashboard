@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {ResponsiveBar} from '@nivo/bar'
-import { Paper } from '@mui/material'
+import { Paper,Typography } from '@mui/material'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 
 function Chart({data, filterQuery}) {
@@ -29,12 +29,15 @@ function Chart({data, filterQuery}) {
   }
 
   return (
-    <Paper sx={{width:'100%',height:'50vh',padding:'20px'}} variant="outlined">
+    <Paper variant='chartBox' >
+      <Typography variant='chartTitle'>
+        Zone Issues
+      </Typography>
       <ResponsiveBar
         data={chartData}
         keys={['value']}
         indexBy="label"
-        margin={{ top: 40, right: 0, bottom: 40, left: 40 }}
+        margin={{ top: 40, right: 0, bottom: 60, left: 40 }}
         padding={0.3}
         groupMode='grouped'
         valueScale={{ type: 'linear' }}
@@ -42,6 +45,10 @@ function Chart({data, filterQuery}) {
         colors={'#039BE5'}
         axisTop={null}
         axisRight={null}
+        axisLeft={{
+          format:e=>Math.floor(e)===e ? e : '',
+        }
+        }
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,

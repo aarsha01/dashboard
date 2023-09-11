@@ -51,6 +51,7 @@ const BranchForm =()=> {
                     variant='filled'
                     {...inputs} 
                     name={inputs.name.replaceAll(' ','_')}
+                    pattern={inputs.pattern}
                     autoComplete={inputs.name}
                     onChange={onChange}
                     error={values[inputs.name.replaceAll(' ','_')] === ""}

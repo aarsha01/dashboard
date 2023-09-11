@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {ResponsivePie} from '@nivo/pie'
-import { Paper } from '@mui/material'
+import { Paper,Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+
 
 function Pie({data}) {
 
@@ -26,7 +27,11 @@ function Pie({data}) {
   }
   
   return (
-    <Paper sx={{width:'100%',height:'50vh',padding:'20px'}} variant="outlined">
+    <Paper variant='chartBox'>
+      <Typography variant='chartTitle'>
+        Alarm Status
+      </Typography>
+      
       <ResponsivePie
         data={chartData}
         keys={['value']}
@@ -41,7 +46,7 @@ function Pie({data}) {
         arcLinkLabelsTextColor="white"
         arcLinkLabelsThickness={2}
         arcLabelsSkipAngle={10}
-        animate={true}
+        animate={false}
         legends={[
           {
             anchor: 'bottom',

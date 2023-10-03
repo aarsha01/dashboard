@@ -28,11 +28,11 @@ const pages = [
   },
   {
     tag: 'Marquees',
-    link: '/add_marquee'
+    link: '/marquee_form'
   },
   {
     tag: 'Users',
-    link: '/add_user'
+    link: '/user_form'
   },
   {
     tag: 'About',

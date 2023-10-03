@@ -14,6 +14,8 @@ import DeviceForm from './Pages/Form.jsx/DeviceForm';
 import DropdownLayout from './components/Dropdownlayout';
 import GraphDetails from './Pages/GraphDetails/GraphDetails';
 import DeviceListing from './Pages/Listing/DeviceListing';
+import MarqueeListing from './Pages/Listing/MarqueeListing';
+
 import MarqueeForm from './Pages/Form.jsx/MarqueeForm';
 import AlertLayout from './components/AlertLayout';
 import callApi from './helper/callApi';
@@ -69,10 +71,14 @@ function App() {
               {/* Common route for admins */}
               <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin, configVariables.role_admin]} />}>
                 <Route path='/branch_form' element={<BranchForm />} />
+                <Route path='/allBranches' element={<BranchListing />} />
+
                 <Route path='/device_form' element={<DeviceForm />} />
                 <Route path='/allDevices' element={<DeviceListing />} />
-                <Route path='/allBranches' element={<BranchListing />} />
+                
                 <Route path='/marquee_form' element={<MarqueeForm />} />
+                <Route path='/allMarquee' element={<MarqueeListing />} />
+
                 <Route path='/zone_form' element={<Zoneform />} />
               </Route>
 
@@ -80,6 +86,7 @@ function App() {
               <Route element={<RoleAuth allowedRoles={[configVariables.role_superadmin]} />}>
                 <Route path='/device_form/:id' element={<DeviceForm />} />
                 <Route path='/branch_form/:id' element={<BranchForm />} />
+                <Route path='/marquee_form/:id' element={<MarqueeForm />} />
                 <Route path='/user_form' element={<UserForm />} />
               </Route>
 

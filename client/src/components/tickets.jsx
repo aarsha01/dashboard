@@ -15,9 +15,9 @@ const COLORS = ['#8884d8', '#83a6ed', '#8dd1e1','#616a6b','#d3546f','#b7950b']; 
 
 const Ticket = () => {
   return (
-    <Paper sx={{width:'100%',height:'40vh',padding:'20px'}} variant="outlined">
-      <Typography>
-        TICKETS RAISED
+    <Paper variant="chartBox">
+      <Typography variant='chartTitle'>
+        Tickets Raised
       </Typography>
       <ResponsiveContainer>
         <PieChart >

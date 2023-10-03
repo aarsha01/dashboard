@@ -22,14 +22,14 @@ async function fetchData(req, res) {
   pipeline.push({
     $group: {
       _id: null,
-      ZONE_1: { $sum: { $cond: [{ $eq: ["$Z1_bp", 1] }, 1, 0] } },
-      ZONE_2: { $sum: { $cond: [{ $eq: ["$Z2_bp", 1] }, 1, 0] } },
-      ZONE_3: { $sum: { $cond: [{ $eq: ["$Z3_bp", 1] }, 1, 0] } },
-      ZONE_4: { $sum: { $cond: [{ $eq: ["$Z4_bp", 1] }, 1, 0] } },
-      ZONE_5: { $sum: { $cond: [{ $eq: ["$Z5_bp", 1] }, 1, 0] } },
-      ZONE_6: { $sum: { $cond: [{ $eq: ["$Z6_bp", 1] }, 1, 0] } },
-      ZONE_7: { $sum: { $cond: [{ $eq: ["$Z7_bp", 1] }, 1, 0] } },
-      ZONE_8: { $sum: { $cond: [{ $eq: ["$Z8_bp", 1] }, 1, 0] } },
+      ZONE_1: { $sum: { $cond: [{ $eq: ["$Z1_bp", '1'] }, 1, 0] } },
+      ZONE_2: { $sum: { $cond: [{ $eq: ["$Z2_bp", '1'] }, 1, 0] } },
+      ZONE_3: { $sum: { $cond: [{ $eq: ["$Z3_bp", '1'] }, 1, 0] } },
+      ZONE_4: { $sum: { $cond: [{ $eq: ["$Z4_bp", '1'] }, 1, 0] } },
+      ZONE_5: { $sum: { $cond: [{ $eq: ["$Z5_bp", '1'] }, 1, 0] } },
+      ZONE_6: { $sum: { $cond: [{ $eq: ["$Z6_bp", '1'] }, 1, 0] } },
+      ZONE_7: { $sum: { $cond: [{ $eq: ["$Z7_bp", '1'] }, 1, 0] } },
+      ZONE_8: { $sum: { $cond: [{ $eq: ["$Z8_bp", '1'] }, 1, 0] } },
       ONLINE: { $sum: { $cond:  [{$eq: ['$CMS_status', "online" ]}, 1, 0]}} ,
       OFFLINE: { $sum: { $cond:  [{$eq: ['$CMS_status', "offline" ]}, 1, 0]}},
       WIFI:     { $sum: { $cond:  [{$eq: ['$Net_Con', "wifi" ]}, 1, 0]}},
@@ -144,7 +144,7 @@ async function checkAlarm(){
   let data = []
   alarms.map(alarm=>{
     zones.map(zone=>{
-      if(alarm[zone]) data.push({mac_id:alarm.mac_id, zone})
+      if(alarm[zone]=="1") data.push({mac_id:alarm.mac_id, zone})
     })
   })
   return data

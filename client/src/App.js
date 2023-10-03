@@ -30,13 +30,14 @@ import { useSnackbar } from 'notistack';
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
   const [filterQuery, setFilterQuery] = useState({})
-  const socket = io('ws://localhost:3002',{ transports: ['websocket'] })
   const {enqueueSnackbar} = useSnackbar()
 
   useEffect(() => {
+    const socket = io('ws://54.212.174.138:3002',{ transports: ['websocket'] })
     socket.on('alarm',(data)=>{
+      console.log('Alarm recieved: ',data);
       data.map(d=>{
-        enqueueSnackbar(`An issue detected at ${d.mac_id} on ${d.zone}`,{ variant: 'warning' })
+        enqueueSnackbar(`An issue detected at ${d.mac_id} on ${d.zone}`,{ variant: 'warning', persist:true, preventDuplicate:true })
       })
     })
   }, [])

@@ -27,9 +27,9 @@ function Pie({data}) {
   }
   
   return (
-    <Paper sx={{width:'100%',height:'40vh',padding:'20px'}} variant="outlined">
-      <Typography>
-        ALARM STATUS
+    <Paper variant='chartBox'>
+      <Typography variant='chartTitle'>
+        Alarm Status
       </Typography>
       
       <ResponsivePie

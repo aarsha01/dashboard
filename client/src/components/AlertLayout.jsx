@@ -5,7 +5,7 @@ import Alert from './alert'
 function AlertLayout() {
   return (
     <>
-      <Outlet />
+     
     </>
   )
 }

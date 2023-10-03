@@ -16,12 +16,6 @@ import cors from 'cors'
 import { Server } from 'socket.io';
 import { checkAlarm } from './controller/data.controller.js';
 
-
-
-
-
-
-
 const PORT = 3001;
 
 const app = express();
@@ -53,15 +47,14 @@ app.use(passport.authenticate('session'));
 app.listen(PORT, async () => {
   await connectDB();
   const io = new Server(3002)
-  setInterval(async () => {
-    console.log("Alarm triggered!");
-    const data = await checkAlarm();
-    io.emit('alarm',data)
-  }, 5000)
+  // setInterval(async () => {
+  //   console.log("Alarm triggered!");
+  //   const data = await checkAlarm();
+  //   io.emit('alarm',data)
+  // }, 5000)
 
   console.log(`Server listening on http://localhost:${PORT}`);
 });
-
 app.use('/api/data', DataRoute)
 app.use('/api/branch', BranchRoute)
 app.use('/api/device', DeviceRoute)

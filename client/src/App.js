@@ -32,15 +32,15 @@ function App() {
   const [filterQuery, setFilterQuery] = useState({})
   const {enqueueSnackbar} = useSnackbar()
 
-  useEffect(() => {
-    const socket = io('ws://54.212.174.138:3002',{ transports: ['websocket'] })
-    socket.on('alarm',(data)=>{
-      console.log('Alarm recieved: ',data);
-      data.map(d=>{
-        enqueueSnackbar(`An issue detected at ${d.mac_id} on ${d.zone}`,{ variant: 'warning', persist:true, preventDuplicate:true })
-      })
-    })
-  }, [])
+  // useEffect(() => {
+  //   const socket = io('ws://54.212.174.138:3002',{ transports: ['websocket'] })
+  //   socket.on('alarm',(data)=>{
+  //     console.log('Alarm recieved: ',data);
+  //     data.map(d=>{
+  //       enqueueSnackbar(`An issue detected at ${d.mac_id} on ${d.zone}`,{ variant: 'warning', persist:true, preventDuplicate:true })
+  //     })
+  //   })
+  // }, [])
   
 
   return (

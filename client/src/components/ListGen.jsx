@@ -1,35 +1,96 @@
-import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
-import React from 'react'
+import React from 'react';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
-function ListGen({listItems, headers, buttons=[]}) {
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+function ListGen({ listItems, buttons = [] }) {
+  // Define the columns to display, placing "Actions" at the end
+  const headers = [
+    'Device_ID',
+    'Hardware_Version',
+    'Software_Version',
+    'IP_Address',
+   
+    'Branch_Name',
+    'Branch_Code',
+    'Actions', 
+  ];
+
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          {buttons.length > 0 && <TableCell>Actions</TableCell>}
-          {headers.map((header,i)=>(
-            <TableCell key={i}>{header}</TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {listItems.map((item,i)=>(
-          <TableRow key={i}>
-            { buttons.length > 0 && 
-             <TableCell>
-              {buttons.map((button,i)=>(
-                <Button variant='contained' key={i} onClick={()=>{button.onSubmit(item)}}>{button.label}</Button>
-              ))}
-             </TableCell>
-            }
-            {Object.keys(item).map((key,i)=>(
-              <TableCell key={i}>{item[key]}</TableCell>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            {headers.map((header, i) => (
+              <StyledTableCell key={i}>{header}</StyledTableCell>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  )
+        </TableHead>
+        <TableBody>
+          {listItems.map((item, i) => (
+            <StyledTableRow key={i}>
+              {headers.map((header, j) => {
+                if (header === 'Actions') {
+                  return (
+                    <StyledTableCell key={j}>
+                      {buttons.map((button, k) => (
+                        <div key={k} style={{ display: 'flex' }}> 
+                          <Button
+                            variant="contained"
+                            onClick={() => button.onSubmit(item)}
+                          >
+                            {button.label}
+                          </Button>
+                          {k === 0 && ( // Add "Details" button after the first button
+                            <Button
+                              variant="contained"
+                              onClick={() => (item)}
+                            >
+                              Details
+                            </Button>
+                          )}
+                        </div>
+                      ))}
+                    </StyledTableCell>
+                  );
+                } else {
+                  return (
+                    <StyledTableCell key={j}>{item[header]}</StyledTableCell>
+                  );
+                }
+              })}
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
 
-export default ListGen
+export default ListGen;

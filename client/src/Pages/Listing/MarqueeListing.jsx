@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import callApi from '../../helper/callApi'
 import { Box, Typography } from '@mui/material'
-import ListMarquee from '../../components/ListMarquee'
 import { useNavigate } from 'react-router-dom';
+import ListGen from '../../components/ListGen';
 
 function MarqueeListing() {
+
+  const headers = [
+    'Title',
+    'Description', 
+    'EndDate',
+    'Actions',
+  ];
 
   const [marquees, setMarquees] = useState([])
   const nav = useNavigate()
@@ -13,9 +20,7 @@ function MarqueeListing() {
   }, [])
 
   const fetchMarquees = async ()=>{
-    const marquees = await callApi('marquee/fetch')
-    // console.log('marquees')
-    // console.log(marquees.data[0]._id)
+    const marquees = await callApi('marquee/fetchAll')
     setMarquees(marquees.data)
   }
 
@@ -26,8 +31,7 @@ function MarqueeListing() {
   return (
     <Box padding={5}>
       <Typography  variant="h1" color="primary" textAlign='start'>Marquee Details</Typography>
-      <ListMarquee listItems={marquees} buttons={[{label:'Edit',onSubmit:handleMarqueeEdit}]}/>
-       {/* headers={Object.keys(devices[0]||{})} buttons={[{label:'Edit',onSubmit:handleDeviceEdit}]} /> */}
+      <ListGen listItems={marquees} headers={headers} buttons={[{label:'Edit',onSubmit:handleMarqueeEdit}]}/>
     </Box>
   )
 }

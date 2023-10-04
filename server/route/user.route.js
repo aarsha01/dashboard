@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { addUser } from "../controller/user.controller.js";
+import { addUser, fetchUser } from "../controller/user.controller.js";
 import passport from "passport";
 
 const router = Router()
 
 router.post('/add', addUser)
+router.post('/fetch_users', fetchUser)
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login_page'}),(req,res)=>{
   res.send({status:true,user_id:req.user._id,user_role:req.user.role}).status(200)
 })

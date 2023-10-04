@@ -28,8 +28,19 @@ async function login(req,res){
   }
 }
 
+async function fetchUser(req,res){
+  try{
+   const users= await Users.find();
+   res.status(200).json({status:'Success',data:users})
+  }catch(err){
+   console.log(err)
+    res.status(500).json({status:'Error',message:err})
+  }
+}
+
 
 export{
   addUser,
-  login
+  login,
+  fetchUser
 }

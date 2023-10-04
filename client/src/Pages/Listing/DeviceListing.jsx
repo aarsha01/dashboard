@@ -6,6 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 function DeviceListing() {
 
+  const headers = [
+    'Device_ID',
+    'Hardware_Version',
+    'Software_Version',
+    'IP_Address',
+   
+    'Branch_Name',
+    'Branch_Code',
+    'Actions', 
+  ];
+
   const [devices, setDevices] = useState([])
   const nav = useNavigate()
   useEffect(() => {
@@ -24,7 +35,7 @@ function DeviceListing() {
   return (
     <Box padding={5}>
       <Typography  variant="h1" color="primary" textAlign='start'>Device Details</Typography>
-      <ListGen listItems={devices} headers={Object.keys(devices[0]||{})} buttons={[{label:'Edit',onSubmit:handleDeviceEdit}]} />
+      <ListGen listItems={devices} headers={headers} buttons={[{label:'Edit',onSubmit:handleDeviceEdit}]} />
     </Box>
   )
 }

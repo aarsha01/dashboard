@@ -29,18 +29,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function ListGen({ listItems, buttons = [] }) {
+function ListGen({ listItems, headers, buttons = [] }) {
   // Define the columns to display, placing "Actions" at the end
-  const headers = [
-    'Device_ID',
-    'Hardware_Version',
-    'Software_Version',
-    'IP_Address',
-   
-    'Branch_Name',
-    'Branch_Code',
-    'Actions', 
-  ];
+
 
   return (
     <TableContainer component={Paper}>
@@ -60,7 +51,7 @@ function ListGen({ listItems, buttons = [] }) {
                   return (
                     <StyledTableCell key={j}>
                       {buttons.map((button, k) => (
-                        <div key={k} style={{ display: 'flex' }}> 
+                        <div key={k} style={{ display: 'flex', justifyContent: 'space-around' }}> 
                           <Button
                             variant="contained"
                             onClick={() => button.onSubmit(item)}

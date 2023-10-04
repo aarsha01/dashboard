@@ -1,22 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useState} from 'react'
 import { marqueeFormInput } from '../../Constants/marqueeFormInput';
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, Grid, Stack, TextField } from '@mui/material';
 import callApi from '../../helper/callApi';
+import { useNavigate, useParams } from 'react-router-dom';
 const MarqueeForm =()=> {
   const [values,setValues]=useState({});
+  const {id} = useParams()
+  const nav = useNavigate()
 
+  useEffect(() => {
+    if(id && Object.keys(values).length === 0){
+      fetchMarqueeData()
+    }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); //prevents refresh of page on submmission.
-    const data= new FormData(e.target)
-    console.log(Object.fromEntries(data.entries()))
+    // eslint-disable-next-line
+  }, [])
+
+  const fetchMarqueeData = async ()=>{
+    const marquee = await callApi('/marquee/getById',{id:id})
+    if(marquee){
+      marquee.data.EndDate = new Date(marquee.data.EndDate).toISOString().slice(0, 10)
+      setValues(marquee.data)
+    }
+  }
+
+  const handleSave = async () => {
+    const data= values
     const res = await callApi('/marquee/add',Object.fromEntries(data.entries()))
     alert(res.message)
     setValues({})
   };
+
+  const handleEdit = async ()=>{
+    const res = await callApi('/marquee/edit',values)
+    alert(res.message)
+    setValues({})
+    nav('/allMarquee')
+  }
+
+  const handleSubmit = (e)=>{
+    console.log('sdkmkm');
+    e.preventDefault();
+    id ? handleEdit() : handleSave()
+  }
+  
 
   const onChange = (e) => {
     setValues({

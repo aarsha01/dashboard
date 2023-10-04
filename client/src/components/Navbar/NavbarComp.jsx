@@ -20,19 +20,19 @@ const pages = [
   },
   {
     tag: 'Branches',
-    link: '/branch_form'
+    link: '/allBranches'
   },
   {
     tag: 'Devices',
-    link: '/device_form'
+    link: '/allDevices'
   },
   {
     tag: 'Marquees',
-    link: '/marquee_form'
+    link: '/allMarquee'
   },
   {
     tag: 'Users',
-    link: '/user_form'
+    link: '/allUsers'
   },
   {
     tag: 'About',

@@ -21,6 +21,14 @@ import wifi from '../../images/wifi.png'
 import wire from '../../images/wire.png'
 import gsm from "../../images/4G.png"
 
+const images = {
+  wifi:wifi,
+  eth0:wire,
+  gsm:gsm,
+  N:night,
+  D:sun
+} 
+
 function Row(item_prop) {
 
   const { item } = item_prop;
@@ -30,7 +38,7 @@ function Row(item_prop) {
   function validateData(column) {
 
     if (column === "Branch_Name") {
-      return (item.Branch_Name.toLowerCase() !== null ? item.Branch_Name : ' ')
+      return (item?.Branch_Name?.toLowerCase() !== null ? item.Branch_Name : ' ')
     }
 
     if (column === "Code") {
@@ -38,11 +46,11 @@ function Row(item_prop) {
     }
 
     if (column === "Region") {
-      return (item.Region.toLowerCase() !== null ? item.Region : ' ')
+      return (item.Region?.toLowerCase() !== null ? item.Region : ' ')
     }
 
     if (column === "Hub") {
-      return (item.Hub.toLowerCase() !== null ? item.Hub : ' ')
+      return (item.Hub?.toLowerCase() !== null ? item.Hub : ' ')
     }
 
     if (column === "Alarm") {
@@ -112,16 +120,20 @@ function Row(item_prop) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{validateData("Branch_Name")}</TableCell>
-        <TableCell>{validateData("Code")}</TableCell>
-        <TableCell>{validateData("Region")}</TableCell>
-        <TableCell>{validateData("Hub")}</TableCell>
-        <TableCell>{validateData("Alarm")}</TableCell>
-        <TableCell>{validateData("Connectivity_Type")}</TableCell>
-        <TableCell>{validateData("Op_Mode")}</TableCell>
-        <TableCell>{validateData("Zones")}</TableCell>
-        <TableCell>{validateData("Bat_Voltage")}</TableCell>
-        <TableCell>{validateData("Last_Updated")}</TableCell>
+        <TableCell>{item.Branch_Name || ''}</TableCell>
+        <TableCell>{item.Code || ''}</TableCell>
+        <TableCell>{item.Region || ''}</TableCell>
+        <TableCell>{item.Hub || ''}</TableCell>
+        <TableCell>{item.Alarm || ''}</TableCell>
+        <TableCell><img src={images[item.Net_Con]} alt='' style={{ width: '25px', height: '25px' }} /></TableCell>
+        <TableCell><img src={images[item.Op_Mode] || ''}  alt='' style={{ width: '25px', height: '25px' }} /></TableCell>
+        <TableCell>{
+            [...Array(8)].map(i=>(
+              item[`ZONE_${i}`] ? <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#008000" }}/> : <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#F00"}} />
+            ))
+          }</TableCell>
+        <TableCell>{item.Bat_Voltage || ''}</TableCell>
+        <TableCell>{item.Last_Updated || ''}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ padding: '0' }} colSpan={8}>

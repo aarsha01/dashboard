@@ -9,6 +9,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.1",
     "@nivo/bar": "^0.83.0",
+    "@nivo/line": "^0.83.0",
     "@nivo/pie": "^0.83.0",
     "@reduxjs/toolkit": "^1.9.5",
     "awesome-react-icons": "^1.4.8",

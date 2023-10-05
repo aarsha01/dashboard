@@ -16,6 +16,7 @@ import Ticket from '../../components/tickets'
 import Alert from '../../components/alert'
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import BatteryFullIcon from '@mui/icons-material/BatteryFull';
+import HistoryChart from '../../components/HistoryChart'
 
 function Dashboard({ filterQuery }) {
 
@@ -30,8 +31,29 @@ function Dashboard({ filterQuery }) {
     const data = await callApi('data/fetch_data', filterQuery)
     setData(data)
     console.log('Data fetched');
+    console.log(data)
     // setTimeout(fetchData,5000)
   }
+
+  // this is a temporrary data created to display line chart
+  const data1 =
+    [
+      {
+        "id": "Zone",
+        "color": "hsl(181, 70%, 50%)",
+        "data": [
+          {
+            "x": "Zone 2 ",
+            "y": 1
+          },
+          {
+            "x": "Zone 1",
+            "y": 4
+          },
+
+        ]
+      },
+    ]
 
   return (
     // <DashboardLayout>
@@ -41,24 +63,27 @@ function Dashboard({ filterQuery }) {
           <DonutChart data={data?.CMS_STATUS} />
         </Grid>
         <Grid item xs={1.5} height={'50%'}>
-            <BoxWidget
-              data={[data?.DAY_MODE, data?.NIGHT_MODE, data?.BATT_COUNT]}
-              metaData={[WbSunnyIcon, DarkModeIcon, BatteryFullIcon]}
-              title={'Mode'}
-            />
-          </Grid>
-          <Grid item xs={1.5} height={'50%'}>
-            <BoxWidget
-              data={data?.DATA_CONN}
-              metaData={[WifiIcon, SettingsInputHdmiIcon, SignalCellularAltIcon]}
-              title={'Connectivity'}
-            />
-          </Grid>
+          <BoxWidget
+            data={[data?.DAY_MODE, data?.NIGHT_MODE, data?.BATT_COUNT]}
+            metaData={[WbSunnyIcon, DarkModeIcon, BatteryFullIcon]}
+            title={'Mode'}
+          />
+        </Grid>
+        <Grid item xs={1.5} height={'50%'}>
+          <BoxWidget
+            data={data?.DATA_CONN}
+            metaData={[WifiIcon, SettingsInputHdmiIcon, SignalCellularAltIcon]}
+            title={'Connectivity'}
+          />
+        </Grid>
         <Grid item xs={5} height={'50%'}>
           <Chart data={data?.ZONE} filterQuery={filterQuery} />
         </Grid>
         <Grid item xs={4} height={'50%'}>
           <Ticket />
+        </Grid>
+        <Grid item xs={8} height={'50%'}>
+          <HistoryChart data={data1}/>
         </Grid>
       </Grid>
     </Box>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import callApi from '../../helper/callApi';
-import { Table, TableHead, TableBody, TableRow, TableCell, Box, Button, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Table, TableHead, TableBody, TableRow, TableCell, Box, Button, Grid, ToggleButtonGroup, ToggleButton, Stack } from '@mui/material';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -21,83 +21,22 @@ import wifi from '../../images/wifi.png'
 import wire from '../../images/wire.png'
 import gsm from "../../images/4G.png"
 
+const images = {
+  wifi: wifi,
+  eth0: wire,
+  gsm: gsm,
+  N: night,
+  D: sun
+}
+
 function Row(item_prop) {
 
   const { item } = item_prop;
   const [open, setOpen] = React.useState(false);
-  console.log(item);
+  const [modeValue, setmodeValue] = useState('day')
 
-  function validateData(column) {
-
-    if (column === "Branch_Name") {
-      return (item.Branch_Name.toLowerCase() !== null ? item.Branch_Name : ' ')
-    }
-
-    if (column === "Code") {
-      return (item.Code !== null ? item.Code : ' ')
-    }
-
-    if (column === "Region") {
-      return (item.Region.toLowerCase() !== null ? item.Region : ' ')
-    }
-
-    if (column === "Hub") {
-      return (item.Hub.toLowerCase() !== null ? item.Hub : ' ')
-    }
-
-    if (column === "Alarm") {
-      return("Alarm")
-      // return (item.Hub.toLowerCase() !== null ? item.Hub : ' ')
-    }
-
-    if (column === "Connectivity_Type") {
-      return (item.Connectivity_Type === null ? '' :
-             item.Connectivity_Type.toLowerCase() === "wifi" ? 
-                    <img src={wifi} alt='' style={{ width: '25px', height: '25px' }} /> : 
-                    item.Connectivity_Type.toLowerCase() === "eth0"?
-                    <img src={wire} alt='' style={{ width: '25px', height: '25px' }} />:
-                    <img src={gsm}  alt=''style={{ width: '25px', height: '25px' }} />
-              )
-    }
-
-    if (column === "Op_Mode"){
-      return (item.Op_Mode === null ? '' : 
-      item.Op_Mode.toLowerCase() === "night" ? 
-      <img src={night} alt='' style={{ width: '25px', height: '25px' }} /> : 
-      <img src={sun}  alt=''style={{ width: '25px', height: '25px' }} />
-    )
-    }
-
-    if (column === "Zones"){
-      return ([item.ZONE_1 === 0 ?
-            <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#008000", //green for active
-            }}>
-            </span> :
-            <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#F00", //red for bypass
-            }}>
-            </span>
-
-            ,item.ZONE_2 === 0 ?
-            <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#008000", //green for active
-            }}>
-            </span> :
-            <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#F00", //red for bypass
-            }}>
-            </span>]
-            )
-    }
-
-
-    if (column === "Bat_Voltage"){
-      return (
-        item.Bat_Voltage !== null ? item.Bat_Voltage : ' '
-      )
-    }
-
-    if (column === "Last_Updated"){
-      return ( dateFormat(item.Last_Updated,"dd/mm/yyyy"))
-    }
-
+  const handleChangeMode = (e, newMode) => {
+    setmodeValue(newMode)
   }
 
   return (
@@ -112,60 +51,56 @@ function Row(item_prop) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{validateData("Branch_Name")}</TableCell>
-        <TableCell>{validateData("Code")}</TableCell>
-        <TableCell>{validateData("Region")}</TableCell>
-        <TableCell>{validateData("Hub")}</TableCell>
-        <TableCell>{validateData("Alarm")}</TableCell>
-        <TableCell>{validateData("Connectivity_Type")}</TableCell>
-        <TableCell>{validateData("Op_Mode")}</TableCell>
-        <TableCell>{validateData("Zones")}</TableCell>
-        <TableCell>{validateData("Bat_Voltage")}</TableCell>
-        <TableCell>{validateData("Last_Updated")}</TableCell>
+        <TableCell>{item.Branch_Name || ''}</TableCell>
+        <TableCell>{item.Code || ''}</TableCell>
+        <TableCell>{item.Region || ''}</TableCell>
+        <TableCell>{item.Hub || ''}</TableCell>
+        <TableCell>{item.Alarm || ''}</TableCell>
+        <TableCell><img src={images[item.Net_Con]} alt='' style={{ width: '25px', height: '25px' }} /></TableCell>
+        <TableCell><img src={images[item.Op_Mode] || ''} alt='' style={{ width: '25px', height: '25px' }} /></TableCell>
+        <TableCell>{
+          [...Array(8)].map(i => (
+            item[`ZONE_${i}`] ? <span style={{ display: 'inline-block', width: '7px', height: '7px', marginRight: '5px', backgroundColor: "#008000" }} /> : <span style={{ display: 'inline-block', width: '7px', height: '7px', marginRight: '5px', backgroundColor: "#F00" }} />
+          ))
+        }</TableCell>
+        <TableCell>{item.Bat_Voltage || ''}</TableCell>
+        <TableCell>{item.Last_Updated ? new Date(item.Last_Updated).toISOString().slice(0, 10) : ''}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ padding: '0' }} colSpan={8}>
+        <TableCell style={{ padding: '0' }} colSpan={11}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Grid container spacing={2} padding={3} width='100%'>
-              <Grid item>
-                <Box
-                  sx={{
-                    // width: '100%',
-                    height: '100%',
-                    bgcolor: 'grey',
-                    color: 'white',
-                    p: 2,
-                  }}
-                >
-                  <Typography variant="h4" gutterBottom component="div" color="white">
+              <Grid item xs={3}>
+                <Paper variant='chartBox'>
+                  <Typography variant="largeBold" gutterBottom component="div" color="black">
                     ALARM PANEL
                   </Typography>
                   <TableContainer>
-                    Change Mode:
-                    <ToggleButtonGroup color="primary"
-                          exclusive
-                          aria-label="Platform">
-                      <ToggleButton value="web">Night</ToggleButton>
-                      <ToggleButton value="android">Day</ToggleButton>
-                    </ToggleButtonGroup>
+                    <Stack direction={'row'} alignItems={'center'} gap={1}>
+                      <Typography variant='mediumBold'>Change Mode:</Typography>
+                      <ToggleButtonGroup color="primary" exclusive aria-label="Platform" value={modeValue} onChange={handleChangeMode} size='small'>
+                        <ToggleButton value="night">Night</ToggleButton>
+                        <ToggleButton value="day">Day</ToggleButton>
+                      </ToggleButtonGroup>
+                    </Stack>
                   </TableContainer>
-                  <TableRow>Device ID:{item.Device_ID}</TableRow>
-                  <TableRow>Installed On:{item.Date_0f_Installation}</TableRow>
-                  <TableRow>Hardware Version: {item.Hardware_Version}</TableRow>
-                  <TableRow>Software Version:{item.Software_Version}</TableRow>
-                  <TableRow>No. of Zones: ??</TableRow>
-                  <TableRow>Access Code:<Button variant="contained" >View Code</Button></TableRow>
+                  <TableRow><Typography variant='mediumBold'>Device ID: </Typography>{item.Device_ID}</TableRow>
+                  <TableRow><Typography variant='mediumBold'>Installed On: </Typography>{item.Date_0f_Installation}</TableRow>
+                  <TableRow><Typography variant='mediumBold'>Hardware Version: </Typography> {item.Hardware_Version}</TableRow>
+                  <TableRow><Typography variant='mediumBold'>Software Version: </Typography>{item.Software_Version}</TableRow>
+                  <TableRow><Typography variant='mediumBold'>No. of Zones: </Typography>??</TableRow>
+                  <TableRow><Typography variant='mediumBold'>Access Code: </Typography><Button variant="contained" >View Code</Button></TableRow>
                   <TableRow>
-                    <Button variant="contained" color="secondary">Reverse Alarm</Button>
-                    <Button variant="contained" color="secondary">Reset Alarm</Button>
+                    <Grid container spacing={1}>
+                      <Grid item xs={6}><Button variant="contained" color="secondary" >Reverse Alarm</Button></Grid>
+                      <Grid item xs={6}><Button variant="contained" color="secondary" >Reset Alarm</Button></Grid>
+                      <Grid item xs={6}><Button variant="contained" color="error" >Edit</Button></Grid>
+                      <Grid item xs={6}><Button variant="contained" color="success" >History</Button></Grid>
+                    </Grid>
                   </TableRow>
-                  <TableRow>
-                    <Button variant="contained" color="error" >Edit</Button>
-                    <Button variant="contained" color="success" >History</Button>
-                  </TableRow>
-                </Box>
+                </Paper>
               </Grid>
-              <Grid item>
+              <Grid item xs={3}>
                 <Box
                   sx={{
                     // width: '100%',
@@ -181,7 +116,7 @@ function Row(item_prop) {
                   </Typography>
                   <TableContainer>
                     <Button variant="contained" color="secondary">Check Network</Button>
-                    <img src={wifi} alt='' style={{ width: '15px', height: '15px' }} /> 
+                    <img src={wifi} alt='' style={{ width: '15px', height: '15px' }} />
                     {/* <img src={wire} alt='' style={{ width: '15px', height: '15px' }} /> */}
                     {/* <img src={gsm} alt='' style={{ width: '15px', height: '15px' }} /> */}
                   </TableContainer>
@@ -199,7 +134,7 @@ function Row(item_prop) {
                   </TableRow>
                 </Box>
               </Grid>
-              <Grid item>
+              <Grid item xs={6}>
                 <Box
                   sx={{
                     // width: '150%',

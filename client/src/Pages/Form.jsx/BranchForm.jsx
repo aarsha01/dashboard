@@ -5,10 +5,12 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Box, Grid, Stack, TextField } from '@mui/material';
 import callApi from '../../helper/callApi';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 const BranchForm =()=> {
   const [values,setValues]=useState({});
   const {id} = useParams()
+  const nav = useNavigate()
+  
   useEffect(() => {
     if(id && Object.keys(values).length === 0){
       fetchBranch()
@@ -16,20 +18,30 @@ const BranchForm =()=> {
   }, [])
 
   const fetchBranch = async ()=>{
-    const branch = await callApi('/branch/FetchByCode',{Code:id})
+    const branch = await callApi('/branch/fetchByCode',{Code:id})
       setValues(branch)
     
   }
-  
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); //prevents refresh of page on submmission.
-    const data= new FormData(e.target)
-    console.log(Object.fromEntries(data.entries()))
+  const handleSave = async () => {
+    const data= values
     const res = await callApi('/branch/add',Object.fromEntries(data.entries()))
     alert(res.message)
     setValues({})
   };
+
+  const handleEdit = async ()=>{
+    const res = await callApi('/branch/edit',values)
+    alert(res.message)
+    setValues({})
+    nav('/allBranches')
+  }
+
+  const handleSubmit = (e)=>{
+    console.log('sdkmkm');
+    e.preventDefault();
+    id ? handleEdit() : handleSave()
+  }
 
   const onChange = (e) => {
     setValues({

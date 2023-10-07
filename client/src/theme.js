@@ -97,6 +97,12 @@ export const themeSettings = {
       color: tokens.black,
       fontWeight: 'bold',
     },
+    smallBold: {
+      fontFamily: ["Inter", "sans-serif"].join(","),
+      fontSize: 12,
+      color: tokens.black,
+      fontWeight: 'bold',
+    },
     mediumBold: {
       fontFamily: ["Inter", "sans-serif"].join(","),
       fontSize: 14,

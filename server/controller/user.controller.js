@@ -28,7 +28,7 @@ async function login(req,res){
   }
 }
 
-async function fetchUser(req,res){
+async function fetchUsers(req,res){
   try{
    const users= await Users.find();
    res.status(200).json({status:'Success',data:users})
@@ -38,9 +38,30 @@ async function fetchUser(req,res){
   }
 }
 
+async function getById(req,res){
+  try{
+    const {id} = req.body
+    let userDoc = await Users.findById(id)
+    res.status(200).json({data:userDoc})
+  }catch(err){
+    res.status(500).json({status:'Error',message:err})
+  }
+}
+
+async function editById(req,res){
+  try{
+    const data = req.body
+    await Users.updateOne({_id: data._id},data)
+    res.status(200).json({message:"User edited succesfully!"})
+  }catch(err){
+    res.status(500).json({status:'Error',message:err})
+  }
+}
 
 export{
   addUser,
   login,
-  fetchUser
+  fetchUsers,
+  getById,
+  editById
 }

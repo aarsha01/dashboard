@@ -47,12 +47,23 @@ async function fetchBycode(req,res){
   }
 }
 
+async function editById(req,res){
+  try{
+    const data = req.body
+    await Branch.updateOne({_id: data._id},data)
+    res.status(200).json({message:"Branch edited succesfully!"})
+  }catch(err){
+    res.status(500).json({status:'Error',message:err})
+  }
+}
+
 
 
 export{
   addBranch,
   fetchBranches,
   getAllBranches,
-  fetchBycode
+  fetchBycode,
+  editById
   
 }

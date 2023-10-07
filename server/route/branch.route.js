@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addBranch, fetchBranches, fetchBycode, getAllBranches } from "../controller/branch.controller.js";
+import { addBranch, editById, fetchBranches, fetchBycode, getAllBranches } from "../controller/branch.controller.js";
 
 const router = Router()
 
@@ -14,4 +14,6 @@ router.post('/fetchBranchOptions',(req,res,next)=>{
 }, fetchBranches)
 router.post('/getAll', getAllBranches)
 router.post('/fetchByCode', fetchBycode)
+router.post('/edit', editById)
+
 export default router

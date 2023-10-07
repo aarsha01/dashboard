@@ -28,6 +28,7 @@ import configVariables from './Constants/configVariables';
 import SignIn from './Pages/Form.jsx/LoginForm';
 import {io} from 'socket.io-client'
 import { useSnackbar } from 'notistack';
+import UsersListing from './Pages/Listing/UsersListing';
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
@@ -78,6 +79,9 @@ function App() {
                 
                 <Route path='/marquee_form' element={<MarqueeForm />} />
                 <Route path='/allMarquee' element={<MarqueeListing />} />
+
+                <Route path='/user_form' element={<UserForm />} />
+                <Route path='/allUsers' element={<UsersListing />} />
 
                 <Route path='/zone_form' element={<Zoneform />} />
               </Route>

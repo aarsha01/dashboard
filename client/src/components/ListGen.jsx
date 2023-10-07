@@ -72,7 +72,7 @@ function ListGen({ listItems, headers, buttons = [] }) {
                   );
                 } else {
                   return (
-                    <StyledTableCell key={j}>{item[header]}</StyledTableCell>
+                    <StyledTableCell key={j}>{item[header.replaceAll(' ','_')]}</StyledTableCell>
                   );
                 }
               })}

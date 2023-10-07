@@ -20,6 +20,9 @@ import night from '../../images/night.png'
 import wifi from '../../images/wifi.png'
 import wire from '../../images/wire.png'
 import gsm from "../../images/4G.png"
+import tick from '../../images/tick.png'
+import wrong from '../../images/wrong.png'
+
 
 const images = {
   wifi: wifi,
@@ -75,87 +78,97 @@ function Row(item_prop) {
                   <Typography variant="largeBold" gutterBottom component="div" color="black">
                     ALARM PANEL
                   </Typography>
-                  <TableContainer>
-                    <Stack direction={'row'} alignItems={'center'} gap={1}>
-                      <Typography variant='mediumBold'>Change Mode:</Typography>
-                      <ToggleButtonGroup color="primary" exclusive aria-label="Platform" value={modeValue} onChange={handleChangeMode} size='small'>
-                        <ToggleButton value="night">Night</ToggleButton>
-                        <ToggleButton value="day">Day</ToggleButton>
-                      </ToggleButtonGroup>
-                    </Stack>
-                  </TableContainer>
-                  <TableRow><Typography variant='mediumBold'>Device ID: </Typography>{item.Device_ID}</TableRow>
-                  <TableRow><Typography variant='mediumBold'>Installed On: </Typography>{item.Date_0f_Installation}</TableRow>
-                  <TableRow><Typography variant='mediumBold'>Hardware Version: </Typography> {item.Hardware_Version}</TableRow>
-                  <TableRow><Typography variant='mediumBold'>Software Version: </Typography>{item.Software_Version}</TableRow>
-                  <TableRow><Typography variant='mediumBold'>No. of Zones: </Typography>??</TableRow>
-                  <TableRow><Typography variant='mediumBold'>Access Code: </Typography><Button variant="contained" >View Code</Button></TableRow>
-                  <TableRow>
-                    <Grid container spacing={1}>
-                      <Grid item xs={6}><Button variant="contained" color="secondary" >Reverse Alarm</Button></Grid>
-                      <Grid item xs={6}><Button variant="contained" color="secondary" >Reset Alarm</Button></Grid>
-                      <Grid item xs={6}><Button variant="contained" color="error" >Edit</Button></Grid>
-                      <Grid item xs={6}><Button variant="contained" color="success" >History</Button></Grid>
-                    </Grid>
-                  </TableRow>
+                  <Stack gap={1}>
+                    <TableContainer>
+                      <Stack direction={'row'} alignItems={'center'} gap={1}>
+                        <Typography variant='mediumBold'>Change Mode:</Typography>
+                        <ToggleButtonGroup color="primary" exclusive aria-label="Platform" value={modeValue} onChange={handleChangeMode} size='small'>
+                          <ToggleButton value="night">Night</ToggleButton>
+                          <ToggleButton value="day">Day</ToggleButton>
+                        </ToggleButtonGroup>
+                      </Stack>
+                    </TableContainer>
+                    <TableRow><Typography variant='mediumBold'>Device ID: </Typography>{item.Device_ID}</TableRow>
+                    <TableRow><Typography variant='mediumBold'>Installed On: </Typography>{item.Date_0f_Installation}</TableRow>
+                    <TableRow><Typography variant='mediumBold'>Hardware Version: </Typography> {item.Hardware_Version}</TableRow>
+                    <TableRow><Typography variant='mediumBold'>Software Version: </Typography>{item.Software_Version}</TableRow>
+                    <TableRow><Typography variant='mediumBold'>No. of Zones: </Typography>??</TableRow>
+                    <TableRow><Typography variant='mediumBold'>Access Code: </Typography><Button variant="contained" >View Code</Button></TableRow>
+                    <TableRow>
+                      <Grid container spacing={1}>
+                        <Grid item xs={6}><Button variant="contained" color="secondary" fullWidth >Reverse Alarm</Button></Grid>
+                        <Grid item xs={6}><Button variant="contained" color="secondary" fullWidth>Reset Alarm</Button></Grid>
+                        <Grid item xs={6}><Button variant="contained" color="error" fullWidth>Edit</Button></Grid>
+                        <Grid item xs={6}><Button variant="contained" color="success" fullWidth >History</Button></Grid>
+                      </Grid>
+                    </TableRow>
+                  </Stack>
                 </Paper>
               </Grid>
               <Grid item xs={3}>
-                <Box
-                  sx={{
-                    // width: '100%',
-                    height: '100%',
-                    bgcolor: 'grey',
-                    color: 'white',
-                    p: 2,
-
-                  }}
-                >
-                  <Typography variant="h4" gutterBottom component="div" color="white">
-                    NETWORK
-                  </Typography>
-                  <TableContainer>
-                    <Button variant="contained" color="secondary">Check Network</Button>
-                    <img src={wifi} alt='' style={{ width: '15px', height: '15px' }} />
-                    {/* <img src={wire} alt='' style={{ width: '15px', height: '15px' }} /> */}
-                    {/* <img src={gsm} alt='' style={{ width: '15px', height: '15px' }} /> */}
-                  </TableContainer>
-                  <TableRow>IP Address: {item.IP_Address}</TableRow>
-                  <TableRow>Modem: ??</TableRow>
-                  <TableRow>WiFi-SSID{item.WIFI_SSID} <Button variant="contained" color="error">View Password</Button></TableRow>
-                  <TableRow>GSM SIgnal: ??</TableRow>
-                  <TableRow>GSM Number:{item.GSM_Number}</TableRow>
-                  <TableRow>
-
-                  </TableRow>
-                  <TableRow>
-
-                    <Button variant="contained" color="error">   Edit</Button>
-                  </TableRow>
-                </Box>
+                <Paper variant='chartBox'>
+                  <Stack height={'100%'} justifyContent={'space-between'}>
+                    <div>
+                      <Typography variant="largeBold" gutterBottom component="div" color="black">
+                        NETWORKS
+                      </Typography>
+                      <Stack gap={1}>
+                        <Box padding={1} border={1} sx={{ background: '#adadad', borderRadius: '3px' }} borderColor={'#9f9f9f'}>
+                          <Stack direction={'row'} gap={1} mb={1}>
+                            <Button variant="contained" color="secondary">Check Network</Button>
+                            <Stack direction={'row'} gap={1}>
+                              <Stack direction={'row'} alignItems={'center'} gap={.5}>
+                                <img src={wifi} alt='' style={{ width: '30px', height: '30px' }} />
+                                <img src={tick} alt="" />
+                              </Stack>
+                              <Stack direction={'row'} alignItems={'center'} gap={.5}>
+                                <img src={wire} alt='' style={{ width: '30px', height: '30px' }} />
+                                <img src={tick} alt="" />
+                              </Stack>
+                              <Stack direction={'row'} alignItems={'center'} gap={.5}>
+                                <img src={gsm} alt='' style={{ width: '30px', height: '30px' }} />
+                                <img src={wrong} alt="" />
+                              </Stack>
+                            </Stack>
+                          </Stack>
+                          <Typography variant='smallBold'>Laste Updated: <span style={{ color: 'green' }}>5 mins ago</span></Typography>
+                        </Box>
+                        <TableRow><Typography variant='mediumBold'>IP Address: </Typography>{item.IP_Address}</TableRow>
+                        <TableRow><Typography variant='mediumBold'>Modem: </Typography>??</TableRow>
+                        <TableRow>
+                          <Stack direction={'row'} gap={2} alignItems={'center'}>
+                            <span><Typography variant='mediumBold'>WiFi-SSID: </Typography>{item.WIFI_SSID}</span>
+                            <Button variant="contained" color="error">View Password</Button>
+                          </Stack>
+                        </TableRow>
+                        <TableRow><Typography variant='mediumBold'>GSM SIgnal: </Typography>??</TableRow>
+                        <TableRow><Typography variant='mediumBold'>GSM Number: </Typography>{item.GSM_Number}</TableRow>
+                      </Stack>
+                    </div>
+                    <TableRow sx={{ width: '50%' }}>
+                      <Button variant="contained" color="error" fullWidth>Edit</Button>
+                    </TableRow>
+                  </Stack>
+                </Paper>
               </Grid>
               <Grid item xs={6}>
-                <Box
-                  sx={{
-                    // width: '150%',
-                    height: '100%',
-                    bgcolor: 'grey',
-                    color: 'white',
-                    p: 2,
-                  }}
-                >
-                  <Typography variant="h4" gutterBottom component="div" color="white">
+                <Paper variant='chartBox'>
+                  <Typography variant="largeBold" gutterBottom component="div" color="black">
                     ZONES
                   </Typography>
-                  <TableHead>
-                    <TableCell>Zone</TableCell>
-                    <TableCell>Sensor Types</TableCell>
-                    <TableCell>History</TableCell>
-                    <TableCell>L.S Change</TableCell>
-                    <TableCell>Model</TableCell>
-                    <TableCell>Active/Bypass</TableCell>
-                  </TableHead>
-                </Box>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Zone</TableCell>
+                        <TableCell>Sensor Types</TableCell>
+                        <TableCell>History</TableCell>
+                        <TableCell>L.S Change</TableCell>
+                        <TableCell>Model</TableCell>
+                        <TableCell>Active/Bypass</TableCell>
+                      </TableRow>
+                    </TableHead>
+                  </Table>
+                </Paper>
               </Grid>
             </Grid>
 

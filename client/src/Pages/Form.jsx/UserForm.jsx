@@ -6,16 +6,42 @@ import Button from '@mui/material/Button'
 import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import callApi from '../../helper/callApi';
 import { userSelect } from '../../Constants/configVariables';
+import { useNavigate, useParams } from 'react-router-dom';
 const UserForm = () => {
   const [values, setValues] = useState({});
+  const { id } = useParams()
+  const nav = useNavigate()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); //prevents refresh of page on submmission.
-    const user = await callApi('/user/add', values)
-    if (user) {
-      alert('User added succesfully!')
+  useEffect(() => {
+    if (id && Object.keys(values).length === 0) {
+      fetchUser()
     }
+  }, [])
+
+  const fetchUser = async () => {
+    const user = await callApi('/user/getById', { id: id })
+    setValues(user.data)
+
+  }
+  const handleSave = async () => {
+    const data = values
+    const res = await callApi('/user/add', Object.fromEntries(data.entries()))
+    alert(res.message)
+    setValues({})
   };
+
+  const handleEdit = async () => {
+    const res = await callApi('/user/edit', values)
+    alert(res.message)
+    setValues({})
+    nav('/allUsers')
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    id ? handleEdit() : handleSave()
+  }
+
 
   const onChange = (e) => {
     setValues({

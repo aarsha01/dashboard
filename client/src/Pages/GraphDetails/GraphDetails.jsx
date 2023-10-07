@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import callApi from '../../helper/callApi';
-import { Table, TableHead, TableBody, TableRow, TableCell, Box, Button, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Table, TableHead, TableBody, TableRow, TableCell, Box, Button, Grid, ToggleButtonGroup, ToggleButton, Stack } from '@mui/material';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -22,17 +22,22 @@ import wire from '../../images/wire.png'
 import gsm from "../../images/4G.png"
 
 const images = {
-  wifi:wifi,
-  eth0:wire,
-  gsm:gsm,
-  N:night,
-  D:sun
-} 
+  wifi: wifi,
+  eth0: wire,
+  gsm: gsm,
+  N: night,
+  D: sun
+}
 
 function Row(item_prop) {
 
   const { item } = item_prop;
   const [open, setOpen] = React.useState(false);
+  const [modeValue, setmodeValue] = useState('day')
+
+  const handleChangeMode = (e, newMode) => {
+    setmodeValue(newMode)
+  }
 
   return (
     <React.Fragment>
@@ -52,12 +57,12 @@ function Row(item_prop) {
         <TableCell>{item.Hub || ''}</TableCell>
         <TableCell>{item.Alarm || ''}</TableCell>
         <TableCell><img src={images[item.Net_Con]} alt='' style={{ width: '25px', height: '25px' }} /></TableCell>
-        <TableCell><img src={images[item.Op_Mode] || ''}  alt='' style={{ width: '25px', height: '25px' }} /></TableCell>
+        <TableCell><img src={images[item.Op_Mode] || ''} alt='' style={{ width: '25px', height: '25px' }} /></TableCell>
         <TableCell>{
-            [...Array(8)].map(i=>(
-              item[`ZONE_${i}`] ? <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#008000" }}/> : <span style={{display: 'inline-block',width: '7px',height: '7px',marginRight: '5px',backgroundColor: "#F00"}} />
-            ))
-          }</TableCell>
+          [...Array(8)].map(i => (
+            item[`ZONE_${i}`] ? <span style={{ display: 'inline-block', width: '7px', height: '7px', marginRight: '5px', backgroundColor: "#008000" }} /> : <span style={{ display: 'inline-block', width: '7px', height: '7px', marginRight: '5px', backgroundColor: "#F00" }} />
+          ))
+        }</TableCell>
         <TableCell>{item.Bat_Voltage || ''}</TableCell>
         <TableCell>{item.Last_Updated ? new Date(item.Last_Updated).toISOString().slice(0, 10) : ''}</TableCell>
       </TableRow>
@@ -66,42 +71,34 @@ function Row(item_prop) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Grid container spacing={2} padding={3} width='100%'>
               <Grid item xs={3}>
-                <Box
-                  sx={{
-                    // width: '100%',
-                    height: '100%',
-                    bgcolor: 'grey',
-                    color: 'white',
-                    p: 2,
-                  }}
-                >
-                  <Typography variant="h4" gutterBottom component="div" color="white">
+                <Paper variant='chartBox'>
+                  <Typography variant="largeBold" gutterBottom component="div" color="black">
                     ALARM PANEL
                   </Typography>
                   <TableContainer>
-                    Change Mode:
-                    <ToggleButtonGroup color="primary"
-                          exclusive
-                          aria-label="Platform">
-                      <ToggleButton value="web">Night</ToggleButton>
-                      <ToggleButton value="android">Day</ToggleButton>
-                    </ToggleButtonGroup>
+                    <Stack direction={'row'} alignItems={'center'} gap={1}>
+                      <Typography variant='mediumBold'>Change Mode:</Typography>
+                      <ToggleButtonGroup color="primary" exclusive aria-label="Platform" value={modeValue} onChange={handleChangeMode} size='small'>
+                        <ToggleButton value="night">Night</ToggleButton>
+                        <ToggleButton value="day">Day</ToggleButton>
+                      </ToggleButtonGroup>
+                    </Stack>
                   </TableContainer>
-                  <TableRow>Device ID:{item.Device_ID}</TableRow>
-                  <TableRow>Installed On:{item.Date_0f_Installation}</TableRow>
-                  <TableRow>Hardware Version: {item.Hardware_Version}</TableRow>
-                  <TableRow>Software Version:{item.Software_Version}</TableRow>
-                  <TableRow>No. of Zones: ??</TableRow>
-                  <TableRow>Access Code:<Button variant="contained" >View Code</Button></TableRow>
+                  <TableRow><Typography variant='mediumBold'>Device ID: </Typography>{item.Device_ID}</TableRow>
+                  <TableRow><Typography variant='mediumBold'>Installed On: </Typography>{item.Date_0f_Installation}</TableRow>
+                  <TableRow><Typography variant='mediumBold'>Hardware Version: </Typography> {item.Hardware_Version}</TableRow>
+                  <TableRow><Typography variant='mediumBold'>Software Version: </Typography>{item.Software_Version}</TableRow>
+                  <TableRow><Typography variant='mediumBold'>No. of Zones: </Typography>??</TableRow>
+                  <TableRow><Typography variant='mediumBold'>Access Code: </Typography><Button variant="contained" >View Code</Button></TableRow>
                   <TableRow>
-                    <Button variant="contained" color="secondary">Reverse Alarm</Button>
-                    <Button variant="contained" color="secondary">Reset Alarm</Button>
+                    <Grid container spacing={1}>
+                      <Grid item xs={6}><Button variant="contained" color="secondary" >Reverse Alarm</Button></Grid>
+                      <Grid item xs={6}><Button variant="contained" color="secondary" >Reset Alarm</Button></Grid>
+                      <Grid item xs={6}><Button variant="contained" color="error" >Edit</Button></Grid>
+                      <Grid item xs={6}><Button variant="contained" color="success" >History</Button></Grid>
+                    </Grid>
                   </TableRow>
-                  <TableRow>
-                    <Button variant="contained" color="error" >Edit</Button>
-                    <Button variant="contained" color="success" >History</Button>
-                  </TableRow>
-                </Box>
+                </Paper>
               </Grid>
               <Grid item xs={3}>
                 <Box
@@ -119,7 +116,7 @@ function Row(item_prop) {
                   </Typography>
                   <TableContainer>
                     <Button variant="contained" color="secondary">Check Network</Button>
-                    <img src={wifi} alt='' style={{ width: '15px', height: '15px' }} /> 
+                    <img src={wifi} alt='' style={{ width: '15px', height: '15px' }} />
                     {/* <img src={wire} alt='' style={{ width: '15px', height: '15px' }} /> */}
                     {/* <img src={gsm} alt='' style={{ width: '15px', height: '15px' }} /> */}
                   </TableContainer>

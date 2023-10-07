@@ -87,7 +87,7 @@ function App() {
                 <Route path='/device_form/:id' element={<DeviceForm />} />
                 <Route path='/branch_form/:id' element={<BranchForm />} />
                 <Route path='/marquee_form/:id' element={<MarqueeForm />} />
-                <Route path='/user_form' element={<UserForm />} />
+                <Route path='/user_form/:id' element={<UserForm />} />
               </Route>
 
               <Route path='/unauthorized' element={<UnAuthorized />} />

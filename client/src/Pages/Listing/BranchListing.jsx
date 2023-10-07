@@ -5,7 +5,9 @@ import ListGen from '../../components/ListGen'
 import { useNavigate } from 'react-router-dom';
 
 function BranchListing() {
-
+  const headers = [
+    'Branch_Name',	'Code', 'Region','Building_Name', 	'Pin_Code', 'Connectivity_Type',	'Device_Id', 'Actions'
+  ];
   const [branches, setBranches] = useState([])
   const nav = useNavigate()
   useEffect(() => {
@@ -25,7 +27,8 @@ function BranchListing() {
   return (
     <Box padding={5}>
       <Typography  variant="h1" color="primary" textAlign='start'>Branch Details</Typography>
-      <ListGen listItems={branches} headers={Object.keys(branches[0]||{})} buttons={[{label:'Edit',onSubmit:handleBranchEdit}]} />
+      <ListGen listItems={branches} headers={headers} buttons={[{ label: 'Edit', onSubmit: handleBranchEdit }]} />
+
     </Box>
   )
 }

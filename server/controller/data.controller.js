@@ -4,21 +4,22 @@ import Device from '../model/device.model.js'
 import data_bufferModel from '../model/data_buffer.model.js';
 
 
+
 async function fetchData(req, res) {
   const filters = req.body
   const pipeline = []
   let obj = {}
-  Object.keys(filters).map(filter=>{
-    if(filters[filter].value){
+  Object.keys(filters).map(filter => {
+    if (filters[filter].value) {
       obj[filters[filter].key] = filters[filter].value
     }
   })
-  if(Object.keys(obj).length>0){
+  if (Object.keys(obj).length > 0) {
     pipeline.push({
-      $match:obj
+      $match: obj
     })
   }
-  console.log(pipeline,filters);
+  console.log(pipeline, filters);
   pipeline.push({
     $group: {
       _id: null,
@@ -30,54 +31,54 @@ async function fetchData(req, res) {
       ZONE_6: { $sum: { $cond: [{ $eq: ["$Z6_bp", '1'] }, 1, 0] } },
       ZONE_7: { $sum: { $cond: [{ $eq: ["$Z7_bp", '1'] }, 1, 0] } },
       ZONE_8: { $sum: { $cond: [{ $eq: ["$Z8_bp", '1'] }, 1, 0] } },
-      ONLINE: { $sum: { $cond:  [{$eq: ['$CMS_status', "online" ]}, 1, 0]}} ,
-      OFFLINE: { $sum: { $cond:  [{$eq: ['$CMS_status', "offline" ]}, 1, 0]}},
-      WIFI:     { $sum: { $cond:  [{$eq: ['$Net_Con', "wifi" ]}, 1, 0]}},
-      ETHERNET: { $sum: { $cond:  [{$eq: ['$Net_Con', "eth0" ]}, 1, 0]}},
-      BLUETOOTH: { $sum: { $cond:  [{$eq: ['$Net_Con', "bluetooth" ]}, 1, 0]}},
-      BATT_COUNT: { $sum:{$cond:[{$lt: ['$Bat_Voltage', 11.3]}, 1, 0]}},
-      DAY_MODE: { $sum:{$cond:[{$in: ['$Op_Mode', ['Day','D','DAY']]}, 1, 0]}},
-      NIGHT_MODE: { $sum:{$cond:[{$in: ['$Op_Mode', ['Night','N','NIGHT']]}, 1, 0]}},
+      ONLINE: { $sum: { $cond: [{ $eq: ['$CMS_status', "online"] }, 1, 0] } },
+      OFFLINE: { $sum: { $cond: [{ $eq: ['$CMS_status', "offline"] }, 1, 0] } },
+      WIFI: { $sum: { $cond: [{ $eq: ['$Net_Con', "wifi"] }, 1, 0] } },
+      ETHERNET: { $sum: { $cond: [{ $eq: ['$Net_Con', "eth0"] }, 1, 0] } },
+      BLUETOOTH: { $sum: { $cond: [{ $eq: ['$Net_Con', "bluetooth"] }, 1, 0] } },
+      BATT_COUNT: { $sum: { $cond: [{ $lt: ['$Bat_Voltage', 11.3] }, 1, 0] } },
+      DAY_MODE: { $sum: { $cond: [{ $in: ['$Op_Mode', ['Day', 'D', 'DAY']] }, 1, 0] } },
+      NIGHT_MODE: { $sum: { $cond: [{ $in: ['$Op_Mode', ['Night', 'N', 'NIGHT']] }, 1, 0] } },
     }
   },
-  {
-    $project: {
-      _id: 0,
-      ZONE: {
-        ZONE_1: '$ZONE_1',
-        ZONE_2: '$ZONE_2',
-        ZONE_3: '$ZONE_3',
-        ZONE_4: '$ZONE_4',
-        ZONE_5: '$ZONE_5',
-        ZONE_6: '$ZONE_6',
-        ZONE_7: '$ZONE_7',
-        ZONE_8: '$ZONE_8',
-      },
-      CMS_STATUS: {
-        ONLINE: '$ONLINE',
-        OFFLINE: '$OFFLINE',
-      },
-      DATA_CONN: [
-        "$WIFI",
-        "$ETHERNET",
-        "$BLUETOOTH",
-      ],
-      BATT_COUNT: ['$BATT_COUNT'],
-      DAY_MODE: ['$DAY_MODE'],
-      NIGHT_MODE: ['$NIGHT_MODE']
-    }
-  })
-  try{
+    {
+      $project: {
+        _id: 0,
+        ZONE: {
+          ZONE_1: '$ZONE_1',
+          ZONE_2: '$ZONE_2',
+          ZONE_3: '$ZONE_3',
+          ZONE_4: '$ZONE_4',
+          ZONE_5: '$ZONE_5',
+          ZONE_6: '$ZONE_6',
+          ZONE_7: '$ZONE_7',
+          ZONE_8: '$ZONE_8',
+        },
+        CMS_STATUS: {
+          ONLINE: '$ONLINE',
+          OFFLINE: '$OFFLINE',
+        },
+        DATA_CONN: [
+          "$WIFI",
+          "$ETHERNET",
+          "$BLUETOOTH",
+        ],
+        BATT_COUNT: ['$BATT_COUNT'],
+        DAY_MODE: ['$DAY_MODE'],
+        NIGHT_MODE: ['$NIGHT_MODE']
+      }
+    })
+  try {
     const result = await data_bufferModel.aggregate(pipeline)
     res.send(result[0] || {
       ZONE: {},
       CMS_STATUS: {},
       DATA_CONN: {},
-      BATT_COUNT:[],
+      BATT_COUNT: [],
       DAY_MODE: [],
       NIGHT_MODE: [],
     }).status(200)
-  }catch(err){
+  } catch (err) {
     console.log(err);
     res.send(err).status(500)
   }
@@ -85,8 +86,8 @@ async function fetchData(req, res) {
 
 async function insertData(req, res) {
   try {
-    const {data} = req.body
-    await data_bufferModel.updateOne({mac_id:data.mac_id},data,{upsert: true})
+    const { data } = req.body
+    await data_bufferModel.updateOne({ mac_id: data.mac_id }, data, { upsert: true })
     res.send('success').status(200);
   } catch (err) {
     res.send(err).status(500);
@@ -127,27 +128,42 @@ async function Graphdetails(req, res) {
   }
 }
 
-async function checkAlarm(){
-  const alarms = await data_bufferModel.find(
-    {$or:[
-      {ZONE_1:1},
-      {ZONE_2:1},
-      {ZONE_3:1},
-      {ZONE_4:1},
-      {ZONE_5:1},
-      {ZONE_6:1},
-      {ZONE_7:1},
-      {ZONE_8:1},
-    ]}
-  )
-  let zones = ['ZONE_1','ZONE_2','ZONE_3','ZONE_4','ZONE_5','ZONE_6','ZONE_7','ZONE_8']
-  let data = []
-  alarms.map(alarm=>{
-    zones.map(zone=>{
-      if(alarm[zone]=="1") data.push({mac_id:alarm.mac_id, zone})
+async function checkAlarm() {
+  // const data = await Device.find()
+  try {
+    const alarms = await data_bufferModel.find(
+      {
+        $or: [
+          { ZONE_1: 1 },
+          { ZONE_2: 1 },
+          { ZONE_3: 1 },
+          { ZONE_4: 1 },
+          { ZONE_5: 1 },
+          { ZONE_6: 1 },
+          { ZONE_7: 1 },
+          { ZONE_8: 1 },
+        ]
+      }
+    )
+    let zones = ['ZONE_1', 'ZONE_2', 'ZONE_3', 'ZONE_4', 'ZONE_5', 'ZONE_6', 'ZONE_7', 'ZONE_8']
+    let data = []
+    alarms.map(alarm => {
+      if (['D', 'd', 'day', 'Day'].includes(alarm.Op_Mode) && alarm['ZONE_7'] == '1') {
+        data.push(alarm.mac_id)
+      } else {
+        zones.map(zone => {
+          if (alarm[zone] == "1") {
+            data.push(alarm.mac_id)
+          }
+        })
+      }
     })
-  })
-  return data
+    const branches = await Device.find({ Device_ID: { $in: data } })
+    return branches
+
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export {

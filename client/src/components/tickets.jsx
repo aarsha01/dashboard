@@ -20,14 +20,14 @@ const Ticket = () => {
         Tickets Raised
       </Typography>
       <ResponsiveContainer>
-        <PieChart >
+        <PieChart>
           <Pie
             data={data}
             dataKey="value"
             nameKey="name"
-            cx="50%"
-            cy="50%"
-            outerRadius={110}
+            // cx="50%"
+            // cy="50%"
+            outerRadius={'50%'}
             fill="#8884d8"
             label
           >
@@ -35,7 +35,7 @@ const Ticket = () => {
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Legend align='left' />
+          <Legend align='center' />
         </PieChart>
       </ResponsiveContainer>
     </Paper>

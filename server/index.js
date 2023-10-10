@@ -47,11 +47,11 @@ app.use(passport.authenticate('session'));
 app.listen(PORT, async () => {
   await connectDB();
   const io = new Server(3002)
-  // setInterval(async () => {
-  //   console.log("Alarm triggered!");
-  //   const data = await checkAlarm();
-  //   io.emit('alarm',data)
-  // }, 5000)
+  setInterval(async () => {
+    const data = await checkAlarm();
+    console.log("Alarm triggered!",data);
+    io.emit('alarm',data)
+  }, 5000)
 
   console.log(`Server listening on http://localhost:${PORT}`);
 });

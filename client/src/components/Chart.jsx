@@ -77,7 +77,7 @@ function Chart({data, filterQuery}) {
           axis: {
             ticks: {
               text: {
-                fill: 'white', // Set the tick value color to white
+                fill: 'black', // Set the tick value color to white
               },
             },
           },

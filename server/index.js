@@ -49,7 +49,7 @@ app.listen(PORT, async () => {
   const io = new Server(3002)
   setInterval(async () => {
     const data = await checkAlarm();
-    console.log("Alarm triggered!",data);
+    console.log("Alarm triggered!");
     io.emit('alarm',data)
   }, 5000)
 

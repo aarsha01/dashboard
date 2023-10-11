@@ -148,15 +148,20 @@ async function checkAlarm() {
     let zones = ['ZONE_1', 'ZONE_2', 'ZONE_3', 'ZONE_4', 'ZONE_5', 'ZONE_6', 'ZONE_7', 'ZONE_8']
     let data = []
     alarms.map(alarm => {
-      if (['D', 'd', 'day', 'Day'].includes(alarm.Op_Mode) && alarm['ZONE_7'] == '1') {
-        data.push(alarm.mac_id)
-      } else {
-        zones.map(zone => {
-          if (alarm[zone] == "1") {
-            data.push(alarm.mac_id)
-          }
-        })
-      }
+      // if (['D', 'd', 'day', 'Day'].includes(alarm.Op_Mode) && alarm['ZONE_7'] == '1') {
+      //   data.push(alarm.mac_id)
+      // } else {
+      //   zones.map(zone => {
+      //     if (alarm[zone] == "1") {
+      //       data.push(alarm.mac_id)
+      //     }
+      //   })
+      // }
+      zones.map(zone => {
+        if (alarm[zone] == "1") {
+          data.push(alarm.mac_id)
+        }
+      })
     })
     const branches = await Device.find({ Device_ID: { $in: data } })
     return branches

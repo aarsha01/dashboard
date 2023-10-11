@@ -26,25 +26,27 @@ import RoleAuth from './components/RoleAuth';
 import UnAuthorized from './components/UnAuthorized';
 import configVariables from './Constants/configVariables';
 import SignIn from './Pages/Form.jsx/LoginForm';
-import {io} from 'socket.io-client'
+import { io } from 'socket.io-client'
 import { useSnackbar } from 'notistack';
 import UsersListing from './Pages/Listing/UsersListing';
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), [])
   const [filterQuery, setFilterQuery] = useState({})
-  const {enqueueSnackbar} = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar()
 
   useEffect(() => {
-    const socket = io('ws://54.212.174.138:3002',{ transports: ['websocket'] })
-    socket.on('alarm',(data)=>{
-      console.log('Alarm recieved: ',data);
-      data.map(d=>{
-        enqueueSnackbar(`An issue detected at ${d.Device_ID} on ${d.Branch_Name}`,{ variant: 'warning', persist:true, preventDuplicate:true })
+    if (window.location.pathname !== '/login_page') {
+      const socket = io('ws://54.212.174.138:3002', { transports: ['websocket'] })
+      socket.on('alarm', (data) => {
+        console.log('Alarm recieved: ', data);
+        data.map(d => {
+          enqueueSnackbar(`An issue detected at ${d.Device_ID} on ${d.Branch_Name}`, { variant: 'warning', persist: true, preventDuplicate: true })
+        })
       })
-    })
+    }
   }, [])
-  
+
 
   return (
 
@@ -76,7 +78,7 @@ function App() {
 
                 <Route path='/device_form' element={<DeviceForm />} />
                 <Route path='/allDevices' element={<DeviceListing />} />
-                
+
                 <Route path='/marquee_form' element={<MarqueeForm />} />
                 <Route path='/allMarquee' element={<MarqueeListing />} />
 
